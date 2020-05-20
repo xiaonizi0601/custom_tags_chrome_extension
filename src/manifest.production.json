@@ -10,13 +10,15 @@
     },
     "background": {
         "scripts": [
-            "background.js"
+            "js/background.js"
         ],
         "persistent": false
     },
+    "options_page": "options.html",
     "browser_action": {
         "default_icon": "images/logo_128.png",
-        "default_title": "Custom Tags"
+        "default_title": "Custom Tags",
+        "default_popup": "popup.html"
     },
     "permissions": [
         "http://*/*",
@@ -25,6 +27,13 @@
         "contextMenus",
         "storage"
     ],
+    "content_scripts": [{
+        "js": ["js/content.js"],
+        "matches": ["http://*/*", "https://*/*"]
+    }],
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
     "devtools_page": "devtools.html",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

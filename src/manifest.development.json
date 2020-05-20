@@ -1,0 +1,46 @@
+{
+    "name": "Custom Tags",
+    "description": "A convenient and fast tags management tool.",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "icons": {
+        "128": "images/logo_128.png",
+        "16": "images/logo_16.png",
+        "48": "images/logo_48.png"
+    },
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ],
+        "persistent": false
+    },
+    "options_page": "options.html",
+    "browser_action": {
+        "default_icon": "images/logo_128.png",
+        "default_title": "Custom Tags",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "http://*/*",
+        "https://*/*",
+        "tabs",
+        "contextMenus",
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "js": [
+                "js/content.js"
+            ],
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ]
+        }
+    ],
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
+    "devtools_page": "devtools.html",
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
