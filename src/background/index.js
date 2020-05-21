@@ -1,7 +1,13 @@
 console.info('background.js');
 
-// eslint-disable-next-line no-undef
-chrome.contextMenus.create({
-	title: "测试右键菜单",
-	onclick: function(){alert('您点击了右键菜单！');}
-});
+
+// const options = {
+//     type: 'normal',
+//     id: '1',
+//     title: 'demoMenu1',
+//     visible: true,
+// }
+// // eslint-disable-next-line no-undef
+// chrome.contextMenus.create(options, () => {
+//     alert(`Created Success, id:${options.id}`);
+// });
