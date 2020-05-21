@@ -27,10 +27,17 @@
         "contextMenus",
         "storage"
     ],
-    "content_scripts": [{
-        "js": ["js/content.js"],
-        "matches": ["http://*/*", "https://*/*"]
-    }],
+    "content_scripts": [
+        {
+            "js": [
+                "js/content.js"
+            ],
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ]
+        }
+    ],
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
