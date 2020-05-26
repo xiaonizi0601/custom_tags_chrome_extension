@@ -31,7 +31,7 @@
                     <a
                         class="nav-link"
                         data-toggle="modal"
-                        data-target="#exampleModal"
+                        data-target="#addGroupModal"
                     >
                         <img
                             class="icon-add"
@@ -60,9 +60,13 @@
                             class="form-control"
                             placeholder="搜索"
                             v-model="baiduKeyword"
+                            @keyup.enter="handleBaiduSearchClick()"
                         >
                         <div class="input-group-append">
-                            <span class="input-group-text">
+                            <span
+                                class="input-group-text"
+                                @click="handleBaiduSearchClick()"
+                            >
                                 <img
                                     src="../../assets/images/icon_search.svg"
                                     alt="search"
@@ -85,9 +89,13 @@
                             class="form-control"
                             placeholder="搜索"
                             v-model="googleKeyword"
+                            @keyup.enter="handleGoogleSearchClick()"
                         >
                         <div class="input-group-append">
-                            <span class="input-group-text">
+                            <span
+                                class="input-group-text"
+                                @click="handleGoogleSearchClick()"
+                            >
                                 <img
                                     src="../../assets/images/icon_search.svg"
                                     alt="search"
@@ -97,20 +105,44 @@
                     </div>
 
                     <div
-                        class="tab-pane fade mt-5"
+                        class="tab-pane fade mt-5 px-5"
                         :class="[{'show':index===0},{'active':index===0}]"
                         :id="'v-pills-'+item.id"
                         role="tabpanel"
                         v-for="(item,index) in myTabGroups.tabs"
                         :key="index"
-                    >{{item.name}}</div>
+                    >
+
+                        <div class="row">
+                            <a
+                                v-for="(tag,index) in item.tags"
+                                :key="index"
+                                :href="tag.url"
+                                class="col-2 c-tag"
+                            >
+                                <div class="tag-logo">
+                                    <img :src="require(`../../assets/images/tagLogo/${tag.logo}`)">
+                                </div>
+                                <p class="tag-name mt-3">{{tag.name}}</p>
+                            </a>
+                            <a
+                                class="col-2 c-tag"
+                            >
+                                <div class="tag-logo">
+                                    <img src="../../assets/images/icon_add_black.svg">
+                                </div>
+                                <p class="tag-name mt-3">添加快捷方式</p>
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
         <div
             class="modal fade add-group-modal"
-            id="exampleModal"
+            id="addGroupModal"
             tabindex="-1"
             role="dialog"
             aria-hidden="true"
@@ -148,7 +180,7 @@
                         <button
                             type="button"
                             class="btn btn-sure w-100"
-                            @click="handleBtnSureClick"
+                            @click="handleBtnAddClick()"
                         >添加</button>
                     </div>
                 </div>
@@ -171,8 +203,21 @@ export default {
         }
     },
     methods: {
-        handleBtnSureClick() {
+        // 添加分组弹框-'添加'按钮点击事件处理
+        handleBtnAddClick() {
 
+        },
+
+        // 百度-'搜索'按钮点击事件处理
+        handleBaiduSearchClick() {
+            let baiduKeyword = this.baiduKeyword;
+            window.location.replace(`https://www.baidu.com/s?ie=utf-8&wd=${baiduKeyword}`);
+        },
+
+        // 谷歌-'搜索'按钮点击事件处理
+        handleGoogleSearchClick() {
+            let googleKeyword = this.googleKeyword;
+            window.location.replace(`https://www.google.com/search?ie=utf-8&q=${googleKeyword}`);
         }
     }
 

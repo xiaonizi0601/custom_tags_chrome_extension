@@ -80,3 +80,39 @@ a:hover {
     }
 
 }
+
+
+.c-tag {
+    color: $black;
+    margin: 30px 0;
+    .tag-logo {
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+        border-radius: 50%;
+        background: #fff;
+        margin: 0 auto;
+
+        img {
+            width: 30px;
+            object-fit: cover;
+        }
+
+    }
+
+    .tag-name {
+        width: 120px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 12px;
+        background: #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+}
