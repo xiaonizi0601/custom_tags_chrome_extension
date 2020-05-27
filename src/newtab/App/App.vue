@@ -46,6 +46,25 @@
                     class="tab-content text-center h-100"
                     id="v-pills-tabContent"
                 >
+                    <h5>备份我的标签：</h5>
+                    <button
+                        class="backup-button"
+                        @click="$Common.backupMySettings()"
+                    >导出到本地文件</button>
+
+                    <h5>从备份恢复：</h5>
+                    <label
+                        class="upload-button"
+                        for="my-file-selector"
+                    >
+                        <input
+                            id="my-file-selector"
+                            type="file"
+                            style="display:none;"
+                            @change="$Common.importMySettings($event)"
+                        >从本地文件导入
+                    </label>
+
                     <div class="input-group mb-3 mt-5 col-6">
                         <div class="input-group-prepend">
                             <span class="input-group-text text-center">
@@ -125,9 +144,7 @@
                                 </div>
                                 <p class="tag-name mt-3">{{tag.name}}</p>
                             </a>
-                            <a
-                                class="col-2 c-tag"
-                            >
+                            <a class="col-2 c-tag">
                                 <div class="tag-logo">
                                     <img src="../../assets/images/icon_add_black.svg">
                                 </div>
@@ -190,22 +207,36 @@
 </template>
 
 <script>
-import myTabGroups from '../../assets/json/myTabGroups.json';
+import initTabGroups from '../../assets/json/initTabGroups.json';
+import myTabGroupList from "../../assets/js/myTabGroupList.js";
 
 export default {
     name: 'app',
     data() {
         return {
-            myTabGroups: myTabGroups, // 我的标签分组
+            myTabGroups: null, // 我的标签分组
             groupName: '', // 分组名称
             baiduKeyword: '', // 百度搜索关键词
             googleKeyword: '', // 谷歌搜索关键词
         }
     },
+    created() {
+        // 首次进入应用，使用初始化标签数据
+        if (localStorage.getObject('myTabGroupList') == null) {
+            localStorage.setObject('myTabGroupList', initTabGroups);
+            this.myTabGroups = initTabGroups;
+        } else {
+            let result = myTabGroupList.showMyTabGroupList();
+            this.myTabGroups = result;
+            // console.info('result:',result);
+        }
+
+        // localStorage.removeItem('myTabGroupList');
+        
+    },
     methods: {
         // 添加分组弹框-'添加'按钮点击事件处理
         handleBtnAddClick() {
-
         },
 
         // 百度-'搜索'按钮点击事件处理
@@ -218,7 +249,7 @@ export default {
         handleGoogleSearchClick() {
             let googleKeyword = this.googleKeyword;
             window.location.replace(`https://www.google.com/search?ie=utf-8&q=${googleKeyword}`);
-        }
+        },
     }
 
 }
