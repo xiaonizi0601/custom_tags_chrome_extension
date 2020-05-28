@@ -39,6 +39,17 @@
                             alt="add"
                         >
                     </a>
+                    <a
+                        class="nav-link c-setting"
+                        data-toggle="modal"
+                        data-target="#settingModal"
+                    >
+                        <img
+                            class="icon-setting"
+                            src="../../assets/images/icon_setting.svg"
+                            alt="setting"
+                        >
+                    </a>
                 </div>
             </div>
             <div class="col-11">
@@ -46,25 +57,6 @@
                     class="tab-content text-center h-100"
                     id="v-pills-tabContent"
                 >
-                    <h5>备份我的标签：</h5>
-                    <button
-                        class="backup-button"
-                        @click="$Common.backupMySettings()"
-                    >导出到本地文件</button>
-
-                    <h5>从备份恢复：</h5>
-                    <label
-                        class="upload-button"
-                        for="my-file-selector"
-                    >
-                        <input
-                            id="my-file-selector"
-                            type="file"
-                            style="display:none;"
-                            @change="$Common.importMySettings($event)"
-                        >从本地文件导入
-                    </label>
-
                     <div class="input-group mb-3 mt-5 col-6">
                         <div class="input-group-prepend">
                             <span class="input-group-text text-center">
@@ -144,7 +136,11 @@
                                 </div>
                                 <p class="tag-name mt-3">{{tag.name}}</p>
                             </a>
-                            <a class="col-2 c-tag">
+                            <a
+                                class="col-2 c-tag"
+                                data-toggle="modal"
+                                data-target="#addTagModal"
+                            >
                                 <div class="tag-logo">
                                     <img src="../../assets/images/icon_add_black.svg">
                                 </div>
@@ -157,6 +153,7 @@
             </div>
         </div>
 
+        <!-- 添加分组 弹框 start -->
         <div
             class="modal fade add-group-modal"
             id="addGroupModal"
@@ -165,7 +162,7 @@
             aria-hidden="true"
             data-backdrop="static"
         >
-            <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">添加分组</h5>
@@ -191,18 +188,136 @@
                     <div class="modal-footer">
                         <button
                             type="button"
-                            class="btn btn-cancel w-100"
+                            class="btn btn-cancel"
                             data-dismiss="modal"
                         >取消</button>
                         <button
                             type="button"
-                            class="btn btn-sure w-100"
-                            @click="handleBtnAddClick()"
+                            class="btn btn-sure"
+                            @click="handleBtnAddGroupClick()"
                         >添加</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- 添加分组 弹框 end -->
+
+        <!-- 设置 弹框 start -->
+        <div
+            class="modal fade"
+            id="settingModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">设置</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>备份我的标签：</p>
+                        <button
+                            class="backup-button"
+                            @click="$Common.backupMySettings()"
+                        >导出到本地文件</button>
+
+                        <p class="mt-4">从备份恢复：</p>
+                        <label
+                            class="upload-button"
+                            for="my-file-selector"
+                        >
+                            <input
+                                id="my-file-selector"
+                                type="file"
+                                style="display:none;"
+                                @change="$Common.importMySettings($event)"
+                            >从本地文件导入
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 设置 弹框 end -->
+
+        <!-- 添加快捷方式 弹框 start -->
+        <div
+            class="modal fade add-tag-modal"
+            id="addTagModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">添加快捷方式</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="请输入网址"
+                                        v-model="webAddress"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="请输入网站名称"
+                                        v-model="webName"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleBtnAddTagClick()"
+                        >添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 添加快捷方式 弹框 end -->
     </div>
 </template>
 
@@ -218,6 +333,8 @@ export default {
             groupName: '', // 分组名称
             baiduKeyword: '', // 百度搜索关键词
             googleKeyword: '', // 谷歌搜索关键词
+            webAddress: '', // 网址
+            webName: '', // 网站名称
         }
     },
     created() {
@@ -231,13 +348,16 @@ export default {
             // console.info('result:',result);
         }
 
-        // localStorage.removeItem('myTabGroupList');
-        
+        // localStorage.removeItem('myTabGroupList'); // test
+
     },
     methods: {
         // 添加分组弹框-'添加'按钮点击事件处理
-        handleBtnAddClick() {
+        handleBtnAddGroupClick() {
         },
+
+        // 添加快捷方式弹框-'添加'按钮点击事件处理
+        handleBtnAddTagClick() { },
 
         // 百度-'搜索'按钮点击事件处理
         handleBaiduSearchClick() {

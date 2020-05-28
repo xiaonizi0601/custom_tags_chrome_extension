@@ -14,8 +14,8 @@ html {
 
 body {
     font-size: 14px;
-    color: $black;
-    background-color: $grey;
+    color: $base-text-color;
+    background-color: $bg-color;
     font-family: 'Rajdhani', helvetica neue, hiragino sans gb, arial, microsoft yahei ui, microsoft yahei, simsun, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -28,28 +28,65 @@ a:hover {
     text-decoration: none;
 }
 
+a:hover {
+    color: $base-color;
+}
+
+button,
+button:focus,
+input,
+input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+input:focus {
+    border-color: $base-color !important;
+}
+
 .modal-header,
 .modal-footer {
     border-color: $grey;
 }
 
 .modal-footer {
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .modal {
-    .btn-cancel {
-        background: $grey;
-    }
+    .modal-footer {
+        button {
+            width: 140px;
+            margin: 10px;
+            color: #fff;
+        }
 
-    .btn-sure {
-        background: $blue;
-        color: #fff;
+        .btn-cancel {
+            background: $grey;
+        }
+
+        .btn-cancel:hover {
+            background: #999;
+            transition: background 0.2s ease-in-out;
+        }
+
+        .btn-sure {
+            background: $base-color;
+        }
+
+        .btn-sure:hover {
+            background: $active-color;
+            transition: background 0.2s ease-in-out;
+        }
     }
 }
 
+.add-group-modal .modal-dialog {
+    width: 360px;
+}
+
 .c-nav-pills {
-    background: $blue;
+    background: $gray;
 
     .nav-pills {
         .nav-link {
@@ -61,7 +98,7 @@ a:hover {
         }
 
         .nav-link.active {
-            background: $red;
+            background: $base-color;
         }
     }
 
@@ -75,16 +112,18 @@ a:hover {
     }
 
     .icon-add {
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
     }
 
 }
 
 
 .c-tag {
-    color: $black;
+    color: $base-text-color;
     margin: 30px 0;
+    cursor: pointer;
 
     .tag-logo {
         width: 50px;
@@ -118,13 +157,28 @@ a:hover {
 
 }
 
+.c-tag:hover .tag-name {
+    color: $base-color;
+}
+
 
 .upload-button,
 .backup-button {
-    padding: 5px;
-    background: #eee;
-    margin-right: 4px;
-    color: #111;
+    padding: 5px 10px;
+    background: #fff;
+    color: $base-color;
     cursor: pointer;
-    border: 1px solid #ccc;
+    border: 1px solid $base-color;
+}
+
+.c-setting {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin: 0 -20px;
+    cursor: pointer;
+
+    .icon-setting {
+        width: 20px;
+    }
 }

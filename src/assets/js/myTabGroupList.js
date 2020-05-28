@@ -1,6 +1,6 @@
 // global localStorage getParameterByName
 
-// 显示我到标签分组列表
+// 显示我的标签分组列表
 function showMyTabGroupList() {
     let key = 'myTabGroupList';
 

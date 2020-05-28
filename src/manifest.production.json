@@ -25,7 +25,8 @@
         "https://*/*",
         "tabs",
         "contextMenus",
-        "storage"
+        "storage",
+        "bookmarks"
     ],
     "content_scripts": [
         {
