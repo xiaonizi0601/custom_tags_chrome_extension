@@ -28,6 +28,7 @@ function downloadFile(fileName, fileType, content) {
 function backupMySettings() {
     const items = {};
     Object.keys(localStorage).forEach((key) => {
+        console.info(localStorage,key);
         items[key] = localStorage.getObject(key);
     });
 
@@ -54,8 +55,15 @@ function importMySettings(event) {
                 alert('备份文件格式错误，请重新选择');
                 return;
             }
+            // console.info('导入json---------', data);
+
             // console.info('data:',data);
-            Object.keys(data).forEach(item => localStorage.setObject(item, data[item]));
+            Object.keys(data).forEach(item => {
+                // console.info('item------',item);
+                localStorage.setObject(item, data[item])
+            });
+
+            // console.info('myTabGroupList---------', localStorage.getObject('myTabGroupList'));
 
             // 刷新页面
             window.location.reload();
@@ -65,7 +73,7 @@ function importMySettings(event) {
     reader.readAsText(fileObject);
 }
 
-export default{
+export default {
     backupMySettings,
     importMySettings
 }

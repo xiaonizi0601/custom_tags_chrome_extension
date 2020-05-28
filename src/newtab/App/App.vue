@@ -19,11 +19,11 @@
                     <a
                         class="nav-link"
                         :class="index===0?'active':''"
-                        :id="'v-pills-tab-'+item.id"
+                        :id="'v-pills-tab-'+index"
                         data-toggle="pill"
-                        :href="'#v-pills-'+item.id"
+                        :href="'#v-pills-'+index"
                         role="tab"
-                        :aria-controls="'v-pill-tab-'+item.id"
+                        :aria-controls="'v-pill-tab-'+index"
                         :aria-selected="index===0?true:false"
                         v-for="(item,index) in myTabGroups.tabs"
                         :key="index"
@@ -118,7 +118,7 @@
                     <div
                         class="tab-pane fade mt-5 px-5"
                         :class="[{'show':index===0},{'active':index===0}]"
-                        :id="'v-pills-'+item.id"
+                        :id="'v-pills-'+index"
                         role="tabpanel"
                         v-for="(item,index) in myTabGroups.tabs"
                         :key="index"
@@ -176,14 +176,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group mb-0">
                             <input
                                 type="text"
                                 class="form-control"
                                 placeholder="请输入名称"
                                 v-model="groupName"
                             >
+                            <div
+                                class="err-msg"
+                                v-if="isShowGroupNameErr"
+                            >* 名称不能为空</div>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button
@@ -331,6 +336,7 @@ export default {
         return {
             myTabGroups: null, // 我的标签分组
             groupName: '', // 分组名称
+            isShowGroupNameErr: false, // 是否显示分组名称错误信息
             baiduKeyword: '', // 百度搜索关键词
             googleKeyword: '', // 谷歌搜索关键词
             webAddress: '', // 网址
@@ -343,17 +349,34 @@ export default {
             localStorage.setObject('myTabGroupList', initTabGroups);
             this.myTabGroups = initTabGroups;
         } else {
-            let result = myTabGroupList.showMyTabGroupList();
-            this.myTabGroups = result;
-            // console.info('result:',result);
+            this.updateMyTabGroupList(); // 刷新我的标签分组
         }
 
-        // localStorage.removeItem('myTabGroupList'); // test
-
+        // localStorage.clear(); // 删除所有缓存数据 test 
+        console.info('created=======', localStorage);
     },
     methods: {
+        // 刷新我的标签分组
+        updateMyTabGroupList() {
+            let result = myTabGroupList.showMyTabGroupList();
+            this.myTabGroups = result;
+            // console.info('result:', result);
+        },
+
         // 添加分组弹框-'添加'按钮点击事件处理
         handleBtnAddGroupClick() {
+            let groupName = this.groupName;
+            if (groupName.length === 0) {
+                this.isShowGroupNameErr = true;
+                return;
+            } else {
+                this.isShowGroupNameErr = false;
+                myTabGroupList.addTabGroup(groupName); // 添加分组
+
+                this.updateMyTabGroupList(); // 刷新我的标签分组
+
+                // $('#addGroupModal').modal('hide');
+            }
         },
 
         // 添加快捷方式弹框-'添加'按钮点击事件处理
