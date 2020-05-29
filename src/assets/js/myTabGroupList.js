@@ -9,22 +9,19 @@ function showMyTabGroupList() {
         };
     }
 
-    console.info(tabGroupList)
+    // console.info(tabGroupList)
     return tabGroupList;
 }
 
 // 添加标签分组
 function addTabGroup(groupName) {
-    console.info(groupName);
     let data = localStorage.getObject('myTabGroupList');
-
     data.tabs.push({
         'name': groupName,
         'tags': []
     })
 
     localStorage.setObject('myTabGroupList', data);
-
 }
 
 // 编辑标签分组

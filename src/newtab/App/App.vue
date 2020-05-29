@@ -531,7 +531,6 @@ export default {
 
         // 标签分组名称鼠标右击事件
         handleRightClickGroup(index) {
-            console.info('鼠标右击:', index);
             this.currentGroupIndex = index; // 显示操作菜单
             this.operateGroupIndex = index;
         },
@@ -556,7 +555,7 @@ export default {
         handleSureEditGroup() {
             let groupName = this.groupName;
             let operateGroupIndex = this.operateGroupIndex;
-            console.info(groupName);
+
             if (groupName.length === 0) {
                 this.isShowGroupNameErr = true;
                 return;
@@ -638,7 +637,6 @@ export default {
             // 滚动条的总高度
             let scrollHeight = this.$refs.innerContainer.scrollHeight;
 
-            // console.info(scrollTop, divHeight, scrollHeight);
             if (scrollTop + divHeight === scrollHeight) { // 滚动到底部
                 $('.c-setting .c-direction-arrow').hide();
                 $('.c-logo .c-direction-arrow').show();
