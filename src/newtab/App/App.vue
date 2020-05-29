@@ -4,57 +4,71 @@
             <div class="col-1 c-nav-pills p-0 text-center">
 
                 <div
-                    class="nav flex-column nav-pills"
+                    class="nav flex-column nav-pills outer-container"
                     id="v-pills-tab"
                     role="tablist"
                     aria-orientation="vertical"
                 >
-                    <a class="nav-link">
-                        <img
-                            class="tab-logo"
-                            src="../../assets/images/logo_128.png"
-                            alt="logo"
+                    <div class="c-logo">
+                        <div
+                            class="c-direction-arrow"
+                            @mouseenter="handleEnterUpArrow()"
+                        ><img src="../../assets/images/icon_direction_arrow.svg"></div>
+                        <a class="nav-link">
+                            <img
+                                class="tab-logo"
+                                src="../../assets/images/logo_128.png"
+                                alt="logo"
+                            >
+                        </a>
+                    </div>
+                    <div class="inner-container">
+                        <a
+                            class="nav-link"
+                            :class="index===0?'active':''"
+                            :id="'v-pills-tab-'+index"
+                            data-toggle="pill"
+                            :href="'#v-pills-'+index"
+                            role="tab"
+                            :aria-controls="'v-pill-tab-'+index"
+                            :aria-selected="index===0?true:false"
+                            v-for="(item,index) in myTabGroups.tabs"
+                            :key="index"
+                        >{{item.name}}</a>
+                        <a
+                            class="nav-link c-add"
+                            data-toggle="modal"
+                            data-target="#addGroupModal"
                         >
-                    </a>
-                    <a
-                        class="nav-link"
-                        :class="index===0?'active':''"
-                        :id="'v-pills-tab-'+index"
-                        data-toggle="pill"
-                        :href="'#v-pills-'+index"
-                        role="tab"
-                        :aria-controls="'v-pill-tab-'+index"
-                        :aria-selected="index===0?true:false"
-                        v-for="(item,index) in myTabGroups.tabs"
-                        :key="index"
-                    >{{item.name}}</a>
-                    <a
-                        class="nav-link"
-                        data-toggle="modal"
-                        data-target="#addGroupModal"
-                    >
-                        <img
-                            class="icon-add"
-                            src="../../assets/images/icon_add.svg"
-                            alt="add"
+                            <img
+                                class="icon-add"
+                                src="../../assets/images/icon_add.svg"
+                                alt="add"
+                            >
+                        </a>
+                    </div>
+                    <div class="c-setting">
+                        <div
+                            class="c-direction-arrow"
+                            @mouseenter="handleEnterDownArrow()"
+                        ><img src="../../assets/images/icon_direction_arrow.svg"></div>
+                        <a
+                            class="nav-link"
+                            data-toggle="modal"
+                            data-target="#settingModal"
                         >
-                    </a>
-                    <a
-                        class="nav-link c-setting"
-                        data-toggle="modal"
-                        data-target="#settingModal"
-                    >
-                        <img
-                            class="icon-setting"
-                            src="../../assets/images/icon_setting.svg"
-                            alt="setting"
-                        >
-                    </a>
+                            <img
+                                class="icon-setting"
+                                src="../../assets/images/icon_setting.svg"
+                                alt="setting"
+                            >
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="col-11">
                 <div
-                    class="tab-content text-center h-100"
+                    class="tab-content text-center"
                     id="v-pills-tabContent"
                 >
                     <div class="input-group mb-3 mt-5 col-6">
@@ -329,6 +343,7 @@
 <script>
 import initTabGroups from '../../assets/json/initTabGroups.json';
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
+import $ from "jquery";
 
 export default {
     name: 'app',
@@ -355,6 +370,9 @@ export default {
         // localStorage.clear(); // 删除所有缓存数据 test 
         console.info('created=======', localStorage);
     },
+    mounted() {
+        this.handleDirectionArrow();
+    },
     methods: {
         // 刷新我的标签分组
         updateMyTabGroupList() {
@@ -375,7 +393,7 @@ export default {
 
                 this.updateMyTabGroupList(); // 刷新我的标签分组
 
-                // $('#addGroupModal').modal('hide');
+                $('#addGroupModal').modal('hide'); // 关闭弹框
             }
         },
 
@@ -393,6 +411,35 @@ export default {
             let googleKeyword = this.googleKeyword;
             window.location.replace(`https://www.google.com/search?ie=utf-8&q=${googleKeyword}`);
         },
+
+        // 判断是否有纵轴滚动条
+        hasScrolled(element) {
+            return element.scrollHeight > element.clientHeight;
+        },
+
+        // 处理左侧分组菜单方向箭头是否显示
+        handleDirectionArrow() {
+            let element = $('.inner-container')[0];
+            let hasScrolled = this.hasScrolled(element);
+            if (hasScrolled) { // 有滚动条
+                // 显示可滚动箭头
+                $('.c-direction-arrow').show();
+            } else {
+                $('.c-direction-arrow').hide();
+            }
+        },
+
+        // 上箭头鼠标进入
+        handleEnterUpArrow() {
+            $('.inner-container').animate({ scrollTop: 0 }, 2000); // 滚动到顶部
+        },
+
+        // 下箭头鼠标进入
+        handleEnterDownArrow() {
+            let h = $('.inner-container').height();
+            $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
+        }
+
     }
 
 }

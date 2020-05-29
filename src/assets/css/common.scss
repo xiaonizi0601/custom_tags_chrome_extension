@@ -20,7 +20,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 a,
@@ -93,12 +93,16 @@ input:focus {
             border-radius: 0;
             color: #fff;
             padding-right: 0px;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
 
         .nav-link.active {
             background: $base-color;
+        }
+
+        .nav-link.c-add {
+            margin-bottom: 80px;
         }
     }
 
@@ -172,15 +176,54 @@ input:focus {
 }
 
 .c-setting {
+    width: 100%;
     position: absolute;
-    bottom: 10px;
-    left: 50%;
-    margin: 0 -20px;
+    bottom: 0px;
     cursor: pointer;
+    background: $gray;
 
     .icon-setting {
         width: 20px;
     }
+}
+
+.c-direction-arrow {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding-left: 18px;
+    z-index: 2;
+    display: none;
+    cursor: pointer;
+}
+
+.c-logo {
+    position: relative;
+}
+
+.c-logo .c-direction-arrow {
+    top: 110px;
+    transform: rotate(180deg);
+    padding: 0 18px 0 0;
+}
+
+.outer-container {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.inner-container {
+    position: absolute;
+    left: 0;
+    top: 130px;
+    right: -17px;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .err-msg {

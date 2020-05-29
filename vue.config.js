@@ -1,5 +1,6 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
+const webpack = require('webpack');
 
 // Generate pages object
 const pagesObj = {};
@@ -42,4 +43,12 @@ module.exports = {
 		},
 		plugins: [CopyWebpackPlugin(plugins)]
 	},
+	chainWebpack: config => {
+		config.plugin('provide').use(webpack.ProvidePlugin, [{
+			$: 'jquery',
+			jquery: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery'
+		}])
+	}
 };
