@@ -95,6 +95,13 @@ input:focus {
             padding-right: 0px;
             padding-top: 15px;
             padding-bottom: 15px;
+           
+            div{
+                padding: 0 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
 
         .nav-link.active {
@@ -205,7 +212,7 @@ input:focus {
 }
 
 .c-logo .c-direction-arrow {
-    top: 110px;
+    top: 130px;
     transform: rotate(180deg);
     padding: 0 18px 0 0;
 }

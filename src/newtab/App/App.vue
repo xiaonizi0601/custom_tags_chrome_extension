@@ -22,7 +22,11 @@
                             >
                         </a>
                     </div>
-                    <div class="inner-container">
+                    <div
+                        class="inner-container"
+                        ref="innerContainer"
+                        @mousewheel="scroll()"
+                    >
                         <a
                             class="nav-link"
                             :class="index===0?'active':''"
@@ -34,7 +38,10 @@
                             :aria-selected="index===0?true:false"
                             v-for="(item,index) in myTabGroups.tabs"
                             :key="index"
-                        >{{item.name}}</a>
+                            @contextmenu.prevent="handleRightClickGroup(item.name,index)"
+                        >
+                            <div>{{item.name}}</div>
+                        </a>
                         <a
                             class="nav-link c-add"
                             data-toggle="modal"
@@ -356,6 +363,8 @@ export default {
             googleKeyword: '', // 谷歌搜索关键词
             webAddress: '', // 网址
             webName: '', // 网站名称
+            innerContainerHeight: 0, // 标签分组容器高度
+            timer: false // 定时器
         }
     },
     created() {
@@ -371,7 +380,19 @@ export default {
         console.info('created=======', localStorage);
     },
     mounted() {
+        // 判断左侧分组菜单方向箭头是否显示
         this.handleDirectionArrow();
+
+        let that = this;
+        // 监听浏览器窗口变化
+        window.onresize = () => {
+            return (() => {
+                that.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
+            })();
+        }
+
+        // 给左侧分组菜单div注册滚动事件
+        this.$refs.innerContainer.addEventListener('scroll', this.scroll);
     },
     methods: {
         // 刷新我的标签分组
@@ -394,7 +415,14 @@ export default {
                 this.updateMyTabGroupList(); // 刷新我的标签分组
 
                 $('#addGroupModal').modal('hide'); // 关闭弹框
+
+                this.groupName = '';
             }
+        },
+
+        // 标签分组名称鼠标右击事件
+        handleRightClickGroup(name, index) {
+            console.info('鼠标右击:', name, index);
         },
 
         // 添加快捷方式弹框-'添加'按钮点击事件处理
@@ -423,7 +451,7 @@ export default {
             let hasScrolled = this.hasScrolled(element);
             if (hasScrolled) { // 有滚动条
                 // 显示可滚动箭头
-                $('.c-direction-arrow').show();
+                $('.c-setting .c-direction-arrow').show();
             } else {
                 $('.c-direction-arrow').hide();
             }
@@ -438,8 +466,48 @@ export default {
         handleEnterDownArrow() {
             let h = $('.inner-container').height();
             $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
-        }
+        },
 
+        // 给左侧分组菜单div绑定滚动事件 
+        scroll() {
+            // 滚动条滚动时，距离顶部的距离
+            let scrollTop = this.$refs.innerContainer.scrollTop;
+
+            // 分组菜单div可视区高度
+            let divHeight = $('.inner-container').height();
+
+            // 滚动条的总高度
+            let scrollHeight = this.$refs.innerContainer.scrollHeight;
+
+            // console.info(scrollTop, divHeight, scrollHeight);
+            if (scrollTop + divHeight === scrollHeight) { // 滚动到底部
+                $('.c-setting .c-direction-arrow').hide();
+                $('.c-logo .c-direction-arrow').show();
+            }
+
+            if (scrollTop === 0) { // 滚动到顶部
+                $('.c-logo .c-direction-arrow').hide();
+                $('.c-setting .c-direction-arrow').show();
+            }
+        },
+
+    },
+    watch: { // 监听数据变化
+        innerContainerHeight(val) {
+            // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+            if (!this.timer) {
+                // 一旦监听到的innerContainerHeight值改变，就将其重新赋给data里的innerContainerHeight
+                this.innerContainerHeight = val;
+                this.timer = true;
+                let that = this;
+                setTimeout(function () {
+                    // 打印innerContainerHeight变化的值
+                    // console.log(that.innerContainerHeight);
+                    that.timer = false;
+                }, 400);
+                that.handleDirectionArrow();
+            }
+        }
     }
 
 }
