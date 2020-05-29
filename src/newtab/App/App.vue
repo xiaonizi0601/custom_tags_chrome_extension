@@ -1,5 +1,8 @@
 <template>
-    <div class="main_app h-100">
+    <div
+        class="main_app h-100"
+        @click="hideperationMenu()"
+    >
         <div class="row h-100">
             <div class="col-1 c-nav-pills p-0 text-center">
 
@@ -29,18 +32,24 @@
                     >
                         <a
                             class="nav-link"
-                            :class="index===0?'active':''"
-                            :id="'v-pills-tab-'+index"
+                            :class="{'active':activeIndex==index}"
                             data-toggle="pill"
                             :href="'#v-pills-'+index"
                             role="tab"
-                            :aria-controls="'v-pill-tab-'+index"
-                            :aria-selected="index===0?true:false"
+                            :aria-selected="activeIndex==index?true:false"
                             v-for="(item,index) in myTabGroups.tabs"
                             :key="index"
-                            @contextmenu.prevent="handleRightClickGroup(item.name,index)"
+                            @contextmenu.prevent="handleRightClickGroup(index)"
+                            @click="active(index)"
                         >
-                            <div>{{item.name}}</div>
+                            <div class="group-name">{{item.name}}</div>
+                            <div
+                                class="operation-menu"
+                                v-show="currentGroupIndex==index"
+                            >
+                                <div @click="handleEditTabGroup(item.name)">编辑</div>
+                                <div @click="handleDeleteTabGroup()">删除</div>
+                            </div>
                         </a>
                         <a
                             class="nav-link c-add"
@@ -138,7 +147,7 @@
 
                     <div
                         class="tab-pane fade mt-5 px-5"
-                        :class="[{'show':index===0},{'active':index===0}]"
+                        :class="[{'show':activeIndex==index},{'active':activeIndex==index}]"
                         :id="'v-pills-'+index"
                         role="tabpanel"
                         v-for="(item,index) in myTabGroups.tabs"
@@ -344,6 +353,102 @@
             </div>
         </div>
         <!-- 添加快捷方式 弹框 end -->
+
+        <!-- 编辑分组 弹框 start -->
+        <div
+            class="modal fade edit-group-modal"
+            id="editGroupModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">编辑分组</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-0">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="请输入名称"
+                                v-model="groupName"
+                            >
+                            <div
+                                class="err-msg"
+                                v-if="isShowGroupNameErr"
+                            >* 名称不能为空</div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleSureEditGroup()"
+                        >确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑分组 弹框 end -->
+
+        <!-- 删除分组确认 弹框 start -->
+        <div
+            class="modal fade delete-group-modal"
+            id="deleteGroupModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">警告</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        您确定要删除该分组吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleSureDeleteGroup()"
+                        >确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 删除分组确认 弹框 end -->
     </div>
 </template>
 
@@ -364,7 +469,11 @@ export default {
             webAddress: '', // 网址
             webName: '', // 网站名称
             innerContainerHeight: 0, // 标签分组容器高度
-            timer: false // 定时器
+            timer: false, // 定时器
+            currentGroupIndex: null, // 当前右击选中的分组索引，用于控制操作菜单显示与隐藏
+            operateGroupIndex: null, // 当前操作（编辑和删除）的分组索引
+            activeIndex: 0, // 当前active的分组索引
+
         }
     },
     created() {
@@ -421,8 +530,58 @@ export default {
         },
 
         // 标签分组名称鼠标右击事件
-        handleRightClickGroup(name, index) {
-            console.info('鼠标右击:', name, index);
+        handleRightClickGroup(index) {
+            console.info('鼠标右击:', index);
+            this.currentGroupIndex = index; // 显示操作菜单
+            this.operateGroupIndex = index;
+        },
+
+        // 标签分组active样式
+        active(index) {
+            this.activeIndex = index;
+        },
+
+        // 隐藏操作菜单
+        hideperationMenu() {
+            this.currentGroupIndex = null;
+        },
+
+        // 操作菜单'编辑'按钮点击事件
+        handleEditTabGroup(groupName) {
+            $("#editGroupModal").modal('show');
+            this.groupName = groupName;
+        },
+
+        // 编辑分组弹框'确定'按钮点击事件
+        handleSureEditGroup() {
+            let groupName = this.groupName;
+            let operateGroupIndex = this.operateGroupIndex;
+            console.info(groupName);
+            if (groupName.length === 0) {
+                this.isShowGroupNameErr = true;
+                return;
+            } else {
+                this.isShowGroupNameErr = false;
+
+                myTabGroupList.editTabGroup(groupName, operateGroupIndex); // 编辑分组
+                this.updateMyTabGroupList(); // 刷新我的标签分组
+                $('#editGroupModal').modal('hide'); // 关闭弹框
+                this.operateGroupIndex = null;
+            }
+        },
+
+        // 操作菜单'删除'按钮点击事件
+        handleDeleteTabGroup() {
+            $("#deleteGroupModal").modal('show');
+        },
+
+        // 删除分组弹框'确定'按钮点击事件
+        handleSureDeleteGroup() {
+            let operateGroupIndex = this.operateGroupIndex;
+            myTabGroupList.deleteTabGroup(operateGroupIndex); // 删除分组
+            this.updateMyTabGroupList(); // 刷新我的标签分组
+            $('#deleteGroupModal').modal('hide'); // 关闭弹框
+            this.operateGroupIndex = null;
         },
 
         // 添加快捷方式弹框-'添加'按钮点击事件处理

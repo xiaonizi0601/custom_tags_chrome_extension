@@ -17,17 +17,35 @@ function showMyTabGroupList() {
 function addTabGroup(groupName) {
     console.info(groupName);
     let data = localStorage.getObject('myTabGroupList');
-    
+
     data.tabs.push({
-        'name':groupName,
-        'tags':[]
+        'name': groupName,
+        'tags': []
     })
 
-    localStorage.setObject('myTabGroupList',data);
+    localStorage.setObject('myTabGroupList', data);
 
+}
+
+// 编辑标签分组
+function editTabGroup(groupName, groupIndex) {
+    let data = localStorage.getObject('myTabGroupList');
+    data.tabs[groupIndex].name = groupName;
+
+    localStorage.setObject('myTabGroupList', data);
+}
+
+// 删除标签分组
+function deleteTabGroup(groupIndex) {
+    let data = localStorage.getObject('myTabGroupList');
+    data.tabs.splice(groupIndex, 1);
+
+    localStorage.setObject('myTabGroupList', data);
 }
 
 export default {
     showMyTabGroupList,
-    addTabGroup
+    addTabGroup,
+    editTabGroup,
+    deleteTabGroup
 }

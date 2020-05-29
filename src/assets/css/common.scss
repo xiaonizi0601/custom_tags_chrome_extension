@@ -81,7 +81,9 @@ input:focus {
     }
 }
 
-.add-group-modal .modal-dialog {
+.add-group-modal .modal-dialog,
+.edit-group-modal .modal-dialog,
+.delete-group-modal .modal-dialog {
     width: 360px;
 }
 
@@ -95,12 +97,41 @@ input:focus {
             padding-right: 0px;
             padding-top: 15px;
             padding-bottom: 15px;
-           
-            div{
+            position: relative;
+
+            div.group-name {
                 padding: 0 10px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                -webkit-touch-callout: none;
+                /*系统默认菜单被禁用*/
+                -webkit-user-select: none;
+                /*webkit浏览器*/
+                -khtml-user-select: none;
+                /*早期浏览器*/
+                -moz-user-select: none;
+            }
+
+            div.operation-menu {
+                position: absolute;
+                left: 49%;
+                border: 1px solid $gray;
+                border-radius: 5px;
+                background: #fff;
+                font-size: 12px;
+                width: 49%;
+                color: $gray;
+                z-index: 3;
+                overflow: hidden;
+
+                div {
+                    padding: 5px 10px;
+                }
+
+                div:hover {
+                    background: $grey;
+                }
             }
         }
 
