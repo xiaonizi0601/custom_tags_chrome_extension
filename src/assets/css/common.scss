@@ -53,7 +53,8 @@ input:focus {
     justify-content: center;
 }
 
-.modal {
+.modal,
+.c-popup {
     .modal-footer {
         button {
             width: 140px;
@@ -164,8 +165,9 @@ input:focus {
 
 .c-tag {
     color: $base-text-color;
-    margin: 30px 0;
+    margin: 30px 0 0;
     cursor: pointer;
+    display: inline-block;
 
     .tag-logo {
         width: 50px;
@@ -201,6 +203,10 @@ input:focus {
 
 .c-tag:hover .tag-name {
     color: $base-color;
+}
+
+.tag-box{
+    position: relative;
 }
 
 
@@ -268,4 +274,48 @@ input:focus {
     font-size: 14px;
     color: #F04D41;
     margin-top: 5px;
+}
+
+.c-logo-setting {
+    div {
+        padding: 0;
+
+        div {
+            width: 85px;
+            height: 85px;
+            background-color: $bg-color;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            font-size: 24px;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 5px;
+        }
+    }
+}
+
+.tag-operation-menu {
+    position: absolute;
+    left: 49%;
+    border: 1px solid $gray;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 12px;
+    width: 49%;
+    color: $gray;
+    z-index: 3;
+    overflow: hidden;
+
+    div {
+        padding: 5px 10px;
+    }
+
+    div:hover {
+        background: $grey;
+    }
+
 }

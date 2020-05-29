@@ -40,9 +40,22 @@ function deleteTabGroup(groupIndex) {
     localStorage.setObject('myTabGroupList', data);
 }
 
+// 添加标签分组
+function addTag(groupIndex, logo, name, url) {
+    let data = localStorage.getObject('myTabGroupList');
+    data.tabs[groupIndex].tags.push({
+        "logo": logo,
+        "name": name,
+        "url": url
+    })
+
+    localStorage.setObject('myTabGroupList', data);
+}
+
 export default {
     showMyTabGroupList,
     addTabGroup,
     editTabGroup,
-    deleteTabGroup
+    deleteTabGroup,
+    addTag
 }

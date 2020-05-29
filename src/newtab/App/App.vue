@@ -1,7 +1,7 @@
 <template>
     <div
         class="main_app h-100"
-        @click="hideperationMenu()"
+        @click="hideperationGroupMenu()"
     >
         <div class="row h-100">
             <div class="col-1 c-nav-pills p-0 text-center">
@@ -155,21 +155,42 @@
                     >
 
                         <div class="row">
-                            <a
-                                v-for="(tag,index) in item.tags"
-                                :key="index"
-                                :href="tag.url"
-                                class="col-2 c-tag"
+                            <div
+                                class="col-2 tag-box"
+                                v-for="(tag,idx) in item.tags"
+                                :key="idx"
+                                @contextmenu.prevent="handleRightClickTag(index,idx)"
                             >
-                                <div class="tag-logo">
-                                    <img :src="require(`../../assets/images/tagLogo/${tag.logo}`)">
+                                <a
+                                    class="c-tag"
+                                    :href="tag.url"
+                                >
+                                    <div class="tag-logo">
+                                        <img
+                                            :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
+                                            v-if="tag.logo"
+                                        >
+                                        <img
+                                            src=""
+                                            v-else
+                                        >
+                                    </div>
+                                    <p class="tag-name mt-3">{{tag.name}}</p>
+
+                                </a>
+                                <div
+                                    class="operation-menu tag-operation-menu"
+                                    v-show="currentTagIndex==idx"
+                                >
+                                    <div @click.stop="handleEditTag(tag.logo,tag.name,tag.url)">编辑</div>
+                                    <div @click="handleDeleteTag()">删除</div>
                                 </div>
-                                <p class="tag-name mt-3">{{tag.name}}</p>
-                            </a>
+                            </div>
                             <a
                                 class="col-2 c-tag"
                                 data-toggle="modal"
                                 data-target="#addTagModal"
+                                @click="handleAddTag(index)"
                             >
                                 <div class="tag-logo">
                                     <img src="../../assets/images/icon_add_black.svg">
@@ -317,14 +338,16 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
+                                    <label>网址：</label>
                                     <input
                                         type="text"
                                         class="form-control"
                                         placeholder="请输入网址"
-                                        v-model="webAddress"
+                                        v-model="webURL"
                                     >
                                 </div>
                                 <div class="form-group">
+                                    <label>名称：</label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -334,6 +357,21 @@
                                 </div>
                             </div>
                             <div class="col-6">
+                                <label class="ml-3">预览：</label>
+                                <div class="d-flex c-logo-setting">
+                                    <!-- <div class="col-4">
+                                        <div></div>
+                                        <p>官方</p>
+                                    </div> -->
+                                    <div class="col-4">
+                                        <div>A</div>
+                                        <p>文字</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <div></div>
+                                        <p>上传</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -353,6 +391,86 @@
             </div>
         </div>
         <!-- 添加快捷方式 弹框 end -->
+
+        <!-- 编辑快捷方式 弹框 start -->
+        <div
+            class="modal fade edit-tag-modal"
+            id="editTagModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">编辑快捷方式</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>网址：</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="请输入网址"
+                                        v-model="webURL"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <label>名称：</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="请输入网站名称"
+                                        v-model="webName"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="ml-3">预览：</label>
+                                <div class="d-flex c-logo-setting">
+                                    <div class="col-4">
+                                        <div></div>
+                                        <p>官方</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <div>A</div>
+                                        <p>文字</p>
+                                    </div>
+                                    <div class="col-4">
+                                        <div></div>
+                                        <p>上传</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleBtnAddTagClick()"
+                        >确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑快捷方式 弹框 end -->
 
         <!-- 编辑分组 弹框 start -->
         <div
@@ -466,14 +584,16 @@ export default {
             isShowGroupNameErr: false, // 是否显示分组名称错误信息
             baiduKeyword: '', // 百度搜索关键词
             googleKeyword: '', // 谷歌搜索关键词
-            webAddress: '', // 网址
+            webURL: '', // 网址
             webName: '', // 网站名称
+            webLogo: '', // 网址logo
             innerContainerHeight: 0, // 标签分组容器高度
             timer: false, // 定时器
             currentGroupIndex: null, // 当前右击选中的分组索引，用于控制操作菜单显示与隐藏
             operateGroupIndex: null, // 当前操作（编辑和删除）的分组索引
             activeIndex: 0, // 当前active的分组索引
-
+            currentTagIndex: null, // 当前右击选中的快捷方式标签索引，用于控制操作菜单显示与隐藏
+            operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
         }
     },
     created() {
@@ -540,12 +660,13 @@ export default {
             this.activeIndex = index;
         },
 
-        // 隐藏操作菜单
-        hideperationMenu() {
+        // 隐藏标签分组操作菜单
+        hideperationGroupMenu() {
             this.currentGroupIndex = null;
+            this.hideperationTagMenu();
         },
 
-        // 操作菜单'编辑'按钮点击事件
+        // 分组操作菜单'编辑'按钮点击事件
         handleEditTabGroup(groupName) {
             $("#editGroupModal").modal('show');
             this.groupName = groupName;
@@ -569,7 +690,7 @@ export default {
             }
         },
 
-        // 操作菜单'删除'按钮点击事件
+        // 分组操作菜单'删除'按钮点击事件
         handleDeleteTabGroup() {
             $("#deleteGroupModal").modal('show');
         },
@@ -583,8 +704,47 @@ export default {
             this.operateGroupIndex = null;
         },
 
-        // 添加快捷方式弹框-'添加'按钮点击事件处理
-        handleBtnAddTagClick() { },
+        // 添加快捷方式点击事件
+        handleAddTag(index) {
+            this.operateGroupIndex = index;
+            let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
+            console.info('favicon:', favicon);
+        },
+
+        // 添加快捷方式（标签）弹框-'添加'按钮点击事件处理
+        handleBtnAddTagClick() {
+            let operateGroupIndex = this.operateGroupIndex;
+            let webLogo = this.webLogo;
+            let webName = this.webName;
+            let webURL = this.webURL;
+
+            myTabGroupList.addTag(operateGroupIndex, webLogo, webName, webURL); // 添加标签
+            this.updateMyTabGroupList(); // 刷新我的标签分组
+            $('#addTagModal').modal('hide'); // 关闭弹框
+            this.operateGroupIndex = null;
+            this.webLogo = '';
+            this.webName = '';
+            this.webURL = '';
+        },
+
+        // 标签鼠标右击事件
+        handleRightClickTag(index, idx) {
+            this.currentTagIndex = index; // 显示操作菜单
+            this.operateTagIndex = idx;
+        },
+
+        // 隐藏标签操作菜单
+        hideperationTagMenu() {
+            this.currentTagIndex = null;
+        },
+
+        // 标签操作菜单'编辑'按钮点击事件
+        handleEditTag(logo, name, url) {
+            $("#editTagModal").modal('show');
+            this.webLogo = logo;
+            this.webName = name;
+            this.webURL = url;
+        },
 
         // 百度-'搜索'按钮点击事件处理
         handleBaiduSearchClick() {
