@@ -329,3 +329,52 @@ input:focus {
     }
 
 }
+
+.base-setting-box,
+.bg-color-box,
+.logo-setting-box{
+    background-color: $bg-color;
+    border-radius: 5px;
+    padding: 10px 0;
+    .c-logo-bgcolor{
+        
+        div{
+            width: 24px;
+            height: 24px;
+            background: $gray;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        div:nth-of-type(1){
+            background: #fff;
+        }
+        div:nth-of-type(2){
+            background: $base-color;
+        }
+        div:nth-of-type(3){
+            background: #ee3b3b;
+        }
+        div:nth-of-type(4){
+            background: #fcb138;
+        }
+        div:nth-of-type(5){
+            background: #85d724;
+        }
+        div:nth-of-type(6){
+            background: #16d9c4;
+        }
+        div:nth-of-type(7){
+            background: #276ce6;
+        }
+        div:nth-of-type(8){
+            background: #00aefd;
+        }
+        div:nth-of-type(9){
+            background: $gray;
+        }
+        div:last-child{
+            background: url("../images/icon_transparent.jpg") transparent;
+            background-size: 100% 100%;
+        }
+    }
+}

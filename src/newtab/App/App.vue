@@ -345,50 +345,73 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
-                                    <label>网址：</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="请输入网址"
-                                        v-model="webURL"
-                                    >
-                                </div>
-                                <div class="form-group">
-                                    <label>名称：</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="请输入网站名称"
-                                        v-model="webName"
-                                        @input="handleWebNameInput()"
-                                    >
+                                <div class="base-setting-box px-3 h-100">
+                                    <div class="form-group">
+                                        <label>网址：</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="请输入网址"
+                                            v-model="webURL"
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>名称：</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="请输入网站名称"
+                                            v-model="webName"
+                                            @input="handleWebNameInput()"
+                                        >
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label class="ml-3">预览：</label>
-                                <div class="d-flex c-logo-setting">
-                                    <!-- <div class="col-4">
-                                        <div></div>
-                                        <p>官方</p>
-                                    </div> -->
-                                    <div class="col-4">
-                                        <div
-                                            :class="{'active':checkedIndex===1}"
-                                            @click="togglePrevWay(1)"
-                                            :style="`background:${webLogoBgColor};`"
-                                        >{{webLogoTxt}}
+                                <div class="logo-setting-box">
+                                    <label class="ml-3">预览：</label>
+                                    <div class="d-flex c-logo-setting">
+                                        <div class="col-4">
+                                            <div
+                                                :class="{'active':checkedIndex===1}"
+                                                @click="togglePrevWay(1)"
+                                                :style="`background:${webLogoBgColor};`"
+                                            >{{webLogoTxt}}
+                                            </div>
+                                            <p>文字</p>
                                         </div>
-                                        <p>文字</p>
+                                        <div class="col-4">
+                                            <div
+                                                :class="{'active':checkedIndex===2}"
+                                                @click="togglePrevWay(2)"
+                                                :style="`background:${webLogoBgColor};`"
+                                            >
+                                            </div>
+                                            <p>上传</p>
+                                        </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div
-                                            :class="{'active':checkedIndex===2}"
-                                            @click="togglePrevWay(2)"
-                                            :style="`background:${webLogoBgColor};`"
+                                </div>
+
+                                <div class="bg-color-box mt-3">
+                                    <label class="ml-3">背景颜色：</label>
+                                    <div class="d-flex c-logo-bgcolor ml-3">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="form-group px-3 pt-3 pb-0 m-0">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="webLogoBgColor"
                                         >
-                                        </div>
-                                        <p>上传</p>
                                     </div>
                                 </div>
                             </div>
