@@ -159,7 +159,7 @@
                                 class="col-2 tag-box"
                                 v-for="(tag,idx) in item.tags"
                                 :key="idx"
-                                @contextmenu.prevent="handleRightClickTag(index,idx)"
+                                @contextmenu.prevent="handleRightClickTag(idx)"
                             >
                                 <a
                                     class="c-tag"
@@ -171,7 +171,7 @@
                                             v-if="tag.logo"
                                         >
                                         <img
-                                            src=""
+                                            src="../../assets/images/logo_48.png"
                                             v-else
                                         >
                                     </div>
@@ -182,7 +182,7 @@
                                     class="operation-menu tag-operation-menu"
                                     v-show="currentTagIndex==idx"
                                 >
-                                    <div @click.stop="handleEditTag(tag.logo,tag.name,tag.url)">编辑</div>
+                                    <div @click.stop="handleEditTag(index,tag.logo,tag.name,tag.url)">编辑</div>
                                     <div @click="handleDeleteTag()">删除</div>
                                 </div>
                             </div>
@@ -353,6 +353,7 @@
                                         class="form-control"
                                         placeholder="请输入网站名称"
                                         v-model="webName"
+                                        @input="handleWebNameInput()"
                                     >
                                 </div>
                             </div>
@@ -364,11 +365,19 @@
                                         <p>官方</p>
                                     </div> -->
                                     <div class="col-4">
-                                        <div>A</div>
+                                        <div
+                                            :class="{'active':checkedIndex===1}"
+                                            @click="togglePrevWay(1)"
+                                        >{{webLogoTxt}}
+                                        </div>
                                         <p>文字</p>
                                     </div>
                                     <div class="col-4">
-                                        <div></div>
+                                        <div
+                                            :class="{'active':checkedIndex===2}"
+                                            @click="togglePrevWay(2)"
+                                        >
+                                        </div>
                                         <p>上传</p>
                                     </div>
                                 </div>
@@ -440,15 +449,33 @@
                                 <label class="ml-3">预览：</label>
                                 <div class="d-flex c-logo-setting">
                                     <div class="col-4">
-                                        <div></div>
+                                        <div
+                                            :class="{'active':checkedIndex===0}"
+                                            @click="togglePrevWay(0)"
+                                        >
+                                            <img
+                                                :src="require(`../../assets/images/tagLogo/${webLogo}`)"
+                                                v-if="webLogo"
+                                            >
+                                            <img
+                                                src="../../assets/images/logo_48.png"
+                                                v-else
+                                            >
+                                        </div>
                                         <p>官方</p>
                                     </div>
                                     <div class="col-4">
-                                        <div>A</div>
+                                        <div
+                                            :class="{'active':checkedIndex===1}"
+                                            @click="togglePrevWay(1)"
+                                        >{{webLogoTxt}}</div>
                                         <p>文字</p>
                                     </div>
                                     <div class="col-4">
-                                        <div></div>
+                                        <div
+                                            :class="{'active':checkedIndex===2}"
+                                            @click="togglePrevWay(2)"
+                                        ></div>
                                         <p>上传</p>
                                     </div>
                                 </div>
@@ -464,7 +491,7 @@
                         <button
                             type="button"
                             class="btn btn-sure"
-                            @click="handleBtnAddTagClick()"
+                            @click="handleBtnEditTagClick()"
                         >确定</button>
                     </div>
                 </div>
@@ -594,6 +621,8 @@ export default {
             activeIndex: 0, // 当前active的分组索引
             currentTagIndex: null, // 当前右击选中的快捷方式标签索引，用于控制操作菜单显示与隐藏
             operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
+            checkedIndex: 0, // 当前选择的标签logo预览方式
+            webLogoTxt: 'A', // 标签logo预览方式-文字
         }
     },
     created() {
@@ -704,11 +733,29 @@ export default {
             this.operateGroupIndex = null;
         },
 
-        // 添加快捷方式点击事件
+        // 添加快捷方式 点击事件
         handleAddTag(index) {
+            this.webLogo = '';
+            this.webName = '';
+            this.webURL = '';
             this.operateGroupIndex = index;
-            let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
-            console.info('favicon:', favicon);
+            this.checkedIndex = 1;
+            this.webLogoTxt = 'A';
+            // let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
+            // console.info('favicon:', favicon);
+        },
+
+        // 添加快捷方式弹框 名称输入事件
+        handleWebNameInput() {
+            if (this.checkedIndex === 1) {
+                if (this.webName !== '') {
+                    this.webLogoTxt = this.webName.substr(0, 3);
+                } else {
+                    this.webLogoTxt = 'A';
+                }
+            } else {
+                this.webLogoTxt = 'A';
+            }
         },
 
         // 添加快捷方式（标签）弹框-'添加'按钮点击事件处理
@@ -728,8 +775,9 @@ export default {
         },
 
         // 标签鼠标右击事件
-        handleRightClickTag(index, idx) {
-            this.currentTagIndex = index; // 显示操作菜单
+        handleRightClickTag(idx) {
+            // console.info('idx=', idx);
+            this.currentTagIndex = idx; // 显示操作菜单
             this.operateTagIndex = idx;
         },
 
@@ -739,11 +787,47 @@ export default {
         },
 
         // 标签操作菜单'编辑'按钮点击事件
-        handleEditTag(logo, name, url) {
+        handleEditTag(index, logo, name, url) {
             $("#editTagModal").modal('show');
+            this.operateGroupIndex = index;
             this.webLogo = logo;
             this.webName = name;
             this.webURL = url;
+            this.checkedIndex = 0;
+            this.webLogoTxt = 'A';
+        },
+
+        // 切换标签logo预览方式 激活样式
+        togglePrevWay(index) {
+            this.checkedIndex = index;
+            switch (index) {
+                case 0:
+                case 2:
+                    this.webLogoTxt = 'A';
+                    break;
+                case 1:
+                    this.webLogoTxt = this.webName.substr(0, 3);
+                    break;
+
+            }
+        },
+
+        // 编辑快捷方式（标签）弹框-'确定'按钮点击事件处理
+        handleBtnEditTagClick() {
+            let operateGroupIndex = this.operateGroupIndex;
+            let webLogo = this.webLogo;
+            let webName = this.webName;
+            let webURL = this.webURL;
+            let operateTagIndex = this.operateTagIndex;
+
+            // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
+            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webName, webURL); // 添加标签
+            this.updateMyTabGroupList(); // 刷新我的标签分组
+            $('#editTagModal').modal('hide'); // 关闭弹框
+            this.operateGroupIndex = null;
+            this.webLogo = '';
+            this.webName = '';
+            this.webURL = '';
         },
 
         // 百度-'搜索'按钮点击事件处理

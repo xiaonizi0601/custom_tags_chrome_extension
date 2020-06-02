@@ -52,10 +52,24 @@ function addTag(groupIndex, logo, name, url) {
     localStorage.setObject('myTabGroupList', data);
 }
 
+// 编辑标签分组
+function editTag(groupIndex, tagIndex, logo, name, url) {
+    let data = localStorage.getObject('myTabGroupList');
+    let tag ={
+        "logo": logo,
+        "name": name,
+        "url": url
+    }
+    data.tabs[groupIndex].tags[tagIndex] = tag;
+
+    localStorage.setObject('myTabGroupList', data);
+}
+
 export default {
     showMyTabGroupList,
     addTabGroup,
     editTabGroup,
     deleteTabGroup,
-    addTag
+    addTag,
+    editTag
 }
