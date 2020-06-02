@@ -165,15 +165,24 @@
                                     class="c-tag"
                                     :href="tag.url"
                                 >
-                                    <div class="tag-logo">
-                                        <img
-                                            :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
-                                            v-if="tag.logo"
-                                        >
-                                        <img
-                                            src="../../assets/images/logo_48.png"
-                                            v-else
-                                        >
+                                    <div class="tag-logo d-flex justify-content-center align-items-center">
+                                        <div v-if="tag.logoPrevIndex===0">
+                                            <img
+                                                :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
+                                                v-if="tag.logo"
+                                            >
+                                            <!-- <img
+                                                src="../../assets/images/logo_48.png"
+                                                v-else
+                                            > -->
+                                        </div>
+                                        <span v-if="tag.logoPrevIndex===1">{{tag.logoTxt}}</span>
+                                        <div v-if="tag.logoPrevIndex===3">
+                                            <img
+                                                :src="require(`../../assets/images/tagLogo/upload/${tag.logo}`)"
+                                                v-if="tag.logo"
+                                            >
+                                        </div>
                                     </div>
                                     <p class="tag-name mt-3">{{tag.name}}</p>
 
@@ -182,7 +191,7 @@
                                     class="operation-menu tag-operation-menu"
                                     v-show="currentTagIndex==idx"
                                 >
-                                    <div @click.stop="handleEditTag(index,tag.logo,tag.name,tag.url)">编辑</div>
+                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.name,tag.url)">编辑</div>
                                     <div @click="handleDeleteTag()">删除</div>
                                 </div>
                             </div>
@@ -448,19 +457,15 @@
                             <div class="col-6">
                                 <label class="ml-3">预览：</label>
                                 <div class="d-flex c-logo-setting">
-                                    <div class="col-4">
+                                    <div
+                                        class="col-4"
+                                        v-if="webLogo"
+                                    >
                                         <div
                                             :class="{'active':checkedIndex===0}"
                                             @click="togglePrevWay(0)"
                                         >
-                                            <img
-                                                :src="require(`../../assets/images/tagLogo/${webLogo}`)"
-                                                v-if="webLogo"
-                                            >
-                                            <img
-                                                src="../../assets/images/logo_48.png"
-                                                v-else
-                                            >
+                                            <img :src="require(`../../assets/images/tagLogo/${webLogo}`)">
                                         </div>
                                         <p>官方</p>
                                     </div>
@@ -749,7 +754,7 @@ export default {
         handleWebNameInput() {
             if (this.checkedIndex === 1) {
                 if (this.webName !== '') {
-                    this.webLogoTxt = this.webName.substr(0, 3);
+                    this.webLogoTxt = this.webName.substr(0, 2);
                 } else {
                     this.webLogoTxt = 'A';
                 }
@@ -765,13 +770,13 @@ export default {
             let webName = this.webName;
             let webURL = this.webURL;
 
-            myTabGroupList.addTag(operateGroupIndex, webLogo, webName, webURL); // 添加标签
+            let webLogoTxt = this.webLogoTxt;
+            let logoPrevIndex = this.checkedIndex;
+
+            myTabGroupList.addTag(operateGroupIndex, webLogo, webLogoTxt, logoPrevIndex, webName, webURL); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#addTagModal').modal('hide'); // 关闭弹框
             this.operateGroupIndex = null;
-            this.webLogo = '';
-            this.webName = '';
-            this.webURL = '';
         },
 
         // 标签鼠标右击事件
@@ -787,14 +792,14 @@ export default {
         },
 
         // 标签操作菜单'编辑'按钮点击事件
-        handleEditTag(index, logo, name, url) {
+        handleEditTag(index, logo, logoPrevIndex, logoTxt, name, url) {
             $("#editTagModal").modal('show');
             this.operateGroupIndex = index;
             this.webLogo = logo;
             this.webName = name;
             this.webURL = url;
-            this.checkedIndex = 0;
-            this.webLogoTxt = 'A';
+            this.checkedIndex = logoPrevIndex;
+            this.webLogoTxt = logoTxt;
         },
 
         // 切换标签logo预览方式 激活样式
@@ -806,7 +811,7 @@ export default {
                     this.webLogoTxt = 'A';
                     break;
                 case 1:
-                    this.webLogoTxt = this.webName.substr(0, 3);
+                    this.webLogoTxt = this.webName.substr(0, 2);
                     break;
 
             }
@@ -819,15 +824,14 @@ export default {
             let webName = this.webName;
             let webURL = this.webURL;
             let operateTagIndex = this.operateTagIndex;
+            let webLogoTxt = this.webLogoTxt;
+            let logoPrevIndex = this.checkedIndex;
 
             // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
-            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webName, webURL); // 添加标签
+            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webLogoTxt, logoPrevIndex, webName, webURL); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#editTagModal').modal('hide'); // 关闭弹框
             this.operateGroupIndex = null;
-            this.webLogo = '';
-            this.webName = '';
-            this.webURL = '';
         },
 
         // 百度-'搜索'按钮点击事件处理

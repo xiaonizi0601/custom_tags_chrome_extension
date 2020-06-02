@@ -41,24 +41,28 @@ function deleteTabGroup(groupIndex) {
 }
 
 // 添加标签分组
-function addTag(groupIndex, logo, name, url) {
+function addTag(groupIndex, logo, logoTxt,logoPrevIndex, name, url) {
     let data = localStorage.getObject('myTabGroupList');
     data.tabs[groupIndex].tags.push({
-        "logo": logo,
-        "name": name,
-        "url": url
+        'logo': logo,
+        'logoTxt': logoTxt,
+        'logoPrevIndex':logoPrevIndex,
+        'name': name,
+        'url': url
     })
 
     localStorage.setObject('myTabGroupList', data);
 }
 
 // 编辑标签分组
-function editTag(groupIndex, tagIndex, logo, name, url) {
+function editTag(groupIndex, tagIndex, logo, logoTxt,logoPrevIndex, name, url) {
     let data = localStorage.getObject('myTabGroupList');
-    let tag ={
-        "logo": logo,
-        "name": name,
-        "url": url
+    let tag = {
+        'logo': logo,
+        'logoTxt': logoTxt,
+        'logoPrevIndex':logoPrevIndex,
+        'name': name,
+        'url': url
     }
     data.tabs[groupIndex].tags[tagIndex] = tag;
 

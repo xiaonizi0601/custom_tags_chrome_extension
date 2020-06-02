@@ -29,7 +29,7 @@ a:hover {
 }
 
 a:hover {
-    color: $base-color;
+    color: $base-text-color;
 }
 
 button,
@@ -176,6 +176,9 @@ input:focus {
         border-radius: 50%;
         background: #fff;
         margin: 0 auto;
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
 
         img {
             width: 30px;
