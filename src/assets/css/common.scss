@@ -84,7 +84,8 @@ input:focus {
 
 .add-group-modal .modal-dialog,
 .edit-group-modal .modal-dialog,
-.delete-group-modal .modal-dialog {
+.delete-group-modal .modal-dialog,
+.delete-tag-modal .modal-dialog {
     width: 360px;
 }
 
@@ -286,13 +287,14 @@ input:focus {
         div {
             width: 85px;
             height: 85px;
-            background-color: $bg-color;
+            border:1px solid $bg-color;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
             font-size: 24px;
             cursor: pointer;
+            color: $base-text-color;
         }
 
         .active{

@@ -165,16 +165,15 @@
                                     class="c-tag"
                                     :href="tag.url"
                                 >
-                                    <div class="tag-logo d-flex justify-content-center align-items-center">
+                                    <div
+                                        class="tag-logo d-flex justify-content-center align-items-center"
+                                        :style="`background:${tag.logoBgColor};`"
+                                    >
                                         <div v-if="tag.logoPrevIndex===0">
                                             <img
                                                 :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
                                                 v-if="tag.logo"
                                             >
-                                            <!-- <img
-                                                src="../../assets/images/logo_48.png"
-                                                v-else
-                                            > -->
                                         </div>
                                         <span v-if="tag.logoPrevIndex===1">{{tag.logoTxt}}</span>
                                         <div v-if="tag.logoPrevIndex===3">
@@ -191,7 +190,7 @@
                                     class="operation-menu tag-operation-menu"
                                     v-show="currentTagIndex==idx"
                                 >
-                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.name,tag.url)">编辑</div>
+                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">编辑</div>
                                     <div @click="handleDeleteTag()">删除</div>
                                 </div>
                             </div>
@@ -377,6 +376,7 @@
                                         <div
                                             :class="{'active':checkedIndex===1}"
                                             @click="togglePrevWay(1)"
+                                            :style="`background:${webLogoBgColor};`"
                                         >{{webLogoTxt}}
                                         </div>
                                         <p>文字</p>
@@ -385,6 +385,7 @@
                                         <div
                                             :class="{'active':checkedIndex===2}"
                                             @click="togglePrevWay(2)"
+                                            :style="`background:${webLogoBgColor};`"
                                         >
                                         </div>
                                         <p>上传</p>
@@ -464,6 +465,7 @@
                                         <div
                                             :class="{'active':checkedIndex===0}"
                                             @click="togglePrevWay(0)"
+                                            :style="`background:${webLogoBgColor};`"
                                         >
                                             <img :src="require(`../../assets/images/tagLogo/${webLogo}`)">
                                         </div>
@@ -473,6 +475,7 @@
                                         <div
                                             :class="{'active':checkedIndex===1}"
                                             @click="togglePrevWay(1)"
+                                            :style="`background:${webLogoBgColor};`"
                                         >{{webLogoTxt}}</div>
                                         <p>文字</p>
                                     </div>
@@ -480,6 +483,7 @@
                                         <div
                                             :class="{'active':checkedIndex===2}"
                                             @click="togglePrevWay(2)"
+                                            :style="`background:${webLogoBgColor};`"
                                         ></div>
                                         <p>上传</p>
                                     </div>
@@ -503,6 +507,48 @@
             </div>
         </div>
         <!-- 编辑快捷方式 弹框 end -->
+
+        <!-- 删除快捷方式/标签 确认 弹框 start -->
+        <div
+            class="modal fade delete-tag-modal"
+            id="deleteTagModal"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+            data-backdrop="static"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">警告</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        您确定要删除吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            data-dismiss="modal"
+                        >取消</button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleSureDeleteTag()"
+                        >确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 删除快捷方式/标签 确认 弹框 end -->
 
         <!-- 编辑分组 弹框 start -->
         <div
@@ -628,6 +674,7 @@ export default {
             operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
             checkedIndex: 0, // 当前选择的标签logo预览方式
             webLogoTxt: 'A', // 标签logo预览方式-文字
+            webLogoBgColor: '#fff', // // 标签logo背景色
         }
     },
     created() {
@@ -746,13 +793,19 @@ export default {
             this.operateGroupIndex = index;
             this.checkedIndex = 1;
             this.webLogoTxt = 'A';
+
             // let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
             // console.info('favicon:', favicon);
         },
 
         // 添加快捷方式弹框 名称输入事件
         handleWebNameInput() {
-            if (this.checkedIndex === 1) {
+            this.changeWebLogoTxtCss();
+        },
+
+        // 改变logo预览方式样式
+        changeWebLogoTxtCss() {
+            if (this.checkedIndex === 1) { // logo预览方式为文字
                 if (this.webName !== '') {
                     this.webLogoTxt = this.webName.substr(0, 2);
                 } else {
@@ -772,8 +825,9 @@ export default {
 
             let webLogoTxt = this.webLogoTxt;
             let logoPrevIndex = this.checkedIndex;
+            let webLogoBgColor = this.webLogoBgColor;
 
-            myTabGroupList.addTag(operateGroupIndex, webLogo, webLogoTxt, logoPrevIndex, webName, webURL); // 添加标签
+            myTabGroupList.addTag(operateGroupIndex, webLogo, webLogoTxt, logoPrevIndex, webLogoBgColor, webName, webURL); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#addTagModal').modal('hide'); // 关闭弹框
             this.operateGroupIndex = null;
@@ -792,7 +846,7 @@ export default {
         },
 
         // 标签操作菜单'编辑'按钮点击事件
-        handleEditTag(index, logo, logoPrevIndex, logoTxt, name, url) {
+        handleEditTag(index, logo, logoPrevIndex, logoTxt, logoBgColor, name, url) {
             $("#editTagModal").modal('show');
             this.operateGroupIndex = index;
             this.webLogo = logo;
@@ -800,21 +854,14 @@ export default {
             this.webURL = url;
             this.checkedIndex = logoPrevIndex;
             this.webLogoTxt = logoTxt;
+            this.webLogoBgColor = logoBgColor;
+            this.changeWebLogoTxtCss();
         },
 
         // 切换标签logo预览方式 激活样式
         togglePrevWay(index) {
             this.checkedIndex = index;
-            switch (index) {
-                case 0:
-                case 2:
-                    this.webLogoTxt = 'A';
-                    break;
-                case 1:
-                    this.webLogoTxt = this.webName.substr(0, 2);
-                    break;
-
-            }
+            this.changeWebLogoTxtCss();
         },
 
         // 编辑快捷方式（标签）弹框-'确定'按钮点击事件处理
@@ -826,12 +873,29 @@ export default {
             let operateTagIndex = this.operateTagIndex;
             let webLogoTxt = this.webLogoTxt;
             let logoPrevIndex = this.checkedIndex;
+            let webLogoBgColor = this.webLogoBgColor;
 
             // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
-            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webLogoTxt, logoPrevIndex, webName, webURL); // 添加标签
+            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webLogoTxt, logoPrevIndex, webLogoBgColor, webName, webURL); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#editTagModal').modal('hide'); // 关闭弹框
-            this.operateGroupIndex = null;
+            this.operateTagIndex = null;
+        },
+
+        // 标签操作菜单'删除'按钮点击事件
+        handleDeleteTag() {
+            $("#deleteTagModal").modal('show');
+        },
+
+        // 删除标签弹框'确定'按钮点击事件
+        handleSureDeleteTag() {
+            let operateGroupIndex = this.activeIndex;
+            let operateTagIndex = this.operateTagIndex;
+
+            myTabGroupList.deleteTag(operateGroupIndex, operateTagIndex); // 删除标签
+            this.updateMyTabGroupList(); // 刷新我的标签列表
+            $('#deleteTagModal').modal('hide'); // 关闭弹框
+            this.operateTagIndex = null;
         },
 
         // 百度-'搜索'按钮点击事件处理

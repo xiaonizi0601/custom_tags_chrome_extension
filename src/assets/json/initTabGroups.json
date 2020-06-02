@@ -7,6 +7,7 @@
                     "logo": "github.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "GitHub",
                     "url": "https://github.com/"
                 },
@@ -14,6 +15,7 @@
                     "logo": "gitlab.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "GitLab",
                     "url": "https://gitlab.com/users/sign_in"
                 },
@@ -21,6 +23,7 @@
                     "logo": "aliyun.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "阿里云",
                     "url": "https://account.aliyun.com/login/qr_login.htm"
                 },
@@ -28,6 +31,7 @@
                     "logo": "yuque.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "语雀",
                     "url": "https://www.yuque.com/login"
                 },
@@ -35,6 +39,7 @@
                     "logo": "gmail.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "Gmail邮箱",
                     "url": "https://accounts.google.com/"
                 }
@@ -47,6 +52,7 @@
                     "logo": "bilibili.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "Bilibili",
                     "url": "https://www.bilibili.com/"
                 },
@@ -54,6 +60,7 @@
                     "logo": "zhihu.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "知乎",
                     "url": "https://www.zhihu.com/signin"
                 },
@@ -61,6 +68,7 @@
                     "logo": "jingdong.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "京东",
                     "url": "https://www.jd.com/"
                 },
@@ -68,6 +76,7 @@
                     "logo": "taobao.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "淘宝",
                     "url": "https://www.taobao.com/"
                 },
@@ -75,6 +84,7 @@
                     "logo": "weibo.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "微博",
                     "url": "https://weibo.com/"
                 }
@@ -87,6 +97,7 @@
                     "logo": "iconfont.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "阿里矢量图标库",
                     "url": "https://www.iconfont.cn/"
                 },
@@ -94,6 +105,7 @@
                     "logo": "tinypng.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "tinypng",
                     "url": "https://tinypng.com/"
                 },
@@ -101,6 +113,7 @@
                     "logo": "svgeditor.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "SVG在线编辑",
                     "url": "https://c.runoob.com/more/svgeditor/"
                 },
@@ -108,6 +121,7 @@
                     "logo": "bootcdn.svg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "CDN加速服务",
                     "url": "https://www.bootcdn.cn/"
                 },
@@ -115,6 +129,7 @@
                     "logo": "runoob.jpeg",
                     "logoTxt": "",
                     "logoPrevIndex": 0,
+                    "logoBgColor": "#fff",
                     "name": "菜鸟工具",
                     "url": "https://c.runoob.com/"
                 }

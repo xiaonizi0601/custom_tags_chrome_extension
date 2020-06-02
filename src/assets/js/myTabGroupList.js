@@ -41,12 +41,13 @@ function deleteTabGroup(groupIndex) {
 }
 
 // 添加标签分组
-function addTag(groupIndex, logo, logoTxt,logoPrevIndex, name, url) {
+function addTag(groupIndex, logo, logoTxt, logoPrevIndex,logoBgColor, name, url) {
     let data = localStorage.getObject('myTabGroupList');
     data.tabs[groupIndex].tags.push({
         'logo': logo,
         'logoTxt': logoTxt,
-        'logoPrevIndex':logoPrevIndex,
+        'logoPrevIndex': logoPrevIndex,
+        'logoBgColor': logoBgColor,
         'name': name,
         'url': url
     })
@@ -55,16 +56,25 @@ function addTag(groupIndex, logo, logoTxt,logoPrevIndex, name, url) {
 }
 
 // 编辑标签分组
-function editTag(groupIndex, tagIndex, logo, logoTxt,logoPrevIndex, name, url) {
+function editTag(groupIndex, tagIndex, logo, logoTxt, logoPrevIndex, logoBgColor, name, url) {
     let data = localStorage.getObject('myTabGroupList');
     let tag = {
         'logo': logo,
         'logoTxt': logoTxt,
-        'logoPrevIndex':logoPrevIndex,
+        'logoPrevIndex': logoPrevIndex,
+        'logoBgColor': logoBgColor,
         'name': name,
         'url': url
     }
     data.tabs[groupIndex].tags[tagIndex] = tag;
+
+    localStorage.setObject('myTabGroupList', data);
+}
+
+// 删除标签
+function deleteTag(groupIndex, tagIndex) {
+    let data = localStorage.getObject('myTabGroupList');
+    data.tabs[groupIndex].tags.splice(tagIndex, 1);
 
     localStorage.setObject('myTabGroupList', data);
 }
@@ -75,5 +85,6 @@ export default {
     editTabGroup,
     deleteTabGroup,
     addTag,
-    editTag
+    editTag,
+    deleteTag
 }
