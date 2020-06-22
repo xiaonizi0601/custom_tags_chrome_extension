@@ -530,55 +530,58 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
-                                    <label>网址：</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="请输入网址"
-                                        v-model="webURL"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label>名称：</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="请输入网站名称"
-                                        v-model="webName"
-                                        @input="handleWebNameInput()"
-                                    />
+                                <div class="base-setting-box px-3 h-100">
+                                    <div class="form-group">
+                                        <label>网址：</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="请输入网址"
+                                            v-model="webURL"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>名称：</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="请输入网站名称"
+                                            v-model="webName"
+                                            @input="handleWebNameInput()"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
-                                <label class="ml-3">预览：</label>
-                                <div class="d-flex c-logo-setting">
-                                    <div
-                                        class="col-4"
-                                        v-if="webLogo"
-                                    >
+                                <div class="logo-setting-box">
+                                    <label class="ml-3">预览：</label>
+                                    <div class="d-flex c-logo-setting">
                                         <div
-                                            :class="{ active: checkedIndex === 1 }"
-                                            @click="togglePrevWay(1)"
-                                            :style="`background:${webLogoBgColor};`"
+                                            class="col-4"
+                                            v-if="webLogo"
                                         >
-                                            <img :src="require(`../../assets/images/tagLogo/${webLogo}`)" />
+                                            <div
+                                                :class="{ active: checkedIndex === 1 }"
+                                                @click="togglePrevWay(1)"
+                                                :style="checkedIndex === 1&&`background:${webLogoBgColor};`"
+                                            >
+                                                <img :src="require(`../../assets/images/tagLogo/${webLogo}`)" />
+                                            </div>
+                                            <p>官方</p>
                                         </div>
-                                        <p>官方</p>
-                                    </div>
-                                    <div class="col-4">
-                                        <div
-                                            :class="{ active: checkedIndex === 0 }"
-                                            @click="togglePrevWay(0)"
-                                            :style="`background:${webLogoBgColor};`"
-                                        >
-                                            {{ webLogoTxt }}
+                                        <div class="col-4">
+                                            <div
+                                                :class="{ active: checkedIndex === 0 }"
+                                                @click="togglePrevWay(0)"
+                                                :style="checkedIndex === 0&&`background:${webLogoBgColor};`"
+                                            >
+                                                {{ webLogoTxt }}
+                                            </div>
+                                            <p>文字</p>
                                         </div>
-                                        <p>文字</p>
-                                    </div>
-                                    <div class="col-4">
-                                        <!-- 图片上传 start -->
-                                        <!-- <div
+                                        <div class="col-4">
+                                            <!-- 图片上传 start -->
+                                            <!-- <div
                                             class="c-upload-image"
                                             :class="{ active: checkedIndex === 2 }"
                                             @click="togglePrevWay(2)"
@@ -602,8 +605,66 @@
                                                 >
                                             </div>
                                         </div> -->
-                                        <!-- 图片上传 end -->
-                                        <!-- <p>上传</p> -->
+                                            <!-- 图片上传 end -->
+                                            <!-- <p>上传</p> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-color-box mt-3">
+                                    <label class="ml-3">背景颜色：</label>
+                                    <div
+                                        class="d-flex c-logo-bgcolor ml-3"
+                                        @click="selectBgColor"
+                                        :bg="webLogoBgColor"
+                                    >
+                                        <div
+                                            :data-index="0"
+                                            :class="{active:webLogoBgColor === '#FFFFFF'}"
+                                        ></div>
+                                        <div
+                                            :data-index="1"
+                                            :class="{active:webLogoBgColor === '#04AE92'}"
+                                        ></div>
+                                        <div
+                                            :data-index="2"
+                                            :class="{active:webLogoBgColor === '#EE3B3B'}"
+                                        ></div>
+                                        <div
+                                            :data-index="3"
+                                            :class="{active:webLogoBgColor === '#FCB138'}"
+                                        ></div>
+                                        <div
+                                            :data-index="4"
+                                            :class="{active:webLogoBgColor === '#85D724'}"
+                                        ></div>
+                                        <div
+                                            :data-index="5"
+                                            :class="{active:webLogoBgColor === '#16D9C4'}"
+                                        ></div>
+                                        <div
+                                            :data-index="6"
+                                            :class="{active:webLogoBgColor === '#276CE6'}"
+                                        ></div>
+                                        <div
+                                            :data-index="7"
+                                            :class="{active:webLogoBgColor === '#00AEFD'}"
+                                        ></div>
+                                        <div
+                                            :data-index="8"
+                                            :class="{active:webLogoBgColor === '#444444'}"
+                                        ></div>
+                                        <div
+                                            :data-index="9"
+                                            :class="{active:webLogoBgColor === 'transparent'}"
+                                        ></div>
+                                    </div>
+                                    <div class="form-group px-3 pt-3 pb-0 m-0">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="webLogoBgColor"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -811,7 +872,7 @@ export default {
             operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
             checkedIndex: 0, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
-            webLogoBgColor: '#fff', // // 标签logo背景色
+            webLogoBgColor: '#FFFFFF', // // 标签logo背景色
             // config: null, // 图片上传配置信息
             // params: null, // 图片上传的数据参数
         };
@@ -937,7 +998,7 @@ export default {
             this.operateGroupIndex = index;
             this.checkedIndex = 0;
             this.webLogoTxt = 'A';
-            this.webLogoBgColor = '#fff';
+            this.webLogoBgColor = '#FFFFFF';
 
             // let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
             // console.info('favicon:', favicon);
@@ -991,7 +1052,7 @@ export default {
                 if (webLogo === '') {
                     // 未上传图片时，默认取文字+背景色方式展示快捷方式logo
                     logoPrevIndex = 0;
-                    webLogoBgColor = '#fff';
+                    webLogoBgColor = '#FFFFFF';
                     webLogoTxt = webName.substr(0, 2);
                 }
             }
@@ -1158,7 +1219,7 @@ export default {
                     } else {
                         this.webLogoBgColor = this.RGBtoHEX(currentColor);
                     }
-                    this.checkedIndex = 0;
+                    // this.checkedIndex = 0;
                 }
             }
         },

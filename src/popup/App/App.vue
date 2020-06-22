@@ -23,6 +23,7 @@
                             class="form-control"
                             placeholder="请输入网站名称"
                             v-model="webName"
+                            @input="handleWebNameInput()"
                         >
                     </div>
                     <div class="form-group">
@@ -47,18 +48,21 @@
                             v-if="webLogo"
                         >
                             <div
-                                :class="{ active: checkedIndex === 0 }"
-                                @click="togglePrevWay(0)"
+                                :class="{ active: checkedIndex === 1 }"
+                                @click="togglePrevWay(1)"
                                 :style="`background:${webLogoBgColor};`"
                             >
-                                <img :src="webLogo" />
+                                <img
+                                    :src="webLogo"
+                                    class="w-100"
+                                />
                             </div>
                             <p>官方</p>
                         </div>
                         <div class="col-4">
                             <div
-                                :class="{ active: checkedIndex === 1 }"
-                                @click="togglePrevWay(1)"
+                                :class="{ active: checkedIndex === 0 }"
+                                @click="togglePrevWay(0)"
                                 :style="`background:${webLogoBgColor};`"
                             >
                                 {{ webLogoTxt }}
@@ -71,14 +75,65 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-12 bg-color-box mt-3">
+                    <label class="ml-3">背景颜色：</label>
+                    <div
+                        class="d-flex c-logo-bgcolor ml-3"
+                        @click="selectBgColor"
+                    >
+                        <div
+                            :data-index="0"
+                            :class="{active:webLogoBgColor === '#FFFFFF'}"
+                        ></div>
+                        <div
+                            :data-index="1"
+                            :class="{active:webLogoBgColor === '#04AE92'}"
+                        ></div>
+                        <div
+                            :data-index="2"
+                            :class="{active:webLogoBgColor === '#EE3B3B'}"
+                        ></div>
+                        <div
+                            :data-index="3"
+                            :class="{active:webLogoBgColor === '#FCB138'}"
+                        ></div>
+                        <div
+                            :data-index="4"
+                            :class="{active:webLogoBgColor === '#85D724'}"
+                        ></div>
+                        <div
+                            :data-index="5"
+                            :class="{active:webLogoBgColor === '#16D9C4'}"
+                        ></div>
+                        <div
+                            :data-index="6"
+                            :class="{active:webLogoBgColor === '#276CE6'}"
+                        ></div>
+                        <div
+                            :data-index="7"
+                            :class="{active:webLogoBgColor === '#00AEFD'}"
+                        ></div>
+                        <div
+                            :data-index="8"
+                            :class="{active:webLogoBgColor === '#444444'}"
+                        ></div>
+                        <div
+                            :data-index="9"
+                            :class="{active:webLogoBgColor === 'transparent'}"
+                        ></div>
+                    </div>
+                    <div class="form-group px-3 pt-3 pb-0 m-0">
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="webLogoBgColor"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer d-flex">
-            <button
-                type="button"
-                class="btn btn-cancel"
-                data-dismiss="modal"
-            >取消</button>
             <button
                 type="button"
                 class="btn btn-sure"
@@ -93,7 +148,7 @@
 <script>
 import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
-// import $ from "jquery";
+import $ from "jquery";
 
 export default {
     name: 'app',
@@ -102,10 +157,10 @@ export default {
             myTabGroups: null, // 我的标签分组
             webURL: '', // 网址
             webName: '', // 网站名称
-            webLogo: ''||require('../../assets/images/logo_128.png'), // 网址logo
-            checkedIndex: 0, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
+            webLogo: '' || require('../../assets/images/logo_128.png'), // 网址logo
+            checkedIndex: 1, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
-            webLogoBgColor: '#fff', // // 标签logo背景色
+            webLogoBgColor: '#FFFFFF', // // 标签logo背景色
         }
     },
     created() {
@@ -142,13 +197,61 @@ export default {
                 this.webLogoTxt = 'A';
             }
         },
+        // 名称输入事件
+        handleWebNameInput() {
+            this.changeWebLogoTxtCss();
+        },
+
+        // 选择背景颜色
+        selectBgColor(e) {
+            if (e.target.nodeName.toLowerCase() === 'div') {
+                let index = parseInt(e.target.dataset.index);
+                if (!isNaN(index)) {
+                    let currentColor = $(e.target).css('background-color');
+                    if (currentColor === 'rgba(0, 0, 0, 0)') {
+                        this.webLogoBgColor = 'transparent';
+                    } else {
+                        this.webLogoBgColor = this.RGBtoHEX(currentColor);
+                    }
+                    // this.checkedIndex = 0;
+                }
+            }
+        },
+
+        //将rgb()格式颜色转换成大写十六机制字符串（#C0C0C0），如果已经是十六进制则直接输出
+        RGBtoHEX(str) {
+            if (str.substring(0, 3) == 'rgb') {
+                var arr = str.split(',');
+                var r = arr[0].replace('rgb(', '').trim(),
+                    g = arr[1].trim(),
+                    b = arr[2].replace(')', '').trim();
+                var hex = [this.toHex(r), this.toHex(g), this.toHex(b)];
+                return '#' + hex.join('');
+            } else {
+                return str;
+            }
+        },
+
+        //将十进制数字转换成两位十六进制字符串
+        toHex(N) {
+            if (N == null) return '00';
+            N = parseInt(N);
+            if (N == 0 || isNaN(N)) return '00';
+            N = Math.max(0, N);
+            N = Math.min(N, 255);
+            N = Math.round(N);
+            return (
+                '0123456789ABCDEF'.charAt((N - (N % 16)) / 16) +
+                '0123456789ABCDEF'.charAt(N % 16)
+            );
+        },
     }
 }
 </script>
 
 <style>
 .main_app {
-    background: #fff;
+    background: #ebebeb;
     height: 100%;
 }
 
@@ -159,7 +262,6 @@ export default {
 .c-logo-setting > div > div {
     width: 70px !important;
     height: 70px !important;
-    background-color: #ebebeb;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,6 +270,6 @@ export default {
 }
 
 .modal-footer button {
-    width: 100px !important;
+    width: 100% !important;
 }
 </style>
