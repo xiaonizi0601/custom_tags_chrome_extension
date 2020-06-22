@@ -5,7 +5,6 @@
     >
         <div class="row h-100">
             <div class="col-1 c-nav-pills p-0 text-center">
-
                 <div
                     class="nav flex-column nav-pills outer-container"
                     id="v-pills-tab"
@@ -16,13 +15,15 @@
                         <div
                             class="c-direction-arrow"
                             @mouseenter="handleEnterUpArrow()"
-                        ><img src="../../assets/images/icon_direction_arrow.svg"></div>
+                        >
+                            <img src="../../assets/images/icon_direction_arrow.svg" />
+                        </div>
                         <a class="nav-link">
                             <img
                                 class="tab-logo"
                                 src="../../assets/images/logo_128.png"
                                 alt="logo"
-                            >
+                            />
                         </a>
                     </div>
                     <div
@@ -32,20 +33,20 @@
                     >
                         <a
                             class="nav-link"
-                            :class="{'active':activeIndex==index}"
+                            :class="{ active: activeIndex == index }"
                             data-toggle="pill"
-                            :href="'#v-pills-'+index"
+                            :href="'#v-pills-' + index"
                             role="tab"
-                            :aria-selected="activeIndex==index?true:false"
-                            v-for="(item,index) in myTabGroups.tabs"
+                            :aria-selected="activeIndex == index ? true : false"
+                            v-for="(item, index) in myTabGroups.tabs"
                             :key="index"
                             @contextmenu.prevent="handleRightClickGroup(index)"
                             @click="active(index)"
                         >
-                            <div class="group-name">{{item.name}}</div>
+                            <div class="group-name">{{ item.name }}</div>
                             <div
                                 class="operation-menu"
-                                v-show="currentGroupIndex==index"
+                                v-show="currentGroupIndex == index"
                             >
                                 <div @click="handleEditTabGroup(item.name)">编辑</div>
                                 <div @click="handleDeleteTabGroup()">删除</div>
@@ -60,14 +61,16 @@
                                 class="icon-add"
                                 src="../../assets/images/icon_add.svg"
                                 alt="add"
-                            >
+                            />
                         </a>
                     </div>
                     <div class="c-setting">
                         <div
                             class="c-direction-arrow"
                             @mouseenter="handleEnterDownArrow()"
-                        ><img src="../../assets/images/icon_direction_arrow.svg"></div>
+                        >
+                            <img src="../../assets/images/icon_direction_arrow.svg" />
+                        </div>
                         <a
                             class="nav-link"
                             data-toggle="modal"
@@ -77,7 +80,7 @@
                                 class="icon-setting"
                                 src="../../assets/images/icon_setting.svg"
                                 alt="setting"
-                            >
+                            />
                         </a>
                     </div>
                 </div>
@@ -93,7 +96,7 @@
                                 <img
                                     src="../../assets/images/baidu.svg"
                                     alt="baidu"
-                                >
+                                />
                             </span>
                         </div>
                         <input
@@ -102,7 +105,7 @@
                             placeholder="搜索"
                             v-model="baiduKeyword"
                             @keyup.enter="handleBaiduSearchClick()"
-                        >
+                        />
                         <div class="input-group-append">
                             <span
                                 class="input-group-text"
@@ -111,7 +114,7 @@
                                 <img
                                     src="../../assets/images/icon_search.svg"
                                     alt="search"
-                                >
+                                />
                             </span>
                         </div>
                     </div>
@@ -122,7 +125,7 @@
                                 <img
                                     src="../../assets/images/google.svg"
                                     alt="google"
-                                >
+                                />
                             </span>
                         </div>
                         <input
@@ -131,7 +134,7 @@
                             placeholder="搜索"
                             v-model="googleKeyword"
                             @keyup.enter="handleGoogleSearchClick()"
-                        >
+                        />
                         <div class="input-group-append">
                             <span
                                 class="input-group-text"
@@ -140,24 +143,26 @@
                                 <img
                                     src="../../assets/images/icon_search.svg"
                                     alt="search"
-                                >
+                                />
                             </span>
                         </div>
                     </div>
 
                     <div
                         class="tab-pane fade mt-5 px-5"
-                        :class="[{'show':activeIndex==index},{'active':activeIndex==index}]"
-                        :id="'v-pills-'+index"
+                        :class="[
+              { show: activeIndex == index },
+              { active: activeIndex == index },
+            ]"
+                        :id="'v-pills-' + index"
                         role="tabpanel"
-                        v-for="(item,index) in myTabGroups.tabs"
+                        v-for="(item, index) in myTabGroups.tabs"
                         :key="index"
                     >
-
                         <div class="row">
                             <div
                                 class="col-2 tag-box"
-                                v-for="(tag,idx) in item.tags"
+                                v-for="(tag, idx) in item.tags"
                                 :key="idx"
                                 @contextmenu.prevent="handleRightClickTag(idx)"
                             >
@@ -169,28 +174,46 @@
                                         class="tag-logo d-flex justify-content-center align-items-center"
                                         :style="`background:${tag.logoBgColor};`"
                                     >
-                                        <div v-if="tag.logoPrevIndex===0">
+                                        <span v-if="tag.logoPrevIndex === 0">{{
+                      tag.logoTxt
+                    }}</span>
+                                        <div v-if="tag.logoPrevIndex === 1">
                                             <img
-                                                :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
+                                                :src="
+                          require(`../../assets/images/tagLogo/${tag.logo}`)
+                        "
                                                 v-if="tag.logo"
-                                            >
+                                            />
                                         </div>
-                                        <span v-if="tag.logoPrevIndex===1">{{tag.logoTxt}}</span>
-                                        <div v-if="tag.logoPrevIndex===3">
+
+                                        <div v-if="tag.logoPrevIndex === 2">
                                             <img
-                                                :src="require(`../../assets/images/tagLogo/upload/${tag.logo}`)"
+                                                :src="
+                          require(`../../assets/images/tagLogo/upload/${tag.logo}`)
+                        "
                                                 v-if="tag.logo"
-                                            >
+                                            />
                                         </div>
                                     </div>
-                                    <p class="tag-name mt-3">{{tag.name}}</p>
-
+                                    <p class="tag-name mt-3">{{ tag.name }}</p>
                                 </a>
                                 <div
                                     class="operation-menu tag-operation-menu"
-                                    v-show="currentTagIndex==idx"
+                                    v-show="currentTagIndex == idx"
                                 >
-                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">编辑</div>
+                                    <div @click.stop="
+                      handleEditTag(
+                        index,
+                        tag.logo,
+                        tag.logoPrevIndex,
+                        tag.logoTxt,
+                        tag.logoBgColor,
+                        tag.name,
+                        tag.url
+                      )
+                    ">
+                                        编辑
+                                    </div>
                                     <div @click="handleDeleteTag()">删除</div>
                                 </div>
                             </div>
@@ -201,12 +224,11 @@
                                 @click="handleAddTag(index)"
                             >
                                 <div class="tag-logo">
-                                    <img src="../../assets/images/icon_add_black.svg">
+                                    <img src="../../assets/images/icon_add_black.svg" />
                                 </div>
                                 <p class="tag-name mt-3">添加快捷方式</p>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -241,25 +263,30 @@
                                 class="form-control"
                                 placeholder="请输入名称"
                                 v-model="groupName"
-                            >
+                            />
                             <div
                                 class="err-msg"
                                 v-if="isShowGroupNameErr"
-                            >* 名称不能为空</div>
+                            >
+                                * 名称不能为空
+                            </div>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnAddGroupClick()"
-                        >添加</button>
+                        >
+                            添加
+                        </button>
                     </div>
                 </div>
             </div>
@@ -293,7 +320,9 @@
                         <button
                             class="backup-button"
                             @click="$Common.backupMySettings()"
-                        >导出到本地文件</button>
+                        >
+                            导出到本地文件
+                        </button>
 
                         <p class="mt-4">从备份恢复：</p>
                         <label
@@ -305,7 +334,7 @@
                                 type="file"
                                 style="display:none;"
                                 @change="$Common.importMySettings($event)"
-                            >从本地文件导入
+                            />从本地文件导入
                         </label>
                     </div>
                     <div class="modal-footer">
@@ -313,7 +342,9 @@
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >关闭</button>
+                        >
+                            关闭
+                        </button>
                     </div>
                 </div>
             </div>
@@ -353,7 +384,13 @@
                                             class="form-control"
                                             placeholder="请输入网址"
                                             v-model="webURL"
+                                        />
+                                        <div
+                                            class="err-msg"
+                                            v-if="isShowTagURLErr"
                                         >
+                                            * 网址不能为空
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>名称：</label>
@@ -363,7 +400,13 @@
                                             placeholder="请输入网站名称"
                                             v-model="webName"
                                             @input="handleWebNameInput()"
+                                        />
+                                        <div
+                                            class="err-msg"
+                                            v-if="isShowTagNameErr"
                                         >
+                                            * 名称不能为空
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -373,45 +416,69 @@
                                     <div class="d-flex c-logo-setting">
                                         <div class="col-4">
                                             <div
-                                                :class="{'active':checkedIndex===1}"
-                                                @click="togglePrevWay(1)"
+                                                :class="{ active: checkedIndex === 0 }"
+                                                @click="togglePrevWay(0)"
                                                 :style="`background:${webLogoBgColor};`"
-                                            >{{webLogoTxt}}
+                                            >
+                                                {{ webLogoTxt }}
                                             </div>
                                             <p>文字</p>
                                         </div>
                                         <div class="col-4">
-                                            <div
-                                                :class="{'active':checkedIndex===2}"
+                                            <!-- 图片上传 start -->
+                                            <!-- <div
+                                                class="c-upload-image"
+                                                :class="{ active: checkedIndex === 2 }"
                                                 @click="togglePrevWay(2)"
-                                                :style="`background:${webLogoBgColor};`"
                                             >
-                                            </div>
-                                            <p>上传</p>
+                                                <input
+                                                    id="uploadImg"
+                                                    type="file"
+                                                    name="img"
+                                                    accept="image/*"
+                                                    @change="uploadImg($event,this.file)"
+                                                    style="display:none"
+                                                />
+                                                <div
+                                                    class="icon-upload"
+                                                    id="showImg"
+                                                >
+                                                    <img
+                                                        src="../../assets/images/icon_upload.jpg"
+                                                        v-if="!webLogo"
+                                                    >
+                                                </div>
+                                            </div> -->
+                                            <!-- 图片上传 end -->
+
+                                            <!-- <p>上传</p> -->
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="bg-color-box mt-3">
                                     <label class="ml-3">背景颜色：</label>
-                                    <div class="d-flex c-logo-bgcolor ml-3">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
+                                    <div
+                                        class="d-flex c-logo-bgcolor ml-3"
+                                        @click="selectBgColor"
+                                    >
+                                        <div :data-index="0"></div>
+                                        <div :data-index="1"></div>
+                                        <div :data-index="2"></div>
+                                        <div :data-index="3"></div>
+                                        <div :data-index="4"></div>
+                                        <div :data-index="5"></div>
+                                        <div :data-index="6"></div>
+                                        <div :data-index="7"></div>
+                                        <div :data-index="8"></div>
+                                        <div :data-index="9"></div>
                                     </div>
                                     <div class="form-group px-3 pt-3 pb-0 m-0">
                                         <input
                                             type="text"
                                             class="form-control"
                                             v-model="webLogoBgColor"
-                                        >
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -422,12 +489,16 @@
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnAddTagClick()"
-                        >添加</button>
+                        >
+                            添加
+                        </button>
                     </div>
                 </div>
             </div>
@@ -466,7 +537,7 @@
                                         class="form-control"
                                         placeholder="请输入网址"
                                         v-model="webURL"
-                                    >
+                                    />
                                 </div>
                                 <div class="form-group">
                                     <label>名称：</label>
@@ -475,7 +546,8 @@
                                         class="form-control"
                                         placeholder="请输入网站名称"
                                         v-model="webName"
-                                    >
+                                        @input="handleWebNameInput()"
+                                    />
                                 </div>
                             </div>
                             <div class="col-6">
@@ -486,29 +558,52 @@
                                         v-if="webLogo"
                                     >
                                         <div
-                                            :class="{'active':checkedIndex===0}"
-                                            @click="togglePrevWay(0)"
+                                            :class="{ active: checkedIndex === 1 }"
+                                            @click="togglePrevWay(1)"
                                             :style="`background:${webLogoBgColor};`"
                                         >
-                                            <img :src="require(`../../assets/images/tagLogo/${webLogo}`)">
+                                            <img :src="require(`../../assets/images/tagLogo/${webLogo}`)" />
                                         </div>
                                         <p>官方</p>
                                     </div>
                                     <div class="col-4">
                                         <div
-                                            :class="{'active':checkedIndex===1}"
-                                            @click="togglePrevWay(1)"
+                                            :class="{ active: checkedIndex === 0 }"
+                                            @click="togglePrevWay(0)"
                                             :style="`background:${webLogoBgColor};`"
-                                        >{{webLogoTxt}}</div>
+                                        >
+                                            {{ webLogoTxt }}
+                                        </div>
                                         <p>文字</p>
                                     </div>
                                     <div class="col-4">
-                                        <div
-                                            :class="{'active':checkedIndex===2}"
+                                        <!-- 图片上传 start -->
+                                        <!-- <div
+                                            class="c-upload-image"
+                                            :class="{ active: checkedIndex === 2 }"
                                             @click="togglePrevWay(2)"
-                                            :style="`background:${webLogoBgColor};`"
-                                        ></div>
-                                        <p>上传</p>
+                                        >
+                                            <input
+                                                id="uploadImg"
+                                                type="file"
+                                                name="img"
+                                                accept="image/*"
+                                                @change="uploadImg($event)"
+                                                style="display:none"
+                                            />
+                                            <div class="icon-upload">
+                                                <img
+                                                    :src="webLogo"
+                                                    v-if="webLogo"
+                                                >
+                                                <img
+                                                    src="../../assets/images/icon_upload.jpg"
+                                                    v-else
+                                                >
+                                            </div>
+                                        </div> -->
+                                        <!-- 图片上传 end -->
+                                        <!-- <p>上传</p> -->
                                     </div>
                                 </div>
                             </div>
@@ -519,12 +614,16 @@
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnEditTagClick()"
-                        >确定</button>
+                        >
+                            确定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -561,12 +660,16 @@
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureDeleteTag()"
-                        >确定</button>
+                        >
+                            确定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -602,25 +705,30 @@
                                 class="form-control"
                                 placeholder="请输入名称"
                                 v-model="groupName"
-                            >
+                            />
                             <div
                                 class="err-msg"
                                 v-if="isShowGroupNameErr"
-                            >* 名称不能为空</div>
+                            >
+                                * 名称不能为空
+                            </div>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureEditGroup()"
-                        >确定</button>
+                        >
+                            确定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -657,12 +765,16 @@
                             type="button"
                             class="btn btn-cancel"
                             data-dismiss="modal"
-                        >取消</button>
+                        >
+                            取消
+                        </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureDeleteGroup()"
-                        >确定</button>
+                        >
+                            确定
+                        </button>
                     </div>
                 </div>
             </div>
@@ -672,12 +784,12 @@
 </template>
 
 <script>
-import initTabGroups from '../../assets/json/initTabGroups.json';
+import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
 import $ from "jquery";
 
 export default {
-    name: 'app',
+    name: "app",
     data() {
         return {
             myTabGroups: null, // 我的标签分组
@@ -688,6 +800,8 @@ export default {
             webURL: '', // 网址
             webName: '', // 网站名称
             webLogo: '', // 网址logo
+            isShowTagURLErr: false, // 是否显示快捷方式网址错误信息
+            isShowTagNameErr: false, // 是否显示快捷方式名称错误信息
             innerContainerHeight: 0, // 标签分组容器高度
             timer: false, // 定时器
             currentGroupIndex: null, // 当前右击选中的分组索引，用于控制操作菜单显示与隐藏
@@ -695,10 +809,12 @@ export default {
             activeIndex: 0, // 当前active的分组索引
             currentTagIndex: null, // 当前右击选中的快捷方式标签索引，用于控制操作菜单显示与隐藏
             operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
-            checkedIndex: 0, // 当前选择的标签logo预览方式
+            checkedIndex: 0, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
             webLogoBgColor: '#fff', // // 标签logo背景色
-        }
+            // config: null, // 图片上传配置信息
+            // params: null, // 图片上传的数据参数
+        };
     },
     created() {
         // 首次进入应用，使用初始化标签数据
@@ -709,7 +825,7 @@ export default {
             this.updateMyTabGroupList(); // 刷新我的标签分组
         }
 
-        // localStorage.clear(); // 删除所有缓存数据 test 
+        // localStorage.clear(); // 删除所有缓存数据 test
         console.info('created=======', localStorage);
     },
     mounted() {
@@ -722,7 +838,7 @@ export default {
             return (() => {
                 that.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
             })();
-        }
+        };
 
         // 给左侧分组菜单div注册滚动事件
         this.$refs.innerContainer.addEventListener('scroll', this.scroll);
@@ -750,6 +866,9 @@ export default {
                 $('#addGroupModal').modal('hide'); // 关闭弹框
 
                 this.groupName = '';
+
+                let groupLen = this.myTabGroups.tabs.length;
+                this.active(groupLen - 1); // 标签分组active样式定位到新增标签
             }
         },
 
@@ -772,7 +891,7 @@ export default {
 
         // 分组操作菜单'编辑'按钮点击事件
         handleEditTabGroup(groupName) {
-            $("#editGroupModal").modal('show');
+            $('#editGroupModal').modal('show');
             this.groupName = groupName;
         },
 
@@ -796,7 +915,7 @@ export default {
 
         // 分组操作菜单'删除'按钮点击事件
         handleDeleteTabGroup() {
-            $("#deleteGroupModal").modal('show');
+            $('#deleteGroupModal').modal('show');
         },
 
         // 删除分组弹框'确定'按钮点击事件
@@ -806,6 +925,8 @@ export default {
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#deleteGroupModal').modal('hide'); // 关闭弹框
             this.operateGroupIndex = null;
+            this.active(0);
+            this.handleEnterUpArrow(); // 滚动到标签顶部
         },
 
         // 添加快捷方式 点击事件
@@ -814,8 +935,9 @@ export default {
             this.webName = '';
             this.webURL = '';
             this.operateGroupIndex = index;
-            this.checkedIndex = 1;
+            this.checkedIndex = 0;
             this.webLogoTxt = 'A';
+            this.webLogoBgColor = '#fff';
 
             // let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
             // console.info('favicon:', favicon);
@@ -828,7 +950,8 @@ export default {
 
         // 改变logo预览方式样式
         changeWebLogoTxtCss() {
-            if (this.checkedIndex === 1) { // logo预览方式为文字
+            if (this.checkedIndex === 0) {
+                // logo预览方式为文字
                 if (this.webName !== '') {
                     this.webLogoTxt = this.webName.substr(0, 2);
                 } else {
@@ -850,7 +973,38 @@ export default {
             let logoPrevIndex = this.checkedIndex;
             let webLogoBgColor = this.webLogoBgColor;
 
-            myTabGroupList.addTag(operateGroupIndex, webLogo, webLogoTxt, logoPrevIndex, webLogoBgColor, webName, webURL); // 添加标签
+            if (webURL === '') {
+                this.isShowTagURLErr = true;
+                return;
+            } else {
+                this.isShowTagURLErr = false;
+            }
+
+            if (webName === '') {
+                this.isShowTagNameErr = true;
+                return;
+            } else {
+                this.isShowTagNameErr = false;
+            }
+
+            if (logoPrevIndex == 2) {
+                if (webLogo === '') {
+                    // 未上传图片时，默认取文字+背景色方式展示快捷方式logo
+                    logoPrevIndex = 0;
+                    webLogoBgColor = '#fff';
+                    webLogoTxt = webName.substr(0, 2);
+                }
+            }
+
+            myTabGroupList.addTag(
+                operateGroupIndex,
+                webLogo,
+                webLogoTxt,
+                logoPrevIndex,
+                webLogoBgColor,
+                webName,
+                webURL
+            ); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#addTagModal').modal('hide'); // 关闭弹框
             this.operateGroupIndex = null;
@@ -870,7 +1024,7 @@ export default {
 
         // 标签操作菜单'编辑'按钮点击事件
         handleEditTag(index, logo, logoPrevIndex, logoTxt, logoBgColor, name, url) {
-            $("#editTagModal").modal('show');
+            $('#editTagModal').modal('show');
             this.operateGroupIndex = index;
             this.webLogo = logo;
             this.webName = name;
@@ -885,6 +1039,69 @@ export default {
         togglePrevWay(index) {
             this.checkedIndex = index;
             this.changeWebLogoTxtCss();
+            if (index === 2) { // 自定义上传
+                this.addImg();
+            }
+        },
+
+        // 添加图片
+        addImg() {
+            document.getElementById('uploadImg').click();
+        },
+
+        // 上传图片
+        uploadImg(e, files) {
+            // let _this = this;
+            // //选择图片
+            // let img = e.target.files[0];
+            // // this.params = new FormData(); // 创建form对象
+            // // this.params.append('file', img);
+            // // this.config = {
+            // //     headers: { 'Content-Type': 'multipart/form-data' }
+            // // };
+
+            // // 限制图片大小
+            // let size = Math.floor(img.size);
+            // if (size > 5 * 1024 * 1024) {
+            //     alert('请选择5M以内的图片！');
+            //     return false;
+            // }
+
+            // if (img) {
+            //     let fileReader = new FileReader();
+            //     fileReader.readAsDataURL(img);                
+
+            //     fileReader.onloadend = function () {
+            //         _this.webLogo = fileReader.result;
+            //         console.info('webLogo==========', _this.webLogo);
+            // 	};
+
+            // 	// 获取显示图片名称的div
+            // 	// let ShowImgDiv = e.target.nextsibling;
+            // 	let ShowImgDiv = document.getElementById('showImg');
+            // 	console.info('ShowImgDiv:',ShowImgDiv);
+
+            //     // 图片预览
+            //     ShowImgDiv.innerHTML =
+            //         ShowImgDiv.innerHTML +
+            //         `<img class="img-preview" src=${_this.webLogo} />`;
+
+
+            // }
+
+            var ShowImgDiv = document.getElementById('showImg');
+            for (var i = 0; i < files.length; i++) {
+                var img_box = document.createElement('div');
+                img_box.setAttribute('class', 'file-content');
+                var img = document.createElement('img');
+                img.src = window.URL.createObjectURL(files[i]);
+                img.height = 100;
+                img.onload = function () {
+                    window.URL.revokeObjectURL(this.src);
+                }
+                img_box.appendChild(img);
+                ShowImgDiv.appendChild(img_box)
+            }
         },
 
         // 编辑快捷方式（标签）弹框-'确定'按钮点击事件处理
@@ -899,7 +1116,16 @@ export default {
             let webLogoBgColor = this.webLogoBgColor;
 
             // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
-            myTabGroupList.editTag(operateGroupIndex, operateTagIndex, webLogo, webLogoTxt, logoPrevIndex, webLogoBgColor, webName, webURL); // 添加标签
+            myTabGroupList.editTag(
+                operateGroupIndex,
+                operateTagIndex,
+                webLogo,
+                webLogoTxt,
+                logoPrevIndex,
+                webLogoBgColor,
+                webName,
+                webURL
+            ); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
             $('#editTagModal').modal('hide'); // 关闭弹框
             this.operateTagIndex = null;
@@ -907,7 +1133,7 @@ export default {
 
         // 标签操作菜单'删除'按钮点击事件
         handleDeleteTag() {
-            $("#deleteTagModal").modal('show');
+            $('#deleteTagModal').modal('show');
         },
 
         // 删除标签弹框'确定'按钮点击事件
@@ -921,16 +1147,63 @@ export default {
             this.operateTagIndex = null;
         },
 
+        // 选择背景颜色
+        selectBgColor(e) {
+            if (e.target.nodeName.toLowerCase() === 'div') {
+                let index = parseInt(e.target.dataset.index);
+                if (!isNaN(index)) {
+                    let currentColor = $(e.target).css('background-color');
+                    if (currentColor === 'rgba(0, 0, 0, 0)') {
+                        this.webLogoBgColor = 'transparent';
+                    } else {
+                        this.webLogoBgColor = this.RGBtoHEX(currentColor);
+                    }
+                    this.checkedIndex = 0;
+                }
+            }
+        },
+
+        //将rgb()格式颜色转换成大写十六机制字符串（#C0C0C0），如果已经是十六进制则直接输出
+        RGBtoHEX(str) {
+            if (str.substring(0, 3) == 'rgb') {
+                var arr = str.split(',');
+                var r = arr[0].replace('rgb(', '').trim(),
+                    g = arr[1].trim(),
+                    b = arr[2].replace(')', '').trim();
+                var hex = [this.toHex(r), this.toHex(g), this.toHex(b)];
+                return '#' + hex.join('');
+            } else {
+                return str;
+            }
+        },
+        //将十进制数字转换成两位十六进制字符串
+        toHex(N) {
+            if (N == null) return '00';
+            N = parseInt(N);
+            if (N == 0 || isNaN(N)) return '00';
+            N = Math.max(0, N);
+            N = Math.min(N, 255);
+            N = Math.round(N);
+            return (
+                '0123456789ABCDEF'.charAt((N - (N % 16)) / 16) +
+                '0123456789ABCDEF'.charAt(N % 16)
+            );
+        },
+
         // 百度-'搜索'按钮点击事件处理
         handleBaiduSearchClick() {
             let baiduKeyword = this.baiduKeyword;
-            window.location.replace(`https://www.baidu.com/s?ie=utf-8&wd=${baiduKeyword}`);
+            window.location.replace(
+                `https://www.baidu.com/s?ie=utf-8&wd=${baiduKeyword}`
+            );
         },
 
         // 谷歌-'搜索'按钮点击事件处理
         handleGoogleSearchClick() {
             let googleKeyword = this.googleKeyword;
-            window.location.replace(`https://www.google.com/search?ie=utf-8&q=${googleKeyword}`);
+            window.location.replace(
+                `https://www.google.com/search?ie=utf-8&q=${googleKeyword}`
+            );
         },
 
         // 判断是否有纵轴滚动条
@@ -942,7 +1215,8 @@ export default {
         handleDirectionArrow() {
             let element = $('.inner-container')[0];
             let hasScrolled = this.hasScrolled(element);
-            if (hasScrolled) { // 有滚动条
+            if (hasScrolled) {
+                // 有滚动条
                 // 显示可滚动箭头
                 $('.c-setting .c-direction-arrow').show();
             } else {
@@ -961,7 +1235,7 @@ export default {
             $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
         },
 
-        // 给左侧分组菜单div绑定滚动事件 
+        // 给左侧分组菜单div绑定滚动事件
         scroll() {
             // 滚动条滚动时，距离顶部的距离
             let scrollTop = this.$refs.innerContainer.scrollTop;
@@ -972,19 +1246,21 @@ export default {
             // 滚动条的总高度
             let scrollHeight = this.$refs.innerContainer.scrollHeight;
 
-            if (scrollTop + divHeight === scrollHeight) { // 滚动到底部
+            if (scrollTop + divHeight === scrollHeight) {
+                // 滚动到底部
                 $('.c-setting .c-direction-arrow').hide();
                 $('.c-logo .c-direction-arrow').show();
             }
 
-            if (scrollTop === 0) { // 滚动到顶部
+            if (scrollTop === 0) {
+                // 滚动到顶部
                 $('.c-logo .c-direction-arrow').hide();
                 $('.c-setting .c-direction-arrow').show();
             }
         },
-
     },
-    watch: { // 监听数据变化
+    watch: {
+        // 监听数据变化
         innerContainerHeight(val) {
             // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
             if (!this.timer) {
@@ -999,10 +1275,9 @@ export default {
                 }, 400);
                 that.handleDirectionArrow();
             }
-        }
-    }
-
-}
+        },
+    },
+};
 </script>
 
 <style>
@@ -1017,5 +1292,27 @@ export default {
 
 .input-group-append {
     cursor: pointer;
+}
+
+.c-upload-img {
+    width: 85px;
+    position: relative;
+}
+
+.icon-upload img {
+    width: 85px;
+    height: 85px;
+    position: absolute;
+}
+
+.c-img-preview {
+    width: 85px;
+    height: 85px;
+}
+
+.img-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 </style>
