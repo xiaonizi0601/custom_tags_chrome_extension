@@ -58,10 +58,7 @@
                 <div class="col-12">
                     <label>预览：</label>
                     <div class="d-flex c-logo-setting">
-                        <div
-                            class="col-4"
-                            v-if="webLogo"
-                        >
+                        <div class="col-4">
                             <div
                                 :class="{ active: checkedIndex === 1 }"
                                 @click="togglePrevWay(1)"
@@ -69,8 +66,13 @@
                             >
                                 <img
                                     :src="webLogo"
-                                    class="w-100"
+                                    class="w-50"
+                                    v-if="webLogo"
                                 />
+                                <img
+                                    src="../../assets/images/logo_48.png"
+                                    v-else
+                                >
                             </div>
                             <p>官方</p>
                         </div>
@@ -173,7 +175,7 @@ export default {
             operateGroupIndex: 0, // 当前选中的分组索引
             webURL: '', // 网址
             webName: '', // 网站名称
-            webLogo: '' || require('../../assets/images/logo_128.png'), // 网址logo
+            webLogo: '', // 网址logo
             isShowTagURLErr: false, // 是否显示快捷方式网址错误信息
             isShowTagNameErr: false, // 是否显示快捷方式名称错误信息
             checkedIndex: 1, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
@@ -197,7 +199,8 @@ export default {
             console.log(tab);
             $this.webURL = tab.url;
             $this.webName = tab.title;
-            $this.webLogo = tab.favIconUrl
+            $this.webLogo = tab.favIconUrl;
+            console.info('webLogo=', $this.webLogo);
         });
     },
     methods: {
@@ -316,6 +319,10 @@ export default {
             this.updateMyTabGroupList(); // 刷新我的标签分组
 
             window.close(); // 关闭popup
+
+            // if (webURL.includes('chrome://newtab/')) { // 如果是插件所在newtab页，则刷新当前页面
+            //     window.location.reload(true); //   强制从服务器重新加载当前页面
+            // }
         },
     }
 }

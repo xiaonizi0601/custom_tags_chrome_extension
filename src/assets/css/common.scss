@@ -4,7 +4,7 @@
 
 *,
 p {
-    margin: 0;
+    margin : 0;
     padding: 0;
 }
 
@@ -13,14 +13,14 @@ html {
 }
 
 body {
-    font-size: 14px;
-    color: $base-text-color;
-    background-color: $bg-color;
-    font-family: 'Rajdhani', helvetica neue, hiragino sans gb, arial, microsoft yahei ui, microsoft yahei, simsun, sans-serif;
-    -webkit-font-smoothing: antialiased;
+    font-size              : 14px;
+    color                  : $base-text-color;
+    background-color       : $bg-color;
+    font-family            : 'Rajdhani', helvetica neue, hiragino sans gb, arial, microsoft yahei ui, microsoft yahei, simsun, sans-serif;
+    -webkit-font-smoothing : antialiased;
     -moz-osx-font-smoothing: grayscale;
-    height: 100%;
-    overflow-x: hidden;
+    height                 : 100%;
+    overflow-x             : hidden;
 }
 
 a,
@@ -36,7 +36,7 @@ button,
 button:focus,
 input,
 input:focus {
-    outline: none !important;
+    outline   : none !important;
     box-shadow: none !important;
 }
 
@@ -57,9 +57,9 @@ input:focus {
 .c-popup {
     .modal-footer {
         button {
-            width: 140px;
+            width : 140px;
             margin: 10px;
-            color: #fff;
+            color : #fff;
         }
 
         .btn-cancel {
@@ -94,38 +94,38 @@ input:focus {
 
     .nav-pills {
         .nav-link {
-            border-radius: 0;
-            color: #fff;
-            padding-right: 0px;
-            padding-top: 15px;
+            border-radius : 0;
+            color         : #fff;
+            padding-right : 0px;
+            padding-top   : 15px;
             padding-bottom: 15px;
-            position: relative;
+            position      : relative;
 
             div.group-name {
-                padding: 0 10px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                padding              : 0 10px;
+                white-space          : nowrap;
+                overflow             : hidden;
+                text-overflow        : ellipsis;
                 -webkit-touch-callout: none;
                 /*系统默认菜单被禁用*/
-                -webkit-user-select: none;
+                -webkit-user-select  : none;
                 /*webkit浏览器*/
-                -khtml-user-select: none;
+                -khtml-user-select   : none;
                 /*早期浏览器*/
-                -moz-user-select: none;
+                -moz-user-select     : none;
             }
 
             div.operation-menu {
-                position: absolute;
-                left: 49%;
-                border: 1px solid $gray;
+                position     : absolute;
+                left         : 49%;
+                border       : 1px solid $gray;
                 border-radius: 5px;
-                background: #fff;
-                font-size: 12px;
-                width: 49%;
-                color: $gray;
-                z-index: 3;
-                overflow: hidden;
+                background   : #fff;
+                font-size    : 12px;
+                width        : 49%;
+                color        : $gray;
+                z-index      : 3;
+                overflow     : hidden;
 
                 div {
                     padding: 5px 10px;
@@ -147,16 +147,16 @@ input:focus {
     }
 
     .tab-logo {
-        width: 50px;
-        height: 50px;
-        margin: 30px auto;
-        padding: 5px;
-        background: #fff;
+        width        : 50px;
+        height       : 50px;
+        margin       : 30px auto;
+        padding      : 5px;
+        background   : #fff;
         border-radius: 50%;
     }
 
     .icon-add {
-        width: 20px;
+        width : 20px;
         height: 20px;
         cursor: pointer;
     }
@@ -165,43 +165,43 @@ input:focus {
 
 
 .c-tag {
-    color: $base-text-color;
-    margin: 30px 0 0;
-    cursor: pointer;
+    color  : $base-text-color;
+    margin : 30px 0 0;
+    cursor : pointer;
     display: inline-block;
 
     .tag-logo {
-        width: 50px;
-        height: 50px;
-        padding: 10px;
-        border: 1px solid #fff;
+        width        : 50px;
+        height       : 50px;
+        padding      : 10px;
+        border       : 1px solid #fff;
         border-radius: 50%;
-        background: #fff;
-        margin: 0 auto;
-        font-size: 16px;
-        font-weight: 600;
-        white-space: nowrap;
+        background   : #fff;
+        margin       : 0 auto;
+        font-size    : 16px;
+        font-weight  : 600;
+        white-space  : nowrap;
 
         img {
-            width: 30px;
+            width     : 30px;
             object-fit: cover;
         }
 
     }
 
     .tag-name {
-        width: 120px;
-        height: 24px;
-        line-height: 24px;
+        width        : 120px;
+        height       : 24px;
+        line-height  : 24px;
         border-radius: 12px;
-        background: #fff;
-        white-space: nowrap;
-        overflow: hidden;
+        background   : #fff;
+        white-space  : nowrap;
+        overflow     : hidden;
         text-overflow: ellipsis;
-        font-size: 12px;
-        font-weight: 600;
-        margin: 0 auto;
-        padding: 0 10px;
+        font-size    : 12px;
+        font-weight  : 600;
+        margin       : 0 auto;
+        padding      : 0 10px;
     }
 
 }
@@ -210,25 +210,25 @@ input:focus {
     color: $base-color;
 }
 
-.tag-box{
+.tag-box {
     position: relative;
 }
 
 
 .upload-button,
 .backup-button {
-    padding: 5px 10px;
+    padding   : 5px 10px;
     background: #fff;
-    color: $base-color;
-    cursor: pointer;
-    border: 1px solid $base-color;
+    color     : $base-color;
+    cursor    : pointer;
+    border    : 1px solid $base-color;
 }
 
 .c-setting {
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
-    cursor: pointer;
+    width     : 100%;
+    position  : absolute;
+    bottom    : 0px;
+    cursor    : pointer;
     background: $gray;
 
     .icon-setting {
@@ -237,16 +237,16 @@ input:focus {
 }
 
 .c-direction-arrow {
-    position: absolute;
-    top: -20px;
-    left: 0;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.2);
-    width: 100%;
+    position    : absolute;
+    top         : -20px;
+    left        : 0;
+    color       : #fff;
+    background  : rgba(0, 0, 0, 0.2);
+    width       : 100%;
     padding-left: 18px;
-    z-index: 2;
-    display: none;
-    cursor: pointer;
+    z-index     : 2;
+    display     : none;
+    cursor      : pointer;
 }
 
 .c-logo {
@@ -254,52 +254,52 @@ input:focus {
 }
 
 .c-logo .c-direction-arrow {
-    top: 130px;
+    top      : 130px;
     transform: rotate(180deg);
-    padding: 0 18px 0 0;
+    padding  : 0 18px 0 0;
 }
 
 .outer-container {
-    height: 100%;
+    height  : 100%;
     position: relative;
     overflow: hidden;
 }
 
 .inner-container {
-    position: absolute;
-    left: 0;
-    top: 130px;
-    right: -17px;
-    bottom: 0;
+    position  : absolute;
+    left      : 0;
+    top       : 130px;
+    right     : -17px;
+    bottom    : 0;
     overflow-x: hidden;
     overflow-y: scroll;
 }
 
 .err-msg {
-    font-size: 14px;
-    color: #F04D41;
+    font-size : 14px;
+    color     : #F04D41;
     margin-top: 5px;
 }
 
 .c-logo-setting {
-    div {
+    >div {
         padding: 0;
 
-        div {
-            width: 85px;
-            height: 85px;
-            border:1px solid $grey;
-            display: flex;
+        >div {
+            width          : 85px;
+            height         : 85px;
+            border         : 1px solid $grey;
+            display        : flex;
             justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-            font-size: 24px;
-            cursor: pointer;
-            color: $base-text-color;
+            align-items    : center;
+            margin         : 0 auto;
+            font-size      : 24px;
+            cursor         : pointer;
+            color          : $base-text-color;
         }
 
-        .active{
-            border: 2px solid $base-color;
+        .active {
+            border    : 2px solid $base-color;
             box-shadow: inset 0 0 0 2px #fff;
         }
 
@@ -308,23 +308,27 @@ input:focus {
             margin-top: 5px;
         }
 
-        .c-upload{
+        .c-upload {
             background-color: $grey;
+        }
+
+        img {
+            width: 40px;
         }
     }
 }
 
 .tag-operation-menu {
-    position: absolute;
-    left: 49%;
-    border: 1px solid $gray;
+    position     : absolute;
+    left         : 49%;
+    border       : 1px solid $gray;
     border-radius: 5px;
-    background: #fff;
-    font-size: 12px;
-    width: 49%;
-    color: $gray;
-    z-index: 3;
-    overflow: hidden;
+    background   : #fff;
+    font-size    : 12px;
+    width        : 49%;
+    color        : $gray;
+    z-index      : 3;
+    overflow     : hidden;
 
     div {
         padding: 5px 10px;
@@ -338,52 +342,64 @@ input:focus {
 
 .base-setting-box,
 .bg-color-box,
-.logo-setting-box{
+.logo-setting-box {
     background-color: $bg-color;
-    border-radius: 5px;
-    padding: 10px 0;
-    .c-logo-bgcolor{
-        
-        div{
-            width: 24px;
-            height: 24px;
-            background: $gray;
+    border-radius   : 5px;
+    padding         : 10px 0;
+
+    .c-logo-bgcolor {
+
+        div {
+            width       : 24px;
+            height      : 24px;
+            background  : $gray;
             margin-right: 10px;
-            cursor: pointer;
+            cursor      : pointer;
         }
-        div.active{
-            border: 2px solid $base-color;
+
+        div.active {
+            border    : 2px solid $base-color;
             box-shadow: inset 0 0 0 1px #fff;
         }
-        div:nth-of-type(1){
+
+        div:nth-of-type(1) {
             background: #fff;
         }
-        div:nth-of-type(2){
+
+        div:nth-of-type(2) {
             background: $base-color;
         }
-        div:nth-of-type(3){
+
+        div:nth-of-type(3) {
             background: #ee3b3b;
         }
-        div:nth-of-type(4){
+
+        div:nth-of-type(4) {
             background: #fcb138;
         }
-        div:nth-of-type(5){
+
+        div:nth-of-type(5) {
             background: #85d724;
         }
-        div:nth-of-type(6){
+
+        div:nth-of-type(6) {
             background: #16d9c4;
         }
-        div:nth-of-type(7){
+
+        div:nth-of-type(7) {
             background: #276ce6;
         }
-        div:nth-of-type(8){
+
+        div:nth-of-type(8) {
             background: #00aefd;
         }
-        div:nth-of-type(9){
+
+        div:nth-of-type(9) {
             background: $gray;
         }
-        div:last-child{
-            background: url("../images/icon_transparent.jpg") transparent;
+
+        div:last-child {
+            background     : url("../images/icon_transparent.jpg") transparent;
             background-size: 100% 100%;
         }
     }

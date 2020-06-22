@@ -177,17 +177,24 @@
                                         <span v-if="tag.logoPrevIndex === 0">{{
                       tag.logoTxt
                     }}</span>
-                                        <div v-if="tag.logoPrevIndex === 1 && tag.logo">
-                                            <img
-                                                :src="tag.logo"
-                                                v-if="tag.logo.includes('http')"
-                                            />
-                                            <img
-                                                :src="
+                                        <div v-if="tag.logoPrevIndex === 1">
+                                            <div v-if="tag.logo">
+                                                <img
+                                                    :src="tag.logo"
+                                                    v-if="tag.logo.includes('http')"
+                                                />
+                                                <img
+                                                    :src="
                           require(`../../assets/images/tagLogo/${tag.logo}`)
                         "
+                                                    v-else
+                                                />
+                                            </div>
+
+                                            <img
+                                                src="../../assets/images/logo_48.png"
                                                 v-else
-                                            />
+                                            >
                                         </div>
 
                                         <!-- <div v-if="tag.logoPrevIndex === 2">
@@ -560,24 +567,26 @@
                                 <div class="logo-setting-box">
                                     <label class="ml-3">预览：</label>
                                     <div class="d-flex c-logo-setting">
-                                        <div
-                                            class="col-4"
-                                            v-if="webLogo"
-                                        >
+                                        <div class="col-4">
                                             <div
                                                 :class="{ active: checkedIndex === 1 }"
                                                 @click="togglePrevWay(1)"
                                                 :style="checkedIndex === 1&&`background:${webLogoBgColor};`"
                                             >
+                                                <div v-if="webLogo">
+                                                    <img
+                                                        :src="webLogo"
+                                                        v-if="webLogo.includes('http')"
+                                                    />
+                                                    <img
+                                                        :src="require(`../../assets/images/tagLogo/${webLogo}`)"
+                                                        v-else
+                                                    />
+                                                </div>
                                                 <img
-                                                    :src="webLogo"
-                                                    v-if="webLogo.includes('http')"
-                                                />
-                                                <img
-                                                    :src="require(`../../assets/images/tagLogo/${webLogo}`)"
+                                                    src="../../assets/images/logo_48.png"
                                                     v-else
-                                                />
-
+                                                >
                                             </div>
                                             <p>官方</p>
                                         </div>
@@ -1011,9 +1020,6 @@ export default {
             this.checkedIndex = 0;
             this.webLogoTxt = 'A';
             this.webLogoBgColor = '#FFFFFF';
-
-            // let favicon = window.location.protocol + "//" + window.location.host + "/favicon.ico";
-            // console.info('favicon:', favicon);
         },
 
         // 添加快捷方式弹框 名称输入事件
