@@ -1,6 +1,6 @@
 console.info('background.js');
 
-
+// 创建鼠标右击菜单
 // const options = {
 //     type: 'normal',
 //     id: '1',

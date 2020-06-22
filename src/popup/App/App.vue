@@ -15,6 +15,12 @@
                             placeholder="请输入网址"
                             v-model="webURL"
                         >
+                        <div
+                            class="err-msg"
+                            v-if="isShowTagURLErr"
+                        >
+                            * 网址不能为空
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>名称：</label>
@@ -25,6 +31,12 @@
                             v-model="webName"
                             @input="handleWebNameInput()"
                         >
+                        <div
+                            class="err-msg"
+                            v-if="isShowTagNameErr"
+                        >
+                            * 名称不能为空
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>分组：</label>
@@ -32,10 +44,13 @@
                             class="form-control"
                             name=''
                             id=''
+                            @change="handleGroupChange(operateGroupIndex)"
+                            v-model="operateGroupIndex"
                         >
                             <option
                                 v-for="(item, index) in myTabGroups.tabs"
                                 :key="index"
+                                :value="index"
                             >{{ item.name }}</option>
                         </select>
                     </div>
@@ -76,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 bg-color-box mt-3">
+                <div class="col-12 bg-color-box">
                     <label class="ml-3">背景颜色：</label>
                     <div
                         class="d-flex c-logo-bgcolor ml-3"
@@ -155,9 +170,12 @@ export default {
     data() {
         return {
             myTabGroups: null, // 我的标签分组
+            operateGroupIndex: 0, // 当前选中的分组索引
             webURL: '', // 网址
             webName: '', // 网站名称
             webLogo: '' || require('../../assets/images/logo_128.png'), // 网址logo
+            isShowTagURLErr: false, // 是否显示快捷方式网址错误信息
+            isShowTagNameErr: false, // 是否显示快捷方式名称错误信息
             checkedIndex: 1, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
             webLogoBgColor: '#FFFFFF', // // 标签logo背景色
@@ -171,7 +189,16 @@ export default {
         } else {
             this.updateMyTabGroupList(); // 刷新我的标签分组
         }
-
+    },
+    mounted() {
+        let $this = this;
+        // 获取当前页面的url和title
+        chrome.tabs.getSelected(null, function (tab) {
+            console.log(tab);
+            $this.webURL = tab.url;
+            $this.webName = tab.title;
+            $this.webLogo = tab.favIconUrl
+        });
     },
     methods: {
         // 刷新我的标签分组
@@ -179,11 +206,13 @@ export default {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
         },
+
         // 切换标签logo预览方式 激活样式
         togglePrevWay(index) {
             this.checkedIndex = index;
             this.changeWebLogoTxtCss();
         },
+
         // 改变logo预览方式样式
         changeWebLogoTxtCss() {
             if (this.checkedIndex === 0) {
@@ -197,11 +226,16 @@ export default {
                 this.webLogoTxt = 'A';
             }
         },
+
         // 名称输入事件
         handleWebNameInput() {
             this.changeWebLogoTxtCss();
         },
 
+        // 选择分组
+        handleGroupChange(value) {
+            console.info(value);
+        },
         // 选择背景颜色
         selectBgColor(e) {
             if (e.target.nodeName.toLowerCase() === 'div') {
@@ -244,6 +278,44 @@ export default {
                 '0123456789ABCDEF'.charAt((N - (N % 16)) / 16) +
                 '0123456789ABCDEF'.charAt(N % 16)
             );
+        },
+        // 弹框-'添加'按钮点击事件处理
+        handleBtnAddTagClick() {
+            let operateGroupIndex = this.operateGroupIndex;
+            let webLogo = this.webLogo;
+            let webName = this.webName;
+            let webURL = this.webURL;
+
+            let webLogoTxt = this.webLogoTxt;
+            let logoPrevIndex = this.checkedIndex;
+            let webLogoBgColor = this.webLogoBgColor;
+
+            if (webURL === '') {
+                this.isShowTagURLErr = true;
+                return;
+            } else {
+                this.isShowTagURLErr = false;
+            }
+
+            if (webName === '') {
+                this.isShowTagNameErr = true;
+                return;
+            } else {
+                this.isShowTagNameErr = false;
+            }
+
+            myTabGroupList.addTag(
+                operateGroupIndex,
+                webLogo,
+                webLogoTxt,
+                logoPrevIndex,
+                webLogoBgColor,
+                webName,
+                webURL
+            ); // 添加标签
+            this.updateMyTabGroupList(); // 刷新我的标签分组
+
+            window.close(); // 关闭popup
         },
     }
 }

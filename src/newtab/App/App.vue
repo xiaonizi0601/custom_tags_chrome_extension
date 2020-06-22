@@ -177,23 +177,27 @@
                                         <span v-if="tag.logoPrevIndex === 0">{{
                       tag.logoTxt
                     }}</span>
-                                        <div v-if="tag.logoPrevIndex === 1">
+                                        <div v-if="tag.logoPrevIndex === 1 && tag.logo">
+                                            <img
+                                                :src="tag.logo"
+                                                v-if="tag.logo.includes('http')"
+                                            />
                                             <img
                                                 :src="
                           require(`../../assets/images/tagLogo/${tag.logo}`)
                         "
-                                                v-if="tag.logo"
+                                                v-else
                                             />
                                         </div>
 
-                                        <div v-if="tag.logoPrevIndex === 2">
+                                        <!-- <div v-if="tag.logoPrevIndex === 2">
                                             <img
                                                 :src="
                           require(`../../assets/images/tagLogo/upload/${tag.logo}`)
                         "
                                                 v-if="tag.logo"
                                             />
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <p class="tag-name mt-3">{{ tag.name }}</p>
                                 </a>
@@ -565,7 +569,15 @@
                                                 @click="togglePrevWay(1)"
                                                 :style="checkedIndex === 1&&`background:${webLogoBgColor};`"
                                             >
-                                                <img :src="require(`../../assets/images/tagLogo/${webLogo}`)" />
+                                                <img
+                                                    :src="webLogo"
+                                                    v-if="webLogo.includes('http')"
+                                                />
+                                                <img
+                                                    :src="require(`../../assets/images/tagLogo/${webLogo}`)"
+                                                    v-else
+                                                />
+
                                             </div>
                                             <p>官方</p>
                                         </div>
