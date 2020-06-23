@@ -3,6 +3,7 @@
         class="main_app h-100"
         @click="hideperationGroupMenu()"
     >
+
         <div class="row h-100">
             <div class="col-1 c-nav-pills p-0 text-center">
                 <div
@@ -31,27 +32,33 @@
                         ref="innerContainer"
                         @mousewheel="scroll()"
                     >
-                        <a
-                            class="nav-link"
-                            :class="{ active: activeIndex == index }"
-                            data-toggle="pill"
-                            :href="'#v-pills-' + index"
-                            role="tab"
-                            :aria-selected="activeIndex == index ? true : false"
-                            v-for="(item, index) in myTabGroups.tabs"
-                            :key="index"
-                            @contextmenu.prevent="handleRightClickGroup(index)"
-                            @click="active(index)"
+                        <!-- 标签分组拖拽排序 -->
+                        <draggable
+                            v-model="myTabGroups.tabs"
+                            @update="dataDragEnd"
                         >
-                            <div class="group-name">{{ item.name }}</div>
-                            <div
-                                class="operation-menu"
-                                v-show="currentGroupIndex == index"
+                            <a
+                                class="nav-link"
+                                :class="{ active: activeIndex == index }"
+                                data-toggle="pill"
+                                :href="'#v-pills-' + index"
+                                role="tab"
+                                :aria-selected="activeIndex == index ? true : false"
+                                v-for="(item, index) in myTabGroups.tabs"
+                                :key="index"
+                                @contextmenu.prevent="handleRightClickGroup(index)"
+                                @click="active(index)"
                             >
-                                <div @click="handleEditTabGroup(item.name)">编辑</div>
-                                <div @click="handleDeleteTabGroup()">删除</div>
-                            </div>
-                        </a>
+                                <div class="group-name">{{ item.name }}</div>
+                                <div
+                                    class="operation-menu"
+                                    v-show="currentGroupIndex == index"
+                                >
+                                    <div @click="handleEditTabGroup(item.name)">编辑</div>
+                                    <div @click="handleDeleteTabGroup()">删除</div>
+                                </div>
+                            </a>
+                        </draggable>
                         <a
                             class="nav-link c-add"
                             data-toggle="modal"
@@ -150,16 +157,18 @@
 
                     <div
                         class="tab-pane fade mt-5 px-5"
-                        :class="[
-              { show: activeIndex == index },
-              { active: activeIndex == index },
-            ]"
+                        :class="[{ show: activeIndex == index },{ active: activeIndex == index },]"
                         :id="'v-pills-' + index"
                         role="tabpanel"
                         v-for="(item, index) in myTabGroups.tabs"
                         :key="index"
                     >
-                        <div class="row">
+                        <!-- 标签分组拖拽排序 -->
+                        <draggable
+                            v-model="item.tags"
+                            class="row"
+                            @end="dataDragEnd"
+                        >
                             <div
                                 class="col-2 tag-box"
                                 v-for="(tag, idx) in item.tags"
@@ -174,9 +183,7 @@
                                         class="tag-logo d-flex justify-content-center align-items-center"
                                         :style="`background:${tag.logoBgColor};`"
                                     >
-                                        <span v-if="tag.logoPrevIndex === 0">{{
-                      tag.logoTxt
-                    }}</span>
+                                        <span v-if="tag.logoPrevIndex === 0">{{tag.logoTxt}}</span>
                                         <div v-if="tag.logoPrevIndex === 1">
                                             <div v-if="tag.logo">
                                                 <img
@@ -184,9 +191,7 @@
                                                     v-if="tag.logo.includes('http')"
                                                 />
                                                 <img
-                                                    :src="
-                          require(`../../assets/images/tagLogo/${tag.logo}`)
-                        "
+                                                    :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
                                                     v-else
                                                 />
                                             </div>
@@ -199,12 +204,10 @@
 
                                         <!-- <div v-if="tag.logoPrevIndex === 2">
                                             <img
-                                                :src="
-                          require(`../../assets/images/tagLogo/upload/${tag.logo}`)
-                        "
+                                                :src="require(`../../assets/images/tagLogo/upload/${tag.logo}`)"
                                                 v-if="tag.logo"
                                             />
-                                        </div> -->
+                                            </div> -->
                                     </div>
                                     <p class="tag-name mt-3">{{ tag.name }}</p>
                                 </a>
@@ -212,17 +215,7 @@
                                     class="operation-menu tag-operation-menu"
                                     v-show="currentTagIndex == idx"
                                 >
-                                    <div @click.stop="
-                      handleEditTag(
-                        index,
-                        tag.logo,
-                        tag.logoPrevIndex,
-                        tag.logoTxt,
-                        tag.logoBgColor,
-                        tag.name,
-                        tag.url
-                      )
-                    ">
+                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
                                         编辑
                                     </div>
                                     <div @click="handleDeleteTag()">删除</div>
@@ -239,8 +232,10 @@
                                 </div>
                                 <p class="tag-name mt-3">添加快捷方式</p>
                             </a>
-                        </div>
+                        </draggable>
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -869,6 +864,7 @@
 import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
 import $ from "jquery";
+import draggable from 'vuedraggable';
 
 export default {
     name: "app",
@@ -898,6 +894,7 @@ export default {
             // params: null, // 图片上传的数据参数
         };
     },
+    components: { draggable },
     created() {
         // 首次进入应用，使用初始化标签数据
         if (localStorage.getObject('myTabGroupList') == null) {
@@ -1337,6 +1334,15 @@ export default {
                 $('.c-setting .c-direction-arrow').show();
             }
         },
+
+        // 分组/快捷方式 拖拽排序后重新缓存数据
+        dataDragEnd(e) {
+            // console.info(e);
+            // console.info(this.myTabGroups);
+            let data = this.myTabGroups;
+            localStorage.setObject('myTabGroupList', data);
+        }
+
     },
     watch: {
         // 监听数据变化
