@@ -132,7 +132,7 @@ input:focus {
                 }
 
                 div:hover {
-                    background: $grey;
+                    background: $bg-color;
                 }
             }
         }
@@ -325,7 +325,7 @@ input:focus {
     border-radius: 5px;
     background   : #fff;
     font-size    : 12px;
-    width        : 49%;
+    width        : 40%;
     color        : $gray;
     z-index      : 3;
     overflow     : hidden;
@@ -335,7 +335,7 @@ input:focus {
     }
 
     div:hover {
-        background: $grey;
+        background: $bg-color;
     }
 
 }

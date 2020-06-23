@@ -34,30 +34,38 @@
                     >
                         <!-- 标签分组拖拽排序 -->
                         <draggable
+                            class="draggable-list-group"
+                            tag="ul"
                             v-model="myTabGroups.tabs"
+                            v-bind="groupDragOptions"
                             @update="dataDragEnd"
                         >
-                            <a
-                                class="nav-link"
-                                :class="{ active: activeIndex == index }"
-                                data-toggle="pill"
-                                :href="'#v-pills-' + index"
-                                role="tab"
-                                :aria-selected="activeIndex == index ? true : false"
-                                v-for="(item, index) in myTabGroups.tabs"
-                                :key="index"
-                                @contextmenu.prevent="handleRightClickGroup(index)"
-                                @click="active(index)"
+                            <transition-group
+                                type="transition"
+                                name="flip-list"
                             >
-                                <div class="group-name">{{ item.name }}</div>
-                                <div
-                                    class="operation-menu"
-                                    v-show="currentGroupIndex == index"
+                                <li
+                                    class="nav-link draggable-list-group-item"
+                                    :class="{ active: activeIndex == index }"
+                                    data-toggle="pill"
+                                    :href="'#v-pills-' + index"
+                                    role="tab"
+                                    :aria-selected="activeIndex == index ? true : false"
+                                    v-for="(item, index) in myTabGroups.tabs"
+                                    :key="index"
+                                    @contextmenu.prevent="handleRightClickGroup(index)"
+                                    @click="active(index)"
                                 >
-                                    <div @click="handleEditTabGroup(item.name)">编辑</div>
-                                    <div @click="handleDeleteTabGroup()">删除</div>
-                                </div>
-                            </a>
+                                    <div class="group-name">{{ item.name }}</div>
+                                    <div
+                                        class="operation-menu"
+                                        v-show="currentGroupIndex == index"
+                                    >
+                                        <div @click="handleEditTabGroup(item.name)">编辑</div>
+                                        <div @click="handleDeleteTabGroup()">删除</div>
+                                    </div>
+                                </li>
+                            </transition-group>
                         </draggable>
                         <a
                             class="nav-link c-add"
@@ -163,11 +171,14 @@
                         v-for="(item, index) in myTabGroups.tabs"
                         :key="index"
                     >
-                        <!-- 标签分组拖拽排序 -->
+                        <!-- 标签/快捷方式 拖拽排序 group="a"-->
                         <draggable
-                            v-model="item.tags"
                             class="row"
-                            @end="dataDragEnd"
+                            v-model="item.tags"
+                            v-bind="tagDragOptions"
+                            @update="dataDragEnd"
+                            :move="dataDragMove"
+                            group="a"
                         >
                             <div
                                 class="col-2 tag-box"
@@ -222,7 +233,7 @@
                                 </div>
                             </div>
                             <a
-                                class="col-2 c-tag"
+                                class="col-2 c-tag undraggable"
                                 data-toggle="modal"
                                 data-target="#addTagModal"
                                 @click="handleAddTag(index)"
@@ -868,6 +879,7 @@ import draggable from 'vuedraggable';
 
 export default {
     name: "app",
+    display: "Transition",
     data() {
         return {
             myTabGroups: null, // 我的标签分组
@@ -895,6 +907,25 @@ export default {
         };
     },
     components: { draggable },
+    computed: {
+        groupDragOptions() { // 分组拖拽参数
+            return {
+                animation: 0,
+                group: "description",
+                disabled: false,
+                ghostClass: "ghost-group"
+            };
+        },
+        tagDragOptions() { // 标签/快捷方式拖拽参数
+            return {
+                animation: 0,
+                group: "description",
+                disabled: false,
+                ghostClass: "ghost-tag", // 拖动时样式选择器
+                filter: '.undraggable', // 不可拖动的样式选择器
+            };
+        }
+    },
     created() {
         // 首次进入应用，使用初始化标签数据
         if (localStorage.getObject('myTabGroupList') == null) {
@@ -1341,6 +1372,11 @@ export default {
             // console.info(this.myTabGroups);
             let data = this.myTabGroups;
             localStorage.setObject('myTabGroupList', data);
+        },
+
+        dataDragMove(e) {
+            // console.info(e.relatedContext.index);
+            // let index = e.relatedContext.index;
         }
 
     },
@@ -1400,4 +1436,28 @@ export default {
     height: 100%;
     object-fit: cover;
 }
+
+/* draggable css start */
+.flip-list-move {
+    transition: transform 0.5s;
+}
+.no-move {
+    transition: transform 0s;
+}
+
+.ghost-group {
+    border: 1px dashed #ccc;
+    opacity: 0.5;
+}
+.ghost-tag {
+    border: 2px dashed #ccc;
+    opacity: 0.5;
+}
+.draggable-list-group {
+    min-height: 20px;
+}
+.draggable-list-group-item {
+    cursor: move;
+}
+/* draggable css end */
 </style>
