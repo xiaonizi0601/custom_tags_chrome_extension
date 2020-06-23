@@ -943,11 +943,11 @@ export default {
         // 判断左侧分组菜单方向箭头是否显示
         this.handleDirectionArrow();
 
-        let that = this;
+        let $this = this;
         // 监听浏览器窗口变化
         window.onresize = () => {
             return (() => {
-                that.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
+                $this.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
             })();
         };
 
@@ -1368,14 +1368,14 @@ export default {
         },
 
         // 分组/快捷方式 拖拽排序后重新缓存数据
-        dataDragEnd(e) {
+        dataDragEnd() {
             // console.info(e);
             // console.info(this.myTabGroups);
             let data = this.myTabGroups;
             localStorage.setObject('myTabGroupList', data);
         },
 
-        dataDragMove(e) {
+        dataDragMove() {
             // console.info(e.relatedContext.index);
             // let index = e.relatedContext.index;
         }
@@ -1389,13 +1389,13 @@ export default {
                 // 一旦监听到的innerContainerHeight值改变，就将其重新赋给data里的innerContainerHeight
                 this.innerContainerHeight = val;
                 this.timer = true;
-                let that = this;
+                let $this = this;
                 setTimeout(function () {
                     // 打印innerContainerHeight变化的值
-                    // console.log(that.innerContainerHeight);
-                    that.timer = false;
+                    // console.log($this.innerContainerHeight);
+                    $this.timer = false;
                 }, 400);
-                that.handleDirectionArrow();
+                $this.handleDirectionArrow();
             }
         },
 
@@ -1458,8 +1458,8 @@ export default {
 .draggable-list-group {
     min-height: 20px;
 }
-.draggable-list-group-item {
-    /* cursor: move; */
-}
+/* .draggable-list-group-item {
+    cursor: move;
+} */
 /* draggable css end */
 </style>
