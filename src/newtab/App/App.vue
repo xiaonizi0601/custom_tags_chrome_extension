@@ -594,7 +594,8 @@
                                                     v-else
                                                 >
                                             </div>
-                                            <p>官方</p>
+                                            <p v-if="webLogo">官方</p>
+                                            <p v-else>未找到</p>
                                         </div>
                                         <div class="col-4">
                                             <div
@@ -901,7 +902,7 @@ export default {
             operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
             checkedIndex: 0, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
-            webLogoBgColor: '#FFFFFF', // // 标签logo背景色
+            webLogoBgColor: '#FFFFFF', // 标签logo背景色
             // config: null, // 图片上传配置信息
             // params: null, // 图片上传的数据参数
         };
@@ -1397,6 +1398,7 @@ export default {
                 that.handleDirectionArrow();
             }
         },
+
     },
 };
 </script>

@@ -74,7 +74,7 @@
                                     v-else
                                 >
                             </div>
-                            <p>官方</p>
+                            <p>{{tips}}</p>
                         </div>
                         <div class="col-4">
                             <div
@@ -180,7 +180,8 @@ export default {
             isShowTagNameErr: false, // 是否显示快捷方式名称错误信息
             checkedIndex: 1, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
-            webLogoBgColor: '#FFFFFF', // // 标签logo背景色
+            webLogoBgColor: '#FFFFFF', // 标签logo背景色
+            tips: '官方' // logo预览提示
         }
     },
     created() {
@@ -200,7 +201,14 @@ export default {
             $this.webURL = tab.url;
             $this.webName = tab.title;
             $this.webLogo = tab.favIconUrl;
-            console.info('webLogo=', $this.webLogo);
+            if (!tab.favIconUrl) {
+                $this.tips = '未找到';
+                $this.togglePrevWay(0);
+            } else {
+                $this.tips = '官方';
+                $this.togglePrevWay(1);
+
+            }
         });
     },
     methods: {
@@ -208,6 +216,7 @@ export default {
         updateMyTabGroupList() {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
+            console.info(result);
         },
 
         // 切换标签logo预览方式 激活样式
@@ -320,9 +329,11 @@ export default {
 
             window.close(); // 关闭popup
 
-            // if (webURL.includes('chrome://newtab/')) { // 如果是插件所在newtab页，则刷新当前页面
-            //     window.location.reload(true); //   强制从服务器重新加载当前页面
-            // }
+            // chrome.tabs.getSelected(null, function (tab) {
+            //     console.log(tab);
+            //     document.UR = tab.url;
+            // });
+
         },
     }
 }
