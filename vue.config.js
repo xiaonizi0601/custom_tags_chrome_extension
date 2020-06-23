@@ -1,36 +1,37 @@
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const path = require("path");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 
 // Generate pages object
 const pagesObj = {};
 
-const chromeName = ["popup", "options", "newtab"]; // popup和options是安装vue-cli-plugin-chrome-ext插件时默认添加的；newtab为自定义添加的为覆盖浏览器默认的新标签页（可根据实际情况选择是否需要）
+const chromeName = ['popup', 'options', 'newtab']; // popup和options是安装vue-cli-plugin-chrome-ext插件时默认添加的；newtab为自定义添加的为覆盖浏览器默认的新标签页（可根据实际情况选择是否需要）
 
 chromeName.forEach(name => {
 	pagesObj[name] = {
 		entry: `src/${name}/index.js`,
-		template: "public/index.html",
-		filename: `${name}.html`
+		template: 'public/index.html',
+		filename: `${name}.html`,
+		title: '新标签页'
 	};
 });
 
 const plugins =
-	process.env.NODE_ENV === "production" ? [{
-			from: path.resolve("src/manifest.production.json"), // 将src文件夹下的manifest文件打包到dist文件夹
-			to: `${path.resolve("dist")}/manifest.json`
+	process.env.NODE_ENV === 'production' ? [{
+			from: path.resolve('src/manifest.production.json'), // 将src文件夹下的manifest文件打包到dist文件夹
+			to: `${path.resolve('dist')}/manifest.json`
 		},
 		{
-			from: path.resolve("src/assets/images"), // 将src/assets/images文件夹下的图片打包到dist文件夹下
-			to: `${path.resolve("dist")}/images`
+			from: path.resolve('src/assets/images'), // 将src/assets/images文件夹下的图片打包到dist文件夹下
+			to: `${path.resolve('dist')}/images`
 		}
 	] : [{
-			from: path.resolve("src/manifest.development.json"),
-			to: `${path.resolve("dist")}/manifest.json`
+			from: path.resolve('src/manifest.development.json'),
+			to: `${path.resolve('dist')}/manifest.json`
 		},
 		{
-			from: path.resolve("src/assets/images"),
-			to: `${path.resolve("dist")}/images`
+			from: path.resolve('src/assets/images'),
+			to: `${path.resolve('dist')}/images`
 		}
 	];
 

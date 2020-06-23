@@ -1399,7 +1399,7 @@ export default {
             }
         },
 
-    },
+    }
 };
 </script>
 
@@ -1459,7 +1459,7 @@ export default {
     min-height: 20px;
 }
 .draggable-list-group-item {
-    cursor: move;
+    /* cursor: move; */
 }
 /* draggable css end */
 </style>
