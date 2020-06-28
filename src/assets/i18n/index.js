@@ -17,7 +17,8 @@ const i18n = new VueI18n({
     messages: {
         en,
         zh
-    }
+    },
+    silentTranslationWarn: true
 })
 
 // 暴露i18n

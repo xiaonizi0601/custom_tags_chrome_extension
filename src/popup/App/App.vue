@@ -205,7 +205,7 @@ export default {
                 $this.tips = $this.$t("_NOT_FOUND");
                 $this.togglePrevWay(0);
             } else {
-                $this.tips = '官方';
+                $this.tips = $this.$t("_OFFICIAL");
                 $this.togglePrevWay(1);
 
             }
@@ -264,7 +264,7 @@ export default {
             }
         },
 
-        
+
         // 弹框-'添加'按钮点击事件处理
         handleBtnAddTagClick() {
             let operateGroupIndex = this.operateGroupIndex;
@@ -316,7 +316,6 @@ export default {
 <style>
 .main_app {
     background: #ebebeb;
-    height: 100%;
 }
 
 .c-logo-setting > div {

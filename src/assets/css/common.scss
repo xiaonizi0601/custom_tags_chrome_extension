@@ -1,5 +1,3 @@
-@import "variables.scss";
-
 /* 简单进行默认样式重置 */
 
 *,
@@ -14,8 +12,8 @@ html {
 
 body {
     font-size              : 14px;
-    color                  : $base-text-color;
-    background-color       : $bg-color;
+    color                  : var(--base-text-color);
+    background-color       : var(--bg-color);
     font-family            : 'Rajdhani', helvetica neue, hiragino sans gb, arial, microsoft yahei ui, microsoft yahei, simsun, sans-serif;
     -webkit-font-smoothing : antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -29,7 +27,7 @@ a:hover {
 }
 
 a:hover {
-    color: $base-text-color;
+    color: var(--base-text-color);
 }
 
 label {
@@ -44,13 +42,14 @@ input:focus {
     box-shadow: none !important;
 }
 
-input:focus {
-    border-color: $base-color !important;
+input:focus,
+input:hover {
+    border-color: var(--base-color !important);
 }
 
 .modal-header,
 .modal-footer {
-    border-color: $border-color;
+    border-color: var(--border-color);
 }
 
 .modal-footer {
@@ -67,7 +66,7 @@ input:focus {
         }
 
         .btn-cancel {
-            background: $grey;
+            background: var(--grey);
         }
 
         .btn-cancel:hover {
@@ -76,11 +75,11 @@ input:focus {
         }
 
         .btn-sure {
-            background: $base-color;
+            background: var(--base-color);
         }
 
         .btn-sure:hover {
-            background: $active-color;
+            background: var(--active-color);
             transition: background 0.2s ease-in-out;
         }
     }
@@ -94,7 +93,7 @@ input:focus {
 }
 
 .c-nav-pills {
-    background: $gray;
+    background: var(--gray);
 
     .nav-pills {
         .nav-link {
@@ -104,6 +103,7 @@ input:focus {
             padding-top   : 15px;
             padding-bottom: 15px;
             position      : relative;
+            cursor        : pointer;
 
             div.group-name {
                 padding              : 0 10px;
@@ -122,12 +122,12 @@ input:focus {
             div.operation-menu {
                 position     : absolute;
                 left         : 49%;
-                border       : 1px solid $gray;
+                border       : 1px solid var(--gray);
                 border-radius: 5px;
                 background   : #fff;
                 font-size    : 12px;
                 width        : 49%;
-                color        : $gray;
+                color        : var(--gray);
                 z-index      : 3;
                 overflow     : hidden;
 
@@ -136,13 +136,13 @@ input:focus {
                 }
 
                 div:hover {
-                    background: $bg-color;
+                    background: var(--bg-color);
                 }
             }
         }
 
         .nav-link.active {
-            background: $base-color;
+            background: var(--base-color);
         }
 
         .nav-link.c-add {
@@ -169,7 +169,7 @@ input:focus {
 
 
 .c-tag {
-    color  : $base-text-color;
+    color  : var(--base-text-color);
     margin : 30px 0 0;
     cursor : pointer;
     display: inline-block;
@@ -211,7 +211,7 @@ input:focus {
 }
 
 .c-tag:hover .tag-name {
-    color: $base-color;
+    color: var(--base-color);
 }
 
 .tag-box {
@@ -221,14 +221,15 @@ input:focus {
 .common-btn {
     padding    : 5px 10px;
     background : #fff;
-    color      : $base-color;
+    color      : var(--base-color);
     cursor     : pointer;
-    border     : 1px solid $base-color;
+    border     : 1px solid var(--base-color);
     font-weight: normal;
 }
 
-.switch-lang-active {
-    background: $base-color;
+.switch-lang-active,
+.switch-theme-active {
+    background: var(--base-color);
     color     : #fff;
 }
 
@@ -237,7 +238,7 @@ input:focus {
     position  : absolute;
     bottom    : 0px;
     cursor    : pointer;
-    background: $gray;
+    background: var(--gray);
 
     .icon-setting {
         width: 20px;
@@ -296,18 +297,18 @@ input:focus {
         >div {
             width          : 85px;
             height         : 85px;
-            border         : 1px solid $grey;
+            border         : 1px solid var(--grey);
             display        : flex;
             justify-content: center;
             align-items    : center;
             margin         : 0 auto;
             font-size      : 24px;
             cursor         : pointer;
-            color          : $base-text-color;
+            color          : var(--base-text-color);
         }
 
         .active {
-            border    : 2px solid $base-color;
+            border    : 2px solid var(--base-color);
             box-shadow: inset 0 0 0 2px #fff;
         }
 
@@ -317,7 +318,7 @@ input:focus {
         }
 
         .c-upload {
-            background-color: $grey;
+            background-color: var(--grey);
         }
 
         img {
@@ -329,12 +330,12 @@ input:focus {
 .tag-operation-menu {
     position     : absolute;
     left         : 49%;
-    border       : 1px solid $gray;
+    border       : 1px solid var(--gray);
     border-radius: 5px;
     background   : #fff;
     font-size    : 12px;
     width        : 40%;
-    color        : $gray;
+    color        : var(--gray);
     z-index      : 3;
     overflow     : hidden;
 
@@ -343,7 +344,7 @@ input:focus {
     }
 
     div:hover {
-        background: $bg-color;
+        background: var(--bg-color);
     }
 
 }
@@ -351,7 +352,7 @@ input:focus {
 .base-setting-box,
 .bg-color-box,
 .logo-setting-box {
-    background-color: $bg-color;
+    background-color: var(--bg-color);
     border-radius   : 5px;
     padding         : 10px 0;
 
@@ -360,13 +361,13 @@ input:focus {
         div {
             width       : 24px;
             height      : 24px;
-            background  : $gray;
+            background  : var(--gray);
             margin-right: 10px;
             cursor      : pointer;
         }
 
         div.active {
-            border    : 2px solid $base-color;
+            border    : 2px solid var(--base-color);
             box-shadow: inset 0 0 0 1px #fff;
         }
 
@@ -375,7 +376,7 @@ input:focus {
         }
 
         div:nth-of-type(2) {
-            background: $base-color;
+            background: #04ae92;
         }
 
         div:nth-of-type(3) {
@@ -403,7 +404,7 @@ input:focus {
         }
 
         div:nth-of-type(9) {
-            background: $gray;
+            background: var(--gray);
         }
 
         div:last-child {

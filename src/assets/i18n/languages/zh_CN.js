@@ -30,7 +30,9 @@ const zh = {
     "_BACKGROUND_COLOR": "背景颜色",
     "_ADD_SHORTCUT": "添加快捷方式",
     "_GROUP": "分组",
-    "_NOT_FOUND": "未找到"
+    "_NOT_FOUND": "未找到",
+    "_THEME": "主题",
+    "_THEME_TYPE": ["主题一","主题二"]
 }
 
 export default zh

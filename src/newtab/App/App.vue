@@ -349,6 +349,22 @@
                             English
                         </button>
 
+                        <p class="mt-4">{{$t("_THEME")}}</p>
+                        <button
+                            class="common-btn mr-3"
+                            :class="{'switch-theme-active':currentTheme==='theme_1'}"
+                            @click="switchTheme('theme_1')"
+                        >
+                            {{$t('_THEME_TYPE[0]')}}
+                        </button>
+                        <button
+                            class="common-btn"
+                            :class="{'switch-theme-active':currentTheme==='theme_2'}"
+                            @click="switchTheme('theme_2')"
+                        >
+                            {{$t('_THEME_TYPE[1]')}}
+                        </button>
+
                         <p class="mt-4">{{$t("_BACK_UP_MY_TAGS")}}</p>
                         <button
                             class="common-btn"
@@ -912,6 +928,7 @@ export default {
     data() {
         return {
             currentLang: 'zh-CN', // 当前语言
+            currentTheme: localStorage.getObject('theme') || 'theme_1', // 当前主题
             myTabGroups: null, // 我的标签分组
             groupName: '', // 分组名称
             isShowGroupNameErr: false, // 是否显示分组名称错误信息
@@ -985,6 +1002,7 @@ export default {
 
         // 获取本地默认语言
         this.getDefaultLanguage();
+
     },
     methods: {
         // 获取本地默认语言
@@ -1008,6 +1026,14 @@ export default {
             this.$i18n.locale = lang;
             localStorage.setObject('language', lang);
             this.currentLang = lang;
+        },
+
+        // 切换主题
+        switchTheme(theme) {
+            localStorage.setObject('theme', theme);
+            this.currentTheme = theme;
+            window.location.reload();
+
         },
 
         // 刷新我的标签分组

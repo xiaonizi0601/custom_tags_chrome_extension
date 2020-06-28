@@ -30,7 +30,9 @@ const en = {
     "_BACKGROUND_COLOR": "Background color",
     "_ADD_SHORTCUT": "Add shortcut",
     "_GROUP": "Group",
-    "_NOT_FOUND": "Not found"
+    "_NOT_FOUND": "Not found",
+    "_THEME": "Theme",
+    "_THEME_TYPE": ["Theme one","Theme two"]
 }
 
 export default en
