@@ -32,6 +32,10 @@ a:hover {
     color: $base-text-color;
 }
 
+label {
+    font-weight: bold;
+}
+
 button,
 button:focus,
 input,
@@ -46,7 +50,7 @@ input:focus {
 
 .modal-header,
 .modal-footer {
-    border-color: $grey;
+    border-color: $border-color;
 }
 
 .modal-footer {
@@ -128,7 +132,7 @@ input:focus {
                 overflow     : hidden;
 
                 div {
-                    padding: 5px 10px;
+                    padding: 5px 0;
                 }
 
                 div:hover {
@@ -214,14 +218,18 @@ input:focus {
     position: relative;
 }
 
+.common-btn {
+    padding    : 5px 10px;
+    background : #fff;
+    color      : $base-color;
+    cursor     : pointer;
+    border     : 1px solid $base-color;
+    font-weight: normal;
+}
 
-.upload-button,
-.backup-button {
-    padding   : 5px 10px;
-    background: #fff;
-    color     : $base-color;
-    cursor    : pointer;
-    border    : 1px solid $base-color;
+.switch-lang-active {
+    background: $base-color;
+    color     : #fff;
 }
 
 .c-setting {

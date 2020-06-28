@@ -1,0 +1,36 @@
+// 英文
+const en = {
+    "_EDIT": "Edit",
+    "_EDIT_GROUP": "Edit group",
+    "_CANCEL": "Cancel",
+    "_CONFIRM": "Confirm",
+    "_REMOVE": "Remove",
+    "_WARNING": "Warning",
+    "_WARNING_MESSAGE": "Are you sure you want to delete it?",
+    "_ADD_GROUP": "Add group",
+    "_PLEASE_ENTER_NAME": "Please enter a name",
+    "_NAME_IS_REQUIRED": "Name is required",
+    "_ADD": "Add",
+    "_SET_UP": "Set up",
+    "_SWITCH_LANGUAGE": "Switch language:",
+    "_BACK_UP_MY_TAGS": "Back up my tags:",
+    "_EXPORT_TO_LOCAL_FILE": "Export to local file",
+    "_RESTORE_FROM_BACKUP": "Restore from backup:",
+    "_IMPORT_FROM_LOCAL_FILE": "Import from local file",
+    "_CLOSE": "Close",
+    "_SEARCH": "Search",
+    "_EDIT_SHORTCUT": "Edit shortcut",
+    "_URL": "URL",
+    "_PLEASE_ENTER_URL": "Please enter the URL",
+    "_URL_CANNOT_BE_EMPTY": "URL cannot be empty",
+    "_NAME": "Name",
+    "_PREVIEW": "Preview",
+    "_OFFICIAL": "Official",
+    "_TEXT": "Text",
+    "_BACKGROUND_COLOR": "Background color",
+    "_ADD_SHORTCUT": "Add shortcut",
+    "_GROUP": "Group",
+    "_NOT_FOUND": "Not found"
+}
+
+export default en

@@ -2,32 +2,32 @@
     <div class="main_app c-popup">
         <!-- 添加快捷方式 弹框 start -->
         <div class="modal-header">
-            <h5 class="modal-title">添加快捷方式</h5>
+            <h5 class="modal-title">{{$t("_ADD_SHORTCUT")}}</h5>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label>网址：</label>
+                        <label>{{$t("_URL")}}</label>
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="请输入网址"
+                            :placeholder="$t('_PLEASE_ENTER_URL')"
                             v-model="webURL"
                         >
                         <div
                             class="err-msg"
                             v-if="isShowTagURLErr"
                         >
-                            * 网址不能为空
+                            * {{$t("_URL_CANNOT_BE_EMPTY")}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>名称：</label>
+                        <label>{{$t("_NAME")}}</label>
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="请输入网站名称"
+                            :placeholder="$t('_PLEASE_ENTER_NAME')"
                             v-model="webName"
                             @input="handleWebNameInput()"
                         >
@@ -35,11 +35,11 @@
                             class="err-msg"
                             v-if="isShowTagNameErr"
                         >
-                            * 名称不能为空
+                            * {{$t("_NAME_IS_REQUIRED")}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>分组：</label>
+                        <label>{{$t("_GROUP")}}</label>
                         <select
                             class="form-control"
                             name=''
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <label>预览：</label>
+                    <label>{{$t("_PREVIEW")}}</label>
                     <div class="d-flex c-logo-setting">
                         <div class="col-4">
                             <div
@@ -84,7 +84,7 @@
                             >
                                 {{ webLogoTxt }}
                             </div>
-                            <p>文字</p>
+                            <p>{{$t("_TEXT")}}</p>
                         </div>
                         <div class="col-4">
                             <div style="opacity: 0;"></div>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="col-12 bg-color-box">
-                    <label class="ml-3">背景颜色：</label>
+                    <label class="ml-3">{{$t("_BACKGROUND_COLOR")}}</label>
                     <div
                         class="d-flex c-logo-bgcolor ml-3"
                         @click="selectBgColor"
@@ -155,7 +155,7 @@
                 type="button"
                 class="btn btn-sure"
                 @click="handleBtnAddTagClick()"
-            >添加</button>
+            >{{$t("_ADD")}}</button>
         </div>
 
         <!-- 添加快捷方式 弹框 end -->
@@ -181,7 +181,7 @@ export default {
             checkedIndex: 1, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
             webLogoTxt: 'A', // 标签logo预览方式-文字
             webLogoBgColor: '#FFFFFF', // 标签logo背景色
-            tips: '官方' // logo预览提示
+            tips: this.$t('_OFFICIAL') // logo预览提示
         }
     },
     created() {
@@ -202,7 +202,7 @@ export default {
             $this.webName = tab.title;
             $this.webLogo = tab.favIconUrl;
             if (!tab.favIconUrl) {
-                $this.tips = '未找到';
+                $this.tips = $this.$t("_NOT_FOUND");
                 $this.togglePrevWay(0);
             } else {
                 $this.tips = '官方';

@@ -61,8 +61,8 @@
                                         class="operation-menu"
                                         v-show="currentGroupIndex == index"
                                     >
-                                        <div @click="handleEditTabGroup(item.name)">编辑</div>
-                                        <div @click="handleDeleteTabGroup()">删除</div>
+                                        <div @click="handleEditTabGroup(item.name)">{{$t('_EDIT')}}</div>
+                                        <div @click="handleDeleteTabGroup()">{{$t("_REMOVE")}}</div>
                                     </div>
                                 </li>
                             </transition-group>
@@ -117,7 +117,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="搜索"
+                            :placeholder="$t('_SEARCH')"
                             v-model="baiduKeyword"
                             @keyup.enter="handleBaiduSearchClick()"
                         />
@@ -146,7 +146,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="搜索"
+                            :placeholder="$t('_SEARCH')"
                             v-model="googleKeyword"
                             @keyup.enter="handleGoogleSearchClick()"
                         />
@@ -227,9 +227,9 @@
                                     v-show="currentTagIndex == idx"
                                 >
                                     <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
-                                        编辑
+                                        {{$t('_EDIT')}}
                                     </div>
-                                    <div @click="handleDeleteTag()">删除</div>
+                                    <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
                                 </div>
                             </div>
                             <a
@@ -241,7 +241,7 @@
                                 <div class="tag-logo">
                                     <img src="../../assets/images/icon_add_black.svg" />
                                 </div>
-                                <p class="tag-name mt-3">添加快捷方式</p>
+                                <p class="tag-name mt-3">{{$t("_ADD_SHORTCUT")}}</p>
                             </a>
                         </draggable>
 
@@ -263,7 +263,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">添加分组</h5>
+                        <h5 class="modal-title">{{$t("_ADD_GROUP")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -278,14 +278,14 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                placeholder="请输入名称"
+                                :placeholder="$t('_PLEASE_ENTER_NAME')"
                                 v-model="groupName"
                             />
                             <div
                                 class="err-msg"
                                 v-if="isShowGroupNameErr"
                             >
-                                * 名称不能为空
+                                * {{$t("_NAME_IS_REQUIRED")}}
                             </div>
                         </div>
                     </div>
@@ -295,14 +295,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnAddGroupClick()"
                         >
-                            添加
+                            {{$t("_ADD")}}
                         </button>
                     </div>
                 </div>
@@ -322,7 +322,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">设置</h5>
+                        <h5 class="modal-title">{{$t("_SET_UP")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -333,17 +333,33 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>备份我的标签：</p>
+                        <p>{{$t("_SWITCH_LANGUAGE")}}</p>
                         <button
-                            class="backup-button"
-                            @click="$Common.backupMySettings()"
+                            class="common-btn mr-3"
+                            :class="{'switch-lang-active':currentLang==='zh-CN'}"
+                            @click="switchLanguage('zh-CN')"
                         >
-                            导出到本地文件
+                            简体中文
+                        </button>
+                        <button
+                            class="common-btn"
+                            :class="{'switch-lang-active':currentLang==='en'}"
+                            @click="switchLanguage('en')"
+                        >
+                            English
                         </button>
 
-                        <p class="mt-4">从备份恢复：</p>
+                        <p class="mt-4">{{$t("_BACK_UP_MY_TAGS")}}</p>
+                        <button
+                            class="common-btn"
+                            @click="$Common.backupMySettings()"
+                        >
+                            {{$t("_EXPORT_TO_LOCAL_FILE")}}
+                        </button>
+
+                        <p class="mt-4">{{$t("_RESTORE_FROM_BACKUP")}}</p>
                         <label
-                            class="upload-button"
+                            class="common-btn"
                             for="my-file-selector"
                         >
                             <input
@@ -351,7 +367,7 @@
                                 type="file"
                                 style="display:none;"
                                 @change="$Common.importMySettings($event)"
-                            />从本地文件导入
+                            />{{$t("_IMPORT_FROM_LOCAL_FILE")}}
                         </label>
                     </div>
                     <div class="modal-footer">
@@ -360,7 +376,7 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            关闭
+                            {{$t("_CLOSE")}}
                         </button>
                     </div>
                 </div>
@@ -380,7 +396,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">添加快捷方式</h5>
+                        <h5 class="modal-title">{{$t("_ADD_SHORTCUT")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -395,26 +411,26 @@
                             <div class="col-6">
                                 <div class="base-setting-box px-3 h-100">
                                     <div class="form-group">
-                                        <label>网址：</label>
+                                        <label>{{$t("_URL")}}</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="请输入网址"
+                                            :placeholder="$t('_PLEASE_ENTER_URL')"
                                             v-model="webURL"
                                         />
                                         <div
                                             class="err-msg"
                                             v-if="isShowTagURLErr"
                                         >
-                                            * 网址不能为空
+                                            * {{$t("_URL_CANNOT_BE_EMPTY")}}
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>名称：</label>
+                                        <label>{{$t("_NAME")}}</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="请输入网站名称"
+                                            :placeholder="$t('_PLEASE_ENTER_NAME')"
                                             v-model="webName"
                                             @input="handleWebNameInput()"
                                         />
@@ -422,14 +438,14 @@
                                             class="err-msg"
                                             v-if="isShowTagNameErr"
                                         >
-                                            * 名称不能为空
+                                            * {{$t("_NAME_IS_REQUIRED")}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="logo-setting-box">
-                                    <label class="ml-3">预览：</label>
+                                    <label class="ml-3">{{$t("_PREVIEW")}}</label>
                                     <div class="d-flex c-logo-setting">
                                         <div class="col-4">
                                             <div
@@ -439,7 +455,7 @@
                                             >
                                                 {{ webLogoTxt }}
                                             </div>
-                                            <p>文字</p>
+                                            <p>{{$t("_TEXT")}}</p>
                                         </div>
                                         <div class="col-4">
                                             <!-- 图片上传 start -->
@@ -474,7 +490,7 @@
                                 </div>
 
                                 <div class="bg-color-box mt-3">
-                                    <label class="ml-3">背景颜色：</label>
+                                    <label class="ml-3">{{$t("_BACKGROUND_COLOR")}}</label>
                                     <div
                                         class="d-flex c-logo-bgcolor ml-3"
                                         @click="selectBgColor"
@@ -507,14 +523,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnAddTagClick()"
                         >
-                            添加
+                            {{$t("_ADD")}}
                         </button>
                     </div>
                 </div>
@@ -534,7 +550,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">编辑快捷方式</h5>
+                        <h5 class="modal-title">{{$t("_EDIT_SHORTCUT")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -549,29 +565,41 @@
                             <div class="col-6">
                                 <div class="base-setting-box px-3 h-100">
                                     <div class="form-group">
-                                        <label>网址：</label>
+                                        <label>{{$t("_URL")}}</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="请输入网址"
+                                            :placeholder="$t('_PLEASE_ENTER_URL')"
                                             v-model="webURL"
                                         />
+                                        <div
+                                            class="err-msg"
+                                            v-if="isShowTagURLErr"
+                                        >
+                                            * {{$t("_URL_CANNOT_BE_EMPTY")}}
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>名称：</label>
+                                        <label>{{$t("_NAME")}}</label>
                                         <input
                                             type="text"
                                             class="form-control"
-                                            placeholder="请输入网站名称"
+                                            :placeholder="$t('_PLEASE_ENTER_NAME')"
                                             v-model="webName"
                                             @input="handleWebNameInput()"
                                         />
+                                        <div
+                                            class="err-msg"
+                                            v-if="isShowTagNameErr"
+                                        >
+                                            * {{$t("_NAME_IS_REQUIRED")}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="logo-setting-box">
-                                    <label class="ml-3">预览：</label>
+                                    <label class="ml-3">{{$t("_PREVIEW")}}</label>
                                     <div class="d-flex c-logo-setting">
                                         <div class="col-4">
                                             <div
@@ -594,8 +622,8 @@
                                                     v-else
                                                 >
                                             </div>
-                                            <p v-if="webLogo">官方</p>
-                                            <p v-else>未找到</p>
+                                            <p v-if="webLogo">{{$t("_OFFICIAL")}}</p>
+                                            <p v-else>{{$t("_NOT_FOUND")}}</p>
                                         </div>
                                         <div class="col-4">
                                             <div
@@ -605,7 +633,7 @@
                                             >
                                                 {{ webLogoTxt }}
                                             </div>
-                                            <p>文字</p>
+                                            <p>{{$t("_TEXT")}}</p>
                                         </div>
                                         <div class="col-4">
                                             <!-- 图片上传 start -->
@@ -640,7 +668,7 @@
                                 </div>
 
                                 <div class="bg-color-box mt-3">
-                                    <label class="ml-3">背景颜色：</label>
+                                    <label class="ml-3">{{$t("_BACKGROUND_COLOR")}}</label>
                                     <div
                                         class="d-flex c-logo-bgcolor ml-3"
                                         @click="selectBgColor"
@@ -704,14 +732,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleBtnEditTagClick()"
                         >
-                            确定
+                            {{$t("_CONFIRM")}}
                         </button>
                     </div>
                 </div>
@@ -731,7 +759,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">警告</h5>
+                        <h5 class="modal-title">{{$t("_WARNING")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -742,7 +770,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        您确定要删除吗？
+                        {{$t("_WARNING_MESSAGE")}}
                     </div>
                     <div class="modal-footer">
                         <button
@@ -750,14 +778,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureDeleteTag()"
                         >
-                            确定
+                            {{$t("_CONFIRM")}}
                         </button>
                     </div>
                 </div>
@@ -777,7 +805,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">编辑分组</h5>
+                        <h5 class="modal-title">{{$t("_EDIT_GROUP")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -792,14 +820,14 @@
                             <input
                                 type="text"
                                 class="form-control"
-                                placeholder="请输入名称"
+                                :placeholder="$t('_PLEASE_ENTER_NAME')"
                                 v-model="groupName"
                             />
                             <div
                                 class="err-msg"
                                 v-if="isShowGroupNameErr"
                             >
-                                * 名称不能为空
+                                * {{$t("_NAME_IS_REQUIRED")}}
                             </div>
                         </div>
                     </div>
@@ -809,14 +837,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureEditGroup()"
                         >
-                            确定
+                            {{$t("_CONFIRM")}}
                         </button>
                     </div>
                 </div>
@@ -836,7 +864,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">警告</h5>
+                        <h5 class="modal-title">{{$t("_WARNING")}}</h5>
                         <button
                             type="button"
                             class="close"
@@ -847,7 +875,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        您确定要删除该分组吗？
+                        {{$t("_WARNING_MESSAGE")}}
                     </div>
                     <div class="modal-footer">
                         <button
@@ -855,14 +883,14 @@
                             class="btn btn-cancel"
                             data-dismiss="modal"
                         >
-                            取消
+                            {{$t("_CANCEL")}}
                         </button>
                         <button
                             type="button"
                             class="btn btn-sure"
                             @click="handleSureDeleteGroup()"
                         >
-                            确定
+                            {{$t("_CONFIRM")}}
                         </button>
                     </div>
                 </div>
@@ -883,6 +911,7 @@ export default {
     display: "Transition",
     data() {
         return {
+            currentLang: 'zh-CN', // 当前语言
             myTabGroups: null, // 我的标签分组
             groupName: '', // 分组名称
             isShowGroupNameErr: false, // 是否显示分组名称错误信息
@@ -953,8 +982,34 @@ export default {
 
         // 给左侧分组菜单div注册滚动事件
         this.$refs.innerContainer.addEventListener('scroll', this.scroll);
+
+        // 获取本地默认语言
+        this.getDefaultLanguage();
     },
     methods: {
+        // 获取本地默认语言
+        getDefaultLanguage() {
+            let defaultLang = 'zh-CN'; // 默认语言
+            const supportLangs = ['zh-CN', 'en']; // 支持的语言
+            // console.info('navigator.language=', navigator.language); // navigator.language --获取用户设置的用户首选语言(但是默认的情况下浏览器 UI 的语言一般和用户首选语言是一致的)
+            if (supportLangs.indexOf(navigator.language) !== -1) { // 存在用户首选语言
+                defaultLang = navigator.language;
+            }
+            if (supportLangs.indexOf(localStorage.getObject('language')) !== -1) { // 存在本地缓存的语言
+                defaultLang = localStorage.getObject('language');
+            }
+
+            this.$i18n.locale = defaultLang;
+            this.currentLang = defaultLang;
+        },
+
+        // 切换语言
+        switchLanguage(lang) {
+            this.$i18n.locale = lang;
+            localStorage.setObject('language', lang);
+            this.currentLang = lang;
+        },
+
         // 刷新我的标签分组
         updateMyTabGroupList() {
             let result = myTabGroupList.showMyTabGroupList();
@@ -1222,6 +1277,20 @@ export default {
             let webLogoTxt = this.webLogoTxt;
             let logoPrevIndex = this.checkedIndex;
             let webLogoBgColor = this.webLogoBgColor;
+
+            if (webURL === '') {
+                this.isShowTagURLErr = true;
+                return;
+            } else {
+                this.isShowTagURLErr = false;
+            }
+
+            if (webName === '') {
+                this.isShowTagNameErr = true;
+                return;
+            } else {
+                this.isShowTagNameErr = false;
+            }
 
             // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
             myTabGroupList.editTag(
