@@ -1264,38 +1264,11 @@ export default {
                     if (currentColor === 'rgba(0, 0, 0, 0)') {
                         this.webLogoBgColor = 'transparent';
                     } else {
-                        this.webLogoBgColor = this.RGBtoHEX(currentColor);
+                        this.webLogoBgColor = this.$Common.RGBtoHEX(currentColor);
                     }
                     // this.checkedIndex = 0;
                 }
             }
-        },
-
-        //将rgb()格式颜色转换成大写十六机制字符串（#C0C0C0），如果已经是十六进制则直接输出
-        RGBtoHEX(str) {
-            if (str.substring(0, 3) == 'rgb') {
-                var arr = str.split(',');
-                var r = arr[0].replace('rgb(', '').trim(),
-                    g = arr[1].trim(),
-                    b = arr[2].replace(')', '').trim();
-                var hex = [this.toHex(r), this.toHex(g), this.toHex(b)];
-                return '#' + hex.join('');
-            } else {
-                return str;
-            }
-        },
-        //将十进制数字转换成两位十六进制字符串
-        toHex(N) {
-            if (N == null) return '00';
-            N = parseInt(N);
-            if (N == 0 || isNaN(N)) return '00';
-            N = Math.max(0, N);
-            N = Math.min(N, 255);
-            N = Math.round(N);
-            return (
-                '0123456789ABCDEF'.charAt((N - (N % 16)) / 16) +
-                '0123456789ABCDEF'.charAt(N % 16)
-            );
         },
 
         // 百度-'搜索'按钮点击事件处理
@@ -1382,7 +1355,7 @@ export default {
 
     },
     watch: {
-        // 监听数据变化
+        // 监听 标签分组容器高度 数据变化
         innerContainerHeight(val) {
             // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
             if (!this.timer) {
