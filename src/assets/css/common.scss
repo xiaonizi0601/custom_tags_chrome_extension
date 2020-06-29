@@ -63,6 +63,7 @@ input:hover {
 .modal,
 .c-popup {
     color: var(--base-setting-text-color);
+
     .modal-footer {
         button {
             width : 140px;
@@ -176,10 +177,20 @@ input:hover {
 
 
 .c-tag {
-    color  : var(--base-text-color);
-    margin : 30px 0 0;
-    cursor : pointer;
-    display: inline-block;
+    color   : var(--base-text-color);
+    margin  : 30px 0 0;
+    cursor  : pointer;
+    display : inline-block;
+    position: relative;
+
+    .c-dot {
+        color    : #fff;
+        font-size: 25px;
+        position : absolute;
+        right    : -10px;
+        top      : -30px;
+        display  : none;
+    }
 
     .tag-logo {
         width        : 50px;
@@ -221,8 +232,22 @@ input:hover {
     color: var(--base-color);
 }
 
+.c-tag:hover img:not(.icon-add-tag) {
+    width     : 40px;
+    transition: width 0.2s ease;
+}
+
 .tag-box {
     position: relative;
+}
+
+.tag-box:hover {
+    background   : rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.tag-box:hover .c-dot {
+    display: block;
 }
 
 .common-btn {
@@ -332,7 +357,8 @@ input:hover {
 
 .tag-operation-menu {
     position     : absolute;
-    left         : 49%;
+    top          : 0;
+    left         : 90%;
     border       : 1px solid var(--operation-menu-color);
     border-radius: 5px;
     background   : #fff;

@@ -39,6 +39,7 @@
                             v-model="myTabGroups.tabs"
                             v-bind="groupDragOptions"
                             @update="dataDragEnd"
+                            @mouseleave="hideperationGroupMenu"
                         >
                             <transition-group
                                 type="transition"
@@ -60,6 +61,7 @@
                                     <div
                                         class="operation-menu"
                                         v-show="currentGroupIndex == index"
+                                        @mouseleave="hideperationGroupMenu"
                                     >
                                         <div @click="handleEditTabGroup(item.name)">{{$t('_EDIT')}}</div>
                                         <div @click="handleDeleteTabGroup()">{{$t("_REMOVE")}}</div>
@@ -185,12 +187,17 @@
                                 class="col-2 tag-box"
                                 v-for="(tag, idx) in item.tags"
                                 :key="idx"
-                                @contextmenu.prevent="handleRightClickTag(idx)"
+                                @contextmenu.prevent="handleRightClickTag(idx,$event)"
+                                @mouseleave="hideperationTagMenu"
                             >
                                 <a
                                     class="c-tag"
                                     :href="tag.url"
                                 >
+                                    <div
+                                        class="c-dot"
+                                        @mouseover="handleRightClickTag(idx,$event)"
+                                    >···</div>
                                     <div
                                         class="tag-logo d-flex justify-content-center align-items-center"
                                         :style="`background:${tag.logoBgColor};`"
@@ -226,6 +233,7 @@
                                 <div
                                     class="operation-menu tag-operation-menu"
                                     v-show="currentTagIndex == idx"
+                                    @mouseleave="hideperationTagMenu"
                                 >
                                     <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
                                         {{$t('_EDIT')}}
@@ -240,7 +248,10 @@
                                 @click="handleAddTag(index)"
                             >
                                 <div class="tag-logo">
-                                    <img src="../../assets/images/icon_add_black.svg" />
+                                    <img
+                                        src="../../assets/images/icon_add_black.svg"
+                                        class="icon-add-tag"
+                                    />
                                 </div>
                                 <p class="tag-name mt-3">{{$t("_ADD_SHORTCUT")}}</p>
                             </a>
@@ -984,7 +995,7 @@ export default {
         }
 
         // localStorage.clear(); // 删除所有缓存数据 test
-        console.info('created=======', localStorage);
+        // console.info('created=======', localStorage);
 
         this.changfocus();
     },
@@ -1049,7 +1060,6 @@ export default {
         updateMyTabGroupList() {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
-            // console.info('result:', result);
         },
 
         // 显示 添加分组弹框
@@ -1093,7 +1103,6 @@ export default {
         // 隐藏标签分组操作菜单
         hideperationGroupMenu() {
             this.currentGroupIndex = null;
-            this.hideperationTagMenu();
         },
 
         // 分组操作菜单'编辑'按钮点击事件
@@ -1216,8 +1225,8 @@ export default {
         },
 
         // 标签鼠标右击事件
-        handleRightClickTag(idx) {
-            // console.info('idx=', idx);
+        handleRightClickTag(idx, e) {
+            e.preventDefault();
             this.currentTagIndex = idx; // 显示操作菜单
             this.operateTagIndex = idx;
         },
@@ -1334,7 +1343,6 @@ export default {
                 this.isShowTagNameErr = false;
             }
 
-            // console.info(operateGroupIndex, operateTagIndex, webLogo, webName, webURL);
             myTabGroupList.editTag(
                 operateGroupIndex,
                 operateTagIndex,
@@ -1453,14 +1461,11 @@ export default {
 
         // 分组/快捷方式 拖拽排序后重新缓存数据
         dataDragEnd() {
-            // console.info(e);
-            // console.info(this.myTabGroups);
             let data = this.myTabGroups;
             localStorage.setObject('myTabGroupList', data);
         },
 
         dataDragMove() {
-            // console.info(e.relatedContext.index);
             // let index = e.relatedContext.index;
         }
 
@@ -1476,7 +1481,6 @@ export default {
                 let $this = this;
                 setTimeout(function () {
                     // 打印innerContainerHeight变化的值
-                    // console.log($this.innerContainerHeight);
                     $this.timer = false;
                 }, 400);
                 $this.handleDirectionArrow();
