@@ -1,5 +1,7 @@
 # custom_tags_chrome_extension
 
+这是一款可以自定义分组管理网站URL的新标签页。不需要使用云服务，数据本地存储，可对配置数据进行导出备份和导入恢复。支持多种主题模式。
+
 ## Project setup 安装项目依赖
 ```
 npm install
