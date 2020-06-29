@@ -1,11 +1,14 @@
 /* global settings (theme related) */
 
 :root {
-    --base-text-color: #333;
-    --gray           : #444;
-    --grey           : #ccc;
-    --bg-color       : #ebebeb;
-    --border-color   : #f2f2f2;
-    --base-color     : #EBC343;
-    --active-color   : rgb(201, 155, 5);
+    --base-text-color        : #333;
+    --base-setting-text-color: #fff;
+    --nav-bg-color           : #0A0A0A;
+    --operation-menu-color   : #0A0A0A;
+    --btn-cancel-bg-color    : #0A0A0A;
+    --bg-color               : #333;
+    --modal-bg-color         : #444;
+    --border-color           : #000;
+    --base-color             : #FF7E17;
+    --active-color           : rgb(224, 105, 7);
 }

@@ -9,6 +9,18 @@ import Common from '../assets/js/common.js';
 
 import i18n from '../assets/i18n/index';
 
+// 主题判断
+let defaultTheme = 'theme_1';
+if (localStorage.getObject('theme') !== null) {
+  defaultTheme = localStorage.getObject('theme');
+}
+
+if (defaultTheme === 'theme_1'){
+  require('../assets/css/theme_1.scss'); 
+}else{
+  require('../assets/css/theme_2.scss');
+}
+
 Vue.component('app-component', AppComponent);
 
 Vue.prototype.$Common = Common;

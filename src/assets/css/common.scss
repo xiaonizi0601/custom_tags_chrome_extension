@@ -47,6 +47,10 @@ input:hover {
     border-color: var(--base-color !important);
 }
 
+.modal-content {
+    background: var(--modal-bg-color);
+}
+
 .modal-header,
 .modal-footer {
     border-color: var(--border-color);
@@ -58,6 +62,7 @@ input:hover {
 
 .modal,
 .c-popup {
+    color: var(--base-setting-text-color);
     .modal-footer {
         button {
             width : 140px;
@@ -66,11 +71,12 @@ input:hover {
         }
 
         .btn-cancel {
-            background: var(--grey);
+            background: var(--btn-cancel-bg-color);
         }
 
         .btn-cancel:hover {
-            background: #999;
+            opacity   : 0.8;
+            background: var(--btn-cancel-bg-color);
             transition: background 0.2s ease-in-out;
         }
 
@@ -93,7 +99,7 @@ input:hover {
 }
 
 .c-nav-pills {
-    background: var(--gray);
+    background: var(--nav-bg-color);
 
     .nav-pills {
         .nav-link {
@@ -122,12 +128,12 @@ input:hover {
             div.operation-menu {
                 position     : absolute;
                 left         : 49%;
-                border       : 1px solid var(--gray);
+                border       : 1px solid var(--operation-menu-color);
                 border-radius: 5px;
                 background   : #fff;
                 font-size    : 12px;
                 width        : 49%;
-                color        : var(--gray);
+                color        : var(--operation-menu-color);
                 z-index      : 3;
                 overflow     : hidden;
 
@@ -136,7 +142,8 @@ input:hover {
                 }
 
                 div:hover {
-                    background: var(--bg-color);
+                    background: var(--base-color);
+                    color     : #fff;
                 }
             }
         }
@@ -238,7 +245,7 @@ input:hover {
     position  : absolute;
     bottom    : 0px;
     cursor    : pointer;
-    background: var(--gray);
+    background: var(--nav-bg-color);
 
     .icon-setting {
         width: 20px;
@@ -297,7 +304,7 @@ input:hover {
         >div {
             width          : 85px;
             height         : 85px;
-            border         : 1px solid var(--grey);
+            border         : 1px solid #ccc;
             display        : flex;
             justify-content: center;
             align-items    : center;
@@ -317,10 +324,6 @@ input:hover {
             margin-top: 5px;
         }
 
-        .c-upload {
-            background-color: var(--grey);
-        }
-
         img {
             width: 40px;
         }
@@ -330,12 +333,12 @@ input:hover {
 .tag-operation-menu {
     position     : absolute;
     left         : 49%;
-    border       : 1px solid var(--gray);
+    border       : 1px solid var(--operation-menu-color);
     border-radius: 5px;
     background   : #fff;
     font-size    : 12px;
     width        : 40%;
-    color        : var(--gray);
+    color        : var(--operation-menu-color);
     z-index      : 3;
     overflow     : hidden;
 
@@ -344,7 +347,8 @@ input:hover {
     }
 
     div:hover {
-        background: var(--bg-color);
+        background: var(--base-color);
+        color     : #fff;
     }
 
 }
@@ -355,13 +359,13 @@ input:hover {
     background-color: var(--bg-color);
     border-radius   : 5px;
     padding         : 10px 0;
+    color           : var(--base-setting-text-color);
 
     .c-logo-bgcolor {
 
         div {
             width       : 24px;
             height      : 24px;
-            background  : var(--gray);
             margin-right: 10px;
             cursor      : pointer;
         }
@@ -404,7 +408,7 @@ input:hover {
         }
 
         div:nth-of-type(9) {
-            background: var(--gray);
+            background: #444;
         }
 
         div:last-child {

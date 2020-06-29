@@ -315,7 +315,7 @@ export default {
 
 <style>
 .main_app {
-    background: #ebebeb;
+    /* background: #ebebeb; */
 }
 
 .c-logo-setting > div {

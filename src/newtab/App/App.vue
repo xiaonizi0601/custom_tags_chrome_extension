@@ -70,7 +70,7 @@
                         <a
                             class="nav-link c-add"
                             data-toggle="modal"
-                            data-target="#addGroupModal"
+                            @click="showAddGroupModal"
                         >
                             <img
                                 class="icon-add"
@@ -1043,6 +1043,12 @@ export default {
             // console.info('result:', result);
         },
 
+        // 显示 添加分组弹框
+        showAddGroupModal() {
+            this.groupName = '';
+            $('#addGroupModal').modal('show');
+        },
+
         // 添加分组弹框-'添加'按钮点击事件处理
         handleBtnAddGroupClick() {
             let groupName = this.groupName;
@@ -1102,6 +1108,7 @@ export default {
                 this.updateMyTabGroupList(); // 刷新我的标签分组
                 $('#editGroupModal').modal('hide'); // 关闭弹框
                 this.operateGroupIndex = null;
+                this.groupName = '';
             }
         },
 
