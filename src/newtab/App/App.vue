@@ -120,6 +120,7 @@
                             :placeholder="$t('_SEARCH')"
                             v-model="baiduKeyword"
                             @keyup.enter="handleBaiduSearchClick()"
+                            ref="inputs"
                         />
                         <div class="input-group-append">
                             <span
@@ -984,6 +985,8 @@ export default {
 
         // localStorage.clear(); // 删除所有缓存数据 test
         console.info('created=======', localStorage);
+
+        this.changfocus();
     },
     mounted() {
         // 判断左侧分组菜单方向箭头是否显示
@@ -1005,6 +1008,12 @@ export default {
 
     },
     methods: {
+        // 百度搜索框自动聚焦
+        changfocus() {
+            this.$nextTick((x) => {
+                this.$refs.inputs.focus();
+            });
+        },
         // 获取本地默认语言
         getDefaultLanguage() {
             let defaultLang = 'zh-CN'; // 默认语言
