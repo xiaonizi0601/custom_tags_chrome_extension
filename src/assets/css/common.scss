@@ -241,7 +241,18 @@ input:hover {
     position: relative;
 }
 
-.tag-box:hover {
+.c-cover {
+    width : 70%;
+    margin: 0 auto;
+}
+
+@media only screen  and (min-width: 1280px) and (max-width: 1600px) {
+    .c-cover {
+        width : 100%;
+    }
+}
+
+.tag-box:hover .c-cover {
     background   : rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
@@ -358,12 +369,12 @@ input:hover {
 .tag-operation-menu {
     position     : absolute;
     top          : 0;
-    left         : 90%;
+    left         : 80%;
     border       : 1px solid var(--operation-menu-color);
     border-radius: 5px;
     background   : #fff;
     font-size    : 12px;
-    width        : 40%;
+    width        : 60px;
     color        : var(--operation-menu-color);
     z-index      : 3;
     overflow     : hidden;
@@ -375,6 +386,7 @@ input:hover {
     div:hover {
         background: var(--base-color);
         color     : #fff;
+        cursor    : pointer;
     }
 
 }

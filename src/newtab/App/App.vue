@@ -190,6 +190,7 @@
                                 @contextmenu.prevent="handleRightClickTag(idx,$event)"
                                 @mouseleave="hideperationTagMenu"
                             >
+                                <div class="c-cover">
                                 <a
                                     class="c-tag"
                                     :href="tag.url"
@@ -239,6 +240,7 @@
                                         {{$t('_EDIT')}}
                                     </div>
                                     <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
+                                </div>
                                 </div>
                             </div>
                             <a
