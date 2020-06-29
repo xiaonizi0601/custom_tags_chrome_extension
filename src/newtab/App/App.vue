@@ -1021,7 +1021,7 @@ export default {
     methods: {
         // 百度搜索框自动聚焦
         changfocus() {
-            this.$nextTick((x) => {
+            this.$nextTick(() => {
                 this.$refs.inputs.focus();
             });
         },
