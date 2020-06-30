@@ -216,7 +216,7 @@ export default {
         updateMyTabGroupList() {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
-            console.info(result);
+            // console.info(result);
         },
 
         // 切换标签logo预览方式 激活样式
@@ -246,7 +246,7 @@ export default {
 
         // 选择分组
         handleGroupChange(value) {
-            console.info(value);
+            // console.info(value);
         },
         // 选择背景颜色
         selectBgColor(e) {

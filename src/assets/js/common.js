@@ -28,7 +28,7 @@ function downloadFile(fileName, fileType, content) {
 function backupMySettings() {
     const items = {};
     Object.keys(localStorage).forEach((key) => {
-        console.info(localStorage, key);
+        // console.info(localStorage, key);
         items[key] = localStorage.getObject(key);
     });
 

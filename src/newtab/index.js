@@ -15,7 +15,7 @@ if (localStorage.getObject('theme') !== null) {
   defaultTheme = localStorage.getObject('theme');
 }
 
-console.info('defaultTheme=',defaultTheme);
+// console.info('defaultTheme=',defaultTheme);
 
 if (defaultTheme === 'theme_1'){
   // import(`${theme}`); // 注意：import不支持在块级使用,require支持
