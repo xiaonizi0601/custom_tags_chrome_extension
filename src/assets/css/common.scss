@@ -246,9 +246,9 @@ input:hover {
     margin: 0 auto;
 }
 
-@media only screen  and (min-width: 1280px) and (max-width: 1600px) {
+@media only screen and (min-width: 1280px) and (max-width: 1600px) {
     .c-cover {
-        width : 100%;
+        width: 100%;
     }
 }
 
@@ -454,4 +454,8 @@ input:hover {
             background-size: 100% 100%;
         }
     }
+}
+
+.a-link {
+    color: var(--base-color);
 }

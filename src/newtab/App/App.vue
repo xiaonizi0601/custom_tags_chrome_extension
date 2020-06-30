@@ -191,56 +191,56 @@
                                 @mouseleave="hideperationTagMenu"
                             >
                                 <div class="c-cover">
-                                <a
-                                    class="c-tag"
-                                    :href="tag.url"
-                                >
-                                    <div
-                                        class="c-dot"
-                                        @mouseover="handleRightClickTag(idx,$event)"
-                                    >···</div>
-                                    <div
-                                        class="tag-logo d-flex justify-content-center align-items-center"
-                                        :style="`background:${tag.logoBgColor};`"
+                                    <a
+                                        class="c-tag"
+                                        :href="tag.url"
                                     >
-                                        <span v-if="tag.logoPrevIndex === 0">{{tag.logoTxt}}</span>
-                                        <div v-if="tag.logoPrevIndex === 1">
-                                            <div v-if="tag.logo">
+                                        <div
+                                            class="c-dot"
+                                            @mouseover="handleRightClickTag(idx,$event)"
+                                        >···</div>
+                                        <div
+                                            class="tag-logo d-flex justify-content-center align-items-center"
+                                            :style="`background:${tag.logoBgColor};`"
+                                        >
+                                            <span v-if="tag.logoPrevIndex === 0">{{tag.logoTxt}}</span>
+                                            <div v-if="tag.logoPrevIndex === 1">
+                                                <div v-if="tag.logo">
+                                                    <img
+                                                        :src="tag.logo"
+                                                        v-if="tag.logo.includes('http')"
+                                                    />
+                                                    <img
+                                                        :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
+                                                        v-else
+                                                    />
+                                                </div>
+
                                                 <img
-                                                    :src="tag.logo"
-                                                    v-if="tag.logo.includes('http')"
-                                                />
-                                                <img
-                                                    :src="require(`../../assets/images/tagLogo/${tag.logo}`)"
+                                                    src="../../assets/images/logo_48.png"
                                                     v-else
-                                                />
+                                                >
                                             </div>
 
-                                            <img
-                                                src="../../assets/images/logo_48.png"
-                                                v-else
-                                            >
-                                        </div>
-
-                                        <!-- <div v-if="tag.logoPrevIndex === 2">
+                                            <!-- <div v-if="tag.logoPrevIndex === 2">
                                             <img
                                                 :src="require(`../../assets/images/tagLogo/upload/${tag.logo}`)"
                                                 v-if="tag.logo"
                                             />
                                             </div> -->
+                                        </div>
+                                        <p class="tag-name mt-3">{{ tag.name }}</p>
+                                    </a>
+                                    <div
+                                        class="operation-menu tag-operation-menu"
+                                        v-show="currentTagIndex == idx"
+                                        @mouseleave="hideperationTagMenu"
+                                    >
+                                        <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
+                                            {{$t('_EDIT')}}
+                                        </div>
+                                        <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
                                     </div>
-                                    <p class="tag-name mt-3">{{ tag.name }}</p>
-                                </a>
-                                <div
-                                    class="operation-menu tag-operation-menu"
-                                    v-show="currentTagIndex == idx"
-                                    @mouseleave="hideperationTagMenu"
-                                >
-                                    <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
-                                        {{$t('_EDIT')}}
-                                    </div>
-                                    <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
-                                </div>
                                 </div>
                             </div>
                             <a
@@ -399,6 +399,19 @@
                                 @change="$Common.importMySettings($event)"
                             />{{$t("_IMPORT_FROM_LOCAL_FILE")}}
                         </label>
+
+                        <p class="mt-4">{{$t("_ABOUT")}}</p>
+                        <img
+                            class="mr-2"
+                            src="../../assets/images/tagLogo/github.svg"
+                            alt="github"
+                            width="40"
+                        >
+                        <a
+                            class="a-link"
+                            href="https://github.com/xiaonizi0601/custom_tags_chrome_extension"
+                            target="_blank"
+                        >GitHub</a>
                     </div>
                     <div class="modal-footer">
                         <button

@@ -31,8 +31,9 @@ const en = {
     "_ADD_SHORTCUT": "Add shortcut",
     "_GROUP": "Group",
     "_NOT_FOUND": "Not found",
-    "_THEME": "Theme",
-    "_THEME_TYPE": ["Theme one","Theme two"]
+    "_THEME": "Theme:",
+    "_THEME_TYPE": ["Theme one", "Theme two"],
+    "_ABOUT": "About:"
 }
 
 export default en
