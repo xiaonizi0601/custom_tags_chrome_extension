@@ -33,6 +33,8 @@ npm run build
 
 方式二：直接下载根目录的 dist.zip 压缩包到本地后进行解压，再在Chrome浏览器上打开“更多工具”>“扩展程序”，点击“加载已解压的扩展程序” 按钮选择加载解压的 dist 文件夹完成插件安装。
 
-(注意：以上两种方式都需要在浏览器“扩展程序”页面打开“开发者模式”)
+方式三：在Chrome网上应用商店直接安装已发布的版本，插件地址 https://chrome.google.com/webstore/detail/dashi-%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/nhhkacahpmeifamklfdbijlabhhecgbm
+
+(注意：方式一和方式二均为开发版，需要在浏览器“扩展程序”页面打开“开发者模式”)
 
 
