@@ -35,6 +35,6 @@ npm run build
 
 方式三：在Chrome网上应用商店直接安装已发布的版本，插件地址 https://chrome.google.com/webstore/detail/dashi-%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/nhhkacahpmeifamklfdbijlabhhecgbm
 
-(注意：方式一和方式二均为开发版，需要在浏览器“扩展程序”页面打开“开发者模式”)
+(注意：方式一和方式二均为开发版，安装前需要在浏览器“扩展程序”页面打开“开发者模式”)
 
 

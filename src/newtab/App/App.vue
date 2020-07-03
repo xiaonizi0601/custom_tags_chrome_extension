@@ -15,6 +15,7 @@
                     <div class="c-logo">
                         <div
                             class="c-direction-arrow"
+                            :class="{'is-show':isShowUpArrow}"
                             @mouseenter="handleEnterUpArrow()"
                         >
                             <img src="../../assets/images/icon_direction_arrow.svg" />
@@ -64,14 +65,13 @@
                                         @mouseleave="hideperationGroupMenu"
                                     >
                                         <div @click="handleEditTabGroup(item.name)">{{$t('_EDIT')}}</div>
-                                        <div @click="handleDeleteTabGroup()">{{$t("_REMOVE")}}</div>
+                                        <div @click="handleDelete()">{{$t("_REMOVE")}}</div>
                                     </div>
                                 </li>
                             </transition-group>
                         </draggable>
                         <a
                             class="nav-link c-add"
-                            data-toggle="modal"
                             @click="showAddGroupModal"
                         >
                             <img
@@ -84,14 +84,14 @@
                     <div class="c-setting">
                         <div
                             class="c-direction-arrow"
+                            :class="{'is-show':isShowDownArrow}"
                             @mouseenter="handleEnterDownArrow()"
                         >
                             <img src="../../assets/images/icon_direction_arrow.svg" />
                         </div>
                         <a
                             class="nav-link"
-                            data-toggle="modal"
-                            data-target="#settingModal"
+                            @click="showSettingModal"
                         >
                             <img
                                 class="icon-setting"
@@ -236,17 +236,21 @@
                                         v-show="currentTagIndex == idx"
                                         @mouseleave="hideperationTagMenu"
                                     >
-                                        <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
+                                        <div
+                                            data-target="#editTagModal"
+                                            @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)"
+                                        >
                                             {{$t('_EDIT')}}
                                         </div>
-                                        <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
+                                        <div
+                                            @click="handleDelete()"
+                                            data-target="#deleteModal"
+                                        >{{$t("_REMOVE")}}</div>
                                     </div>
                                 </div>
                             </div>
                             <a
                                 class="col-2 c-tag undraggable"
-                                data-toggle="modal"
-                                data-target="#addTagModal"
                                 @click="handleAddTag(index)"
                             >
                                 <div class="tag-logo">
@@ -267,12 +271,8 @@
 
         <!-- 添加分组 弹框 start -->
         <div
-            class="modal fade add-group-modal"
+            class="custom-modal add-group-modal"
             id="addGroupModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -281,7 +281,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -307,7 +307,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CANCEL")}}
                         </button>
@@ -326,12 +326,8 @@
 
         <!-- 设置 弹框 start -->
         <div
-            class="modal fade"
+            class="custom-modal"
             id="settingModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
         >
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
@@ -340,7 +336,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -417,7 +413,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CLOSE")}}
                         </button>
@@ -429,12 +425,8 @@
 
         <!-- 添加快捷方式 弹框 start -->
         <div
-            class="modal fade add-tag-modal"
+            class="custom-modal add-tag-modal"
             id="addTagModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
         >
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
@@ -443,7 +435,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -564,7 +556,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CANCEL")}}
                         </button>
@@ -583,12 +575,8 @@
 
         <!-- 编辑快捷方式 弹框 start -->
         <div
-            class="modal fade edit-tag-modal"
+            class="custom-modal edit-tag-modal"
             id="editTagModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
         >
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
@@ -597,7 +585,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -773,7 +761,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CANCEL")}}
                         </button>
@@ -790,60 +778,10 @@
         </div>
         <!-- 编辑快捷方式 弹框 end -->
 
-        <!-- 删除快捷方式/标签 确认 弹框 start -->
-        <div
-            class="modal fade delete-tag-modal"
-            id="deleteTagModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
-        >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{$t("_WARNING")}}</h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        {{$t("_WARNING_MESSAGE")}}
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-cancel"
-                            data-dismiss="modal"
-                        >
-                            {{$t("_CANCEL")}}
-                        </button>
-                        <button
-                            type="button"
-                            class="btn btn-sure"
-                            @click="handleSureDeleteTag()"
-                        >
-                            {{$t("_CONFIRM")}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 删除快捷方式/标签 确认 弹框 end -->
-
         <!-- 编辑分组 弹框 start -->
         <div
-            class="modal fade edit-group-modal"
+            class="custom-modal edit-group-modal"
             id="editGroupModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -852,7 +790,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -878,7 +816,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CANCEL")}}
                         </button>
@@ -897,12 +835,8 @@
 
         <!-- 删除分组确认 弹框 start -->
         <div
-            class="modal fade delete-group-modal"
-            id="deleteGroupModal"
-            tabindex="-1"
-            role="dialog"
-            aria-hidden="true"
-            data-backdrop="static"
+            class="custom-modal delete-group-modal"
+            id="deleteModal"
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -911,7 +845,7 @@
                         <button
                             type="button"
                             class="close"
-                            data-dismiss="modal"
+                            @click="hideModal"
                             aria-label="Close"
                         >
                             <span aria-hidden="true">&times;</span>
@@ -924,7 +858,7 @@
                         <button
                             type="button"
                             class="btn btn-cancel"
-                            data-dismiss="modal"
+                            @click="hideModal"
                         >
                             {{$t("_CANCEL")}}
                         </button>
@@ -946,13 +880,13 @@
 <script>
 import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
-import $ from "jquery";
+// import $ from "jquery";
 import draggable from 'vuedraggable';
 
 export default {
     name: "app",
     display: "Transition",
-    data() {
+    data () {
         return {
             currentLang: 'zh-CN', // 当前语言
             currentTheme: localStorage.getObject('theme') || 'theme_1', // 当前主题
@@ -978,11 +912,13 @@ export default {
             webLogoBgColor: '#FFFFFF', // 标签logo背景色
             // config: null, // 图片上传配置信息
             // params: null, // 图片上传的数据参数
+            isShowUpArrow: false, // 是否显示分组菜单上箭头
+            isShowDownArrow: false, // 是否显示分组菜单下箭头
         };
     },
     components: { draggable },
     computed: {
-        groupDragOptions() { // 分组拖拽参数
+        groupDragOptions () { // 分组拖拽参数
             return {
                 animation: 0,
                 group: "description",
@@ -990,7 +926,7 @@ export default {
                 ghostClass: "ghost-group"
             };
         },
-        tagDragOptions() { // 标签/快捷方式拖拽参数
+        tagDragOptions () { // 标签/快捷方式拖拽参数
             return {
                 animation: 0,
                 group: "description",
@@ -1000,7 +936,7 @@ export default {
             };
         }
     },
-    created() {
+    created () {
         // 首次进入应用，使用初始化标签数据
         if (localStorage.getObject('myTabGroupList') == null) {
             localStorage.setObject('myTabGroupList', initTabGroups);
@@ -1014,7 +950,7 @@ export default {
 
         this.changfocus();
     },
-    mounted() {
+    mounted () {
         // 判断左侧分组菜单方向箭头是否显示
         this.handleDirectionArrow();
 
@@ -1022,7 +958,8 @@ export default {
         // 监听浏览器窗口变化
         window.onresize = () => {
             return (() => {
-                $this.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
+                // $this.innerContainerHeight = $('.inner-container').height(); // 左侧分组菜单高度
+                $this.innerContainerHeight = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
             })();
         };
 
@@ -1034,14 +971,25 @@ export default {
 
     },
     methods: {
+        // 显示弹框
+        showModal (selector) {
+            document.querySelector(selector).classList.add("is-show");
+        },
+
+        // 关闭弹框
+        hideModal () {
+            document.querySelector('.custom-modal.is-show').classList.remove("is-show");
+        },
+
         // 百度搜索框自动聚焦
-        changfocus() {
+        changfocus () {
             this.$nextTick(() => {
                 this.$refs.inputs.focus();
             });
         },
+
         // 获取本地默认语言
-        getDefaultLanguage() {
+        getDefaultLanguage () {
             let defaultLang = 'zh-CN'; // 默认语言
             const supportLangs = ['zh-CN', 'en']; // 支持的语言
             // console.info('navigator.language=', navigator.language); // navigator.language --获取用户设置的用户首选语言(但是默认的情况下浏览器 UI 的语言一般和用户首选语言是一致的)
@@ -1056,15 +1004,20 @@ export default {
             this.currentLang = defaultLang;
         },
 
+        // 显示“设置”弹框
+        showSettingModal () {
+            this.showModal('#settingModal');
+        },
+
         // 切换语言
-        switchLanguage(lang) {
+        switchLanguage (lang) {
             this.$i18n.locale = lang;
             localStorage.setObject('language', lang);
             this.currentLang = lang;
         },
 
         // 切换主题
-        switchTheme(theme) {
+        switchTheme (theme) {
             localStorage.setObject('theme', theme);
             this.currentTheme = theme;
             window.location.reload();
@@ -1072,19 +1025,19 @@ export default {
         },
 
         // 刷新我的标签分组
-        updateMyTabGroupList() {
+        updateMyTabGroupList () {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
         },
 
         // 显示 添加分组弹框
-        showAddGroupModal() {
+        showAddGroupModal () {
             this.groupName = '';
-            $('#addGroupModal').modal('show');
+            this.showModal('#addGroupModal');
         },
 
         // 添加分组弹框-'添加'按钮点击事件处理
-        handleBtnAddGroupClick() {
+        handleBtnAddGroupClick () {
             let groupName = this.groupName;
             if (groupName.length === 0) {
                 this.isShowGroupNameErr = true;
@@ -1095,7 +1048,7 @@ export default {
 
                 this.updateMyTabGroupList(); // 刷新我的标签分组
 
-                $('#addGroupModal').modal('hide'); // 关闭弹框
+                this.hideModal();
 
                 this.groupName = '';
 
@@ -1105,29 +1058,29 @@ export default {
         },
 
         // 标签分组名称鼠标右击事件
-        handleRightClickGroup(index) {
+        handleRightClickGroup (index) {
             this.currentGroupIndex = index; // 显示操作菜单
             this.operateGroupIndex = index;
         },
 
         // 标签分组active样式
-        active(index) {
+        active (index) {
             this.activeIndex = index;
         },
 
         // 隐藏标签分组操作菜单
-        hideperationGroupMenu() {
+        hideperationGroupMenu () {
             this.currentGroupIndex = null;
         },
 
         // 分组操作菜单'编辑'按钮点击事件
-        handleEditTabGroup(groupName) {
-            $('#editGroupModal').modal('show');
+        handleEditTabGroup (groupName) {
+            this.showModal('#editGroupModal');
             this.groupName = groupName;
         },
 
         // 编辑分组弹框'确定'按钮点击事件
-        handleSureEditGroup() {
+        handleSureEditGroup () {
             let groupName = this.groupName;
             let operateGroupIndex = this.operateGroupIndex;
 
@@ -1139,30 +1092,31 @@ export default {
 
                 myTabGroupList.editTabGroup(groupName, operateGroupIndex); // 编辑分组
                 this.updateMyTabGroupList(); // 刷新我的标签分组
-                $('#editGroupModal').modal('hide'); // 关闭弹框
+                this.hideModal();
                 this.operateGroupIndex = null;
                 this.groupName = '';
             }
         },
 
-        // 分组操作菜单'删除'按钮点击事件
-        handleDeleteTabGroup() {
-            $('#deleteGroupModal').modal('show');
+        // 分组/快捷方式 操作菜单'删除'按钮点击事件
+        handleDelete () {
+            this.showModal('#deleteModal');
         },
 
         // 删除分组弹框'确定'按钮点击事件
-        handleSureDeleteGroup() {
+        handleSureDeleteGroup () {
             let operateGroupIndex = this.operateGroupIndex;
             myTabGroupList.deleteTabGroup(operateGroupIndex); // 删除分组
             this.updateMyTabGroupList(); // 刷新我的标签分组
-            $('#deleteGroupModal').modal('hide'); // 关闭弹框
+            this.hideModal();
             this.operateGroupIndex = null;
             this.active(0);
             this.handleEnterUpArrow(); // 滚动到标签顶部
         },
 
         // 添加快捷方式 点击事件
-        handleAddTag(index) {
+        handleAddTag (index) {
+            this.showModal('#addTagModal');
             this.webLogo = '';
             this.webName = '';
             this.webURL = '';
@@ -1173,12 +1127,12 @@ export default {
         },
 
         // 添加快捷方式弹框 名称输入事件
-        handleWebNameInput() {
+        handleWebNameInput () {
             this.changeWebLogoTxtCss();
         },
 
         // 改变logo预览方式样式
-        changeWebLogoTxtCss() {
+        changeWebLogoTxtCss () {
             if (this.checkedIndex === 0) {
                 // logo预览方式为文字
                 if (this.webName !== '') {
@@ -1192,7 +1146,7 @@ export default {
         },
 
         // 添加快捷方式（标签）弹框-'添加'按钮点击事件处理
-        handleBtnAddTagClick() {
+        handleBtnAddTagClick () {
             let operateGroupIndex = this.operateGroupIndex;
             let webLogo = this.webLogo;
             let webName = this.webName;
@@ -1235,25 +1189,25 @@ export default {
                 webURL
             ); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
-            $('#addTagModal').modal('hide'); // 关闭弹框
+            this.hideModal();
             this.operateGroupIndex = null;
         },
 
         // 标签鼠标右击事件
-        handleRightClickTag(idx, e) {
+        handleRightClickTag (idx, e) {
             e.preventDefault();
             this.currentTagIndex = idx; // 显示操作菜单
             this.operateTagIndex = idx;
         },
 
         // 隐藏标签操作菜单
-        hideperationTagMenu() {
+        hideperationTagMenu () {
             this.currentTagIndex = null;
         },
 
         // 标签操作菜单'编辑'按钮点击事件
-        handleEditTag(index, logo, logoPrevIndex, logoTxt, logoBgColor, name, url) {
-            $('#editTagModal').modal('show');
+        handleEditTag (index, logo, logoPrevIndex, logoTxt, logoBgColor, name, url) {
+            this.showModal('#editTagModal');
             this.operateGroupIndex = index;
             this.webLogo = logo;
             this.webName = name;
@@ -1265,7 +1219,7 @@ export default {
         },
 
         // 切换标签logo预览方式 激活样式
-        togglePrevWay(index) {
+        togglePrevWay (index) {
             this.checkedIndex = index;
             this.changeWebLogoTxtCss();
             if (index === 2) { // 自定义上传
@@ -1274,12 +1228,12 @@ export default {
         },
 
         // 添加图片
-        addImg() {
+        addImg () {
             document.getElementById('uploadImg').click();
         },
 
         // 上传图片
-        uploadImg(e, files) {
+        uploadImg (e, files) {
             // let _this = this;
             // //选择图片
             // let img = e.target.files[0];
@@ -1334,7 +1288,7 @@ export default {
         },
 
         // 编辑快捷方式（标签）弹框-'确定'按钮点击事件处理
-        handleBtnEditTagClick() {
+        handleBtnEditTagClick () {
             let operateGroupIndex = this.operateGroupIndex;
             let webLogo = this.webLogo;
             let webName = this.webName;
@@ -1369,44 +1323,40 @@ export default {
                 webURL
             ); // 添加标签
             this.updateMyTabGroupList(); // 刷新我的标签分组
-            $('#editTagModal').modal('hide'); // 关闭弹框
+            this.hideModal();
             this.operateTagIndex = null;
         },
 
-        // 标签操作菜单'删除'按钮点击事件
-        handleDeleteTag() {
-            $('#deleteTagModal').modal('show');
-        },
-
         // 删除标签弹框'确定'按钮点击事件
-        handleSureDeleteTag() {
+        handleSureDeleteTag () {
             let operateGroupIndex = this.activeIndex;
             let operateTagIndex = this.operateTagIndex;
 
             myTabGroupList.deleteTag(operateGroupIndex, operateTagIndex); // 删除标签
             this.updateMyTabGroupList(); // 刷新我的标签列表
-            $('#deleteTagModal').modal('hide'); // 关闭弹框
+            this.hideModal();
             this.operateTagIndex = null;
         },
 
         // 选择背景颜色
-        selectBgColor(e) {
+        selectBgColor (e) {
             if (e.target.nodeName.toLowerCase() === 'div') {
                 let index = parseInt(e.target.dataset.index);
                 if (!isNaN(index)) {
-                    let currentColor = $(e.target).css('background-color');
+                    // let currentColor = $(e.target).css('background-color'); // 可以获取到样式值
+                    // let currentColor = e.target.style.backgroundColor; // 获取不到样式值
+                    let currentColor = window.getComputedStyle(e.target, null).backgroundColor; // 注意：如果样式是通过css设置的，获取css属性值必须使用window.getComputedStyle，不能使用e.target.style
                     if (currentColor === 'rgba(0, 0, 0, 0)') {
                         this.webLogoBgColor = 'transparent';
                     } else {
                         this.webLogoBgColor = this.$Common.RGBtoHEX(currentColor);
                     }
-                    // this.checkedIndex = 0;
                 }
             }
         },
 
         // 百度-'搜索'按钮点击事件处理
-        handleBaiduSearchClick() {
+        handleBaiduSearchClick () {
             let baiduKeyword = this.baiduKeyword;
             window.location.replace(
                 `https://www.baidu.com/s?ie=utf-8&wd=${baiduKeyword}`
@@ -1414,7 +1364,7 @@ export default {
         },
 
         // 谷歌-'搜索'按钮点击事件处理
-        handleGoogleSearchClick() {
+        handleGoogleSearchClick () {
             let googleKeyword = this.googleKeyword;
             window.location.replace(
                 `https://www.google.com/search?ie=utf-8&q=${googleKeyword}`
@@ -1422,72 +1372,101 @@ export default {
         },
 
         // 判断是否有纵轴滚动条
-        hasScrolled(element) {
+        hasScrolled (element) {
             return element.scrollHeight > element.clientHeight;
         },
 
         // 处理左侧分组菜单方向箭头是否显示
-        handleDirectionArrow() {
-            let element = $('.inner-container')[0];
+        handleDirectionArrow () {
+            // let element = $('.inner-container')[0];
+            let element = document.querySelector('.inner-container');
+
             let hasScrolled = this.hasScrolled(element);
             if (hasScrolled) {
                 // 有滚动条
-                // 显示可滚动箭头
-                $('.c-setting .c-direction-arrow').show();
+                // 显示可向下滚动箭头
+                this.isShowDownArrow = true;
             } else {
-                $('.c-direction-arrow').hide();
+                this.isShowUpArrow = false;
+                this.isShowDownArrow = false;
             }
         },
 
         // 上箭头鼠标进入
-        handleEnterUpArrow() {
-            $('.inner-container').animate({ scrollTop: 0 }, 2000); // 滚动到顶部
+        handleEnterUpArrow () {
+            // $('.inner-container').animate({ scrollTop: 0 }, 2000); // 滚动到顶部
+            let ele = this.$refs.innerContainer;
+            this.ScrollTop(ele, 0, 2000);
         },
 
         // 下箭头鼠标进入
-        handleEnterDownArrow() {
-            let h = $('.inner-container').height();
-            $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
+        handleEnterDownArrow () {
+            // let h = $('.inner-container').height();
+            let h = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
+            // $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
+            let ele = this.$refs.innerContainer;
+            this.ScrollTop(ele, h, 2000);
+        },
+
+        ScrollTop (ele, number, time) {
+            let $this = this;
+            if (!time) {
+                ele.scrollTop = number;
+                return number;
+            }
+            const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
+            let spacingInex = time / spacingTime; // 计算循环的次数
+            let nowTop = ele.scrollTop; // 获取当前滚动条位置
+            let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
+            let scrollTimer = setInterval(() => {
+                if (spacingInex > 0) {
+                    spacingInex--;
+                    $this.ScrollTop(ele, nowTop += everTop);
+                } else {
+                    clearInterval(scrollTimer); // 清除计时器
+                }
+            }, spacingTime);
         },
 
         // 给左侧分组菜单div绑定滚动事件
-        scroll() {
+        scroll () {
             // 滚动条滚动时，距离顶部的距离
             let scrollTop = this.$refs.innerContainer.scrollTop;
 
             // 分组菜单div可视区高度
-            let divHeight = $('.inner-container').height();
+            // let divHeight = $('.inner-container').height();
+            let divHeight = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
 
             // 滚动条的总高度
             let scrollHeight = this.$refs.innerContainer.scrollHeight;
 
             if (scrollTop + divHeight === scrollHeight) {
                 // 滚动到底部
-                $('.c-setting .c-direction-arrow').hide();
-                $('.c-logo .c-direction-arrow').show();
+                this.isShowUpArrow = true; // 显示上箭头
+                this.isShowDownArrow = false;
             }
 
             if (scrollTop === 0) {
                 // 滚动到顶部
-                $('.c-logo .c-direction-arrow').hide();
-                $('.c-setting .c-direction-arrow').show();
+                this.isShowUpArrow = false;
+                this.isShowDownArrow = true; // 显示下箭头
             }
         },
 
         // 分组/快捷方式 拖拽排序后重新缓存数据
-        dataDragEnd() {
+        dataDragEnd () {
             let data = this.myTabGroups;
             localStorage.setObject('myTabGroupList', data);
         },
 
-        dataDragMove() {
+        dataDragMove () {
             // let index = e.relatedContext.index;
         }
 
     },
     watch: {
         // 监听 标签分组容器高度 数据变化
-        innerContainerHeight(val) {
+        innerContainerHeight (val) {
             // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
             if (!this.timer) {
                 // 一旦监听到的innerContainerHeight值改变，就将其重新赋给data里的innerContainerHeight

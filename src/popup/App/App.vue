@@ -197,7 +197,7 @@ export default {
         let $this = this;
         // 获取当前页面的url和title
         chrome.tabs.getSelected(null, function (tab) {
-            console.log(tab);
+            // console.log(tab);
             $this.webURL = tab.url;
             $this.webName = tab.title;
             $this.webLogo = tab.favIconUrl;

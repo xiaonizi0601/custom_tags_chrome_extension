@@ -2,7 +2,7 @@
 
 *,
 p {
-    margin : 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -11,14 +11,15 @@ html {
 }
 
 body {
-    font-size              : 14px;
-    color                  : var(--base-text-color);
-    background-color       : var(--bg-color);
-    font-family            : 'Rajdhani', helvetica neue, hiragino sans gb, arial, microsoft yahei ui, microsoft yahei, simsun, sans-serif;
-    -webkit-font-smoothing : antialiased;
+    font-size: 14px;
+    color: var(--base-text-color);
+    background-color: var(--bg-color);
+    font-family: 'Rajdhani', helvetica neue, hiragino sans gb, arial,
+        microsoft yahei ui, microsoft yahei, simsun, sans-serif;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    height                 : 100%;
-    overflow-x             : hidden;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 a,
@@ -38,7 +39,7 @@ button,
 button:focus,
 input,
 input:focus {
-    outline   : none !important;
+    outline: none !important;
     box-shadow: none !important;
 }
 
@@ -60,15 +61,15 @@ input:hover {
     justify-content: center;
 }
 
-.modal,
+.custom-modal,
 .c-popup {
     color: var(--base-setting-text-color);
 
     .modal-footer {
         button {
-            width : 140px;
+            width: 140px;
             margin: 10px;
-            color : #fff;
+            color: #fff;
         }
 
         .btn-cancel {
@@ -76,7 +77,7 @@ input:hover {
         }
 
         .btn-cancel:hover {
-            opacity   : 0.8;
+            opacity: 0.8;
             background: var(--btn-cancel-bg-color);
             transition: background 0.2s ease-in-out;
         }
@@ -104,39 +105,39 @@ input:hover {
 
     .nav-pills {
         .nav-link {
-            border-radius : 0;
-            color         : #fff;
-            padding-right : 0px;
-            padding-top   : 15px;
+            border-radius: 0;
+            color: #fff;
+            padding-right: 0px;
+            padding-top: 15px;
             padding-bottom: 15px;
-            position      : relative;
-            cursor        : pointer;
+            position: relative;
+            cursor: pointer;
 
             div.group-name {
-                padding              : 0 10px;
-                white-space          : nowrap;
-                overflow             : hidden;
-                text-overflow        : ellipsis;
+                padding: 0 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 -webkit-touch-callout: none;
                 /*系统默认菜单被禁用*/
-                -webkit-user-select  : none;
+                -webkit-user-select: none;
                 /*webkit浏览器*/
-                -khtml-user-select   : none;
+                -khtml-user-select: none;
                 /*早期浏览器*/
-                -moz-user-select     : none;
+                -moz-user-select: none;
             }
 
             div.operation-menu {
-                position     : absolute;
-                left         : 49%;
-                border       : 1px solid var(--operation-menu-color);
+                position: absolute;
+                left: 49%;
+                border: 1px solid var(--operation-menu-color);
                 border-radius: 5px;
-                background   : #fff;
-                font-size    : 12px;
-                width        : 49%;
-                color        : var(--operation-menu-color);
-                z-index      : 3;
-                overflow     : hidden;
+                background: #fff;
+                font-size: 12px;
+                width: 49%;
+                color: var(--operation-menu-color);
+                z-index: 3;
+                overflow: hidden;
 
                 div {
                     padding: 5px 0;
@@ -144,7 +145,7 @@ input:hover {
 
                 div:hover {
                     background: var(--base-color);
-                    color     : #fff;
+                    color: #fff;
                 }
             }
         }
@@ -159,73 +160,69 @@ input:hover {
     }
 
     .tab-logo {
-        width        : 50px;
-        height       : 50px;
-        margin       : 30px auto;
-        padding      : 5px;
-        background   : #fff;
+        width: 50px;
+        height: 50px;
+        margin: 30px auto;
+        padding: 5px;
+        background: #fff;
         border-radius: 50%;
     }
 
     .icon-add {
-        width : 20px;
+        width: 20px;
         height: 20px;
         cursor: pointer;
     }
-
 }
 
-
 .c-tag {
-    color   : var(--base-text-color);
-    margin  : 30px 0 0;
-    cursor  : pointer;
-    display : inline-block;
+    color: var(--base-text-color);
+    margin: 30px 0 0;
+    cursor: pointer;
+    display: inline-block;
     position: relative;
 
     .c-dot {
-        color    : #fff;
+        color: #fff;
         font-size: 25px;
-        position : absolute;
-        right    : -10px;
-        top      : -30px;
-        display  : none;
+        position: absolute;
+        right: -10px;
+        top: -30px;
+        display: none;
     }
 
     .tag-logo {
-        width        : 50px;
-        height       : 50px;
-        padding      : 10px;
-        border       : 1px solid #fff;
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+        border: 1px solid #fff;
         border-radius: 50%;
-        background   : #fff;
-        margin       : 0 auto;
-        font-size    : 16px;
-        font-weight  : 600;
-        white-space  : nowrap;
+        background: #fff;
+        margin: 0 auto;
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
 
         img {
-            width     : 30px;
+            width: 30px;
             object-fit: cover;
         }
-
     }
 
     .tag-name {
-        width        : 120px;
-        height       : 24px;
-        line-height  : 24px;
+        width: 120px;
+        height: 24px;
+        line-height: 24px;
         border-radius: 12px;
-        background   : #fff;
-        white-space  : nowrap;
-        overflow     : hidden;
+        background: #fff;
+        white-space: nowrap;
+        overflow: hidden;
         text-overflow: ellipsis;
-        font-size    : 12px;
-        font-weight  : 600;
-        margin       : 0 auto;
-        padding      : 0 10px;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 auto;
+        padding: 0 10px;
     }
-
 }
 
 .c-tag:hover .tag-name {
@@ -233,7 +230,7 @@ input:hover {
 }
 
 .c-tag:hover img:not(.icon-add-tag) {
-    width     : 35px;
+    width: 35px;
     transition: width 0.2s ease;
 }
 
@@ -242,7 +239,7 @@ input:hover {
 }
 
 .c-cover {
-    width : 70%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -253,7 +250,7 @@ input:hover {
 }
 
 .tag-box:hover .c-cover {
-    background   : rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
@@ -262,25 +259,25 @@ input:hover {
 }
 
 .common-btn {
-    padding    : 5px 10px;
-    background : #fff;
-    color      : var(--base-color);
-    cursor     : pointer;
-    border     : 1px solid var(--base-color);
+    padding: 5px 10px;
+    background: #fff;
+    color: var(--base-color);
+    cursor: pointer;
+    border: 1px solid var(--base-color);
     font-weight: normal;
 }
 
 .switch-lang-active,
 .switch-theme-active {
     background: var(--base-color);
-    color     : #fff;
+    color: #fff;
 }
 
 .c-setting {
-    width     : 100%;
-    position  : absolute;
-    bottom    : 0px;
-    cursor    : pointer;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    cursor: pointer;
     background: var(--nav-bg-color);
 
     .icon-setting {
@@ -289,16 +286,16 @@ input:hover {
 }
 
 .c-direction-arrow {
-    position    : absolute;
-    top         : -20px;
-    left        : 0;
-    color       : #fff;
-    background  : rgba(0, 0, 0, 0.2);
-    width       : 100%;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
     padding-left: 18px;
-    z-index     : 2;
-    display     : none;
-    cursor      : pointer;
+    z-index: 2;
+    display: none;
+    cursor: pointer;
 }
 
 .c-logo {
@@ -306,52 +303,52 @@ input:hover {
 }
 
 .c-logo .c-direction-arrow {
-    top      : 130px;
+    top: 130px;
     transform: rotate(180deg);
-    padding  : 0 18px 0 0;
+    padding: 0 18px 0 0;
 }
 
 .outer-container {
-    height  : 100%;
+    height: 100%;
     position: relative;
     overflow: hidden;
 }
 
 .inner-container {
-    position  : absolute;
-    left      : 0;
-    top       : 130px;
-    right     : -17px;
-    bottom    : 0;
+    position: absolute;
+    left: 0;
+    top: 130px;
+    right: -17px;
+    bottom: 0;
     overflow-x: hidden;
     overflow-y: scroll;
 }
 
 .err-msg {
-    font-size : 14px;
-    color     : #F04D41;
+    font-size: 14px;
+    color: #f04d41;
     margin-top: 5px;
 }
 
 .c-logo-setting {
-    >div {
+    > div {
         padding: 0;
 
-        >div {
-            width          : 85px;
-            height         : 85px;
-            border         : 1px solid #ccc;
-            display        : flex;
+        > div {
+            width: 85px;
+            height: 85px;
+            border: 1px solid #ccc;
+            display: flex;
             justify-content: center;
-            align-items    : center;
-            margin         : 0 auto;
-            font-size      : 24px;
-            cursor         : pointer;
-            color          : var(--base-text-color);
+            align-items: center;
+            margin: 0 auto;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--base-text-color);
         }
 
         .active {
-            border    : 2px solid var(--base-color);
+            border: 2px solid var(--base-color);
             box-shadow: inset 0 0 0 2px #fff;
         }
 
@@ -367,17 +364,17 @@ input:hover {
 }
 
 .tag-operation-menu {
-    position     : absolute;
-    top          : 0;
-    left         : 80%;
-    border       : 1px solid var(--operation-menu-color);
+    position: absolute;
+    top: 0;
+    left: 80%;
+    border: 1px solid var(--operation-menu-color);
     border-radius: 5px;
-    background   : #fff;
-    font-size    : 12px;
-    width        : 60px;
-    color        : var(--operation-menu-color);
-    z-index      : 3;
-    overflow     : hidden;
+    background: #fff;
+    font-size: 12px;
+    width: 60px;
+    color: var(--operation-menu-color);
+    z-index: 3;
+    overflow: hidden;
 
     div {
         padding: 5px 10px;
@@ -385,31 +382,29 @@ input:hover {
 
     div:hover {
         background: var(--base-color);
-        color     : #fff;
-        cursor    : pointer;
+        color: #fff;
+        cursor: pointer;
     }
-
 }
 
 .base-setting-box,
 .bg-color-box,
 .logo-setting-box {
     background-color: var(--bg-color);
-    border-radius   : 5px;
-    padding         : 10px 0;
-    color           : var(--base-setting-text-color);
+    border-radius: 5px;
+    padding: 10px 0;
+    color: var(--base-setting-text-color);
 
     .c-logo-bgcolor {
-
         div {
-            width       : 24px;
-            height      : 24px;
+            width: 24px;
+            height: 24px;
             margin-right: 10px;
-            cursor      : pointer;
+            cursor: pointer;
         }
 
         div.active {
-            border    : 2px solid var(--base-color);
+            border: 2px solid var(--base-color);
             box-shadow: inset 0 0 0 1px #fff;
         }
 
@@ -450,7 +445,7 @@ input:hover {
         }
 
         div:last-child {
-            background     : url("../images/icon_transparent.jpg") transparent;
+            background: url('../images/icon_transparent.jpg') transparent;
             background-size: 100% 100%;
         }
     }
@@ -458,4 +453,31 @@ input:hover {
 
 .a-link {
     color: var(--base-color);
+}
+
+.custom-modal {
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.is-show {
+    display: block;
+    
+}
+
+.custom-modal .modal-dialog {
+    opacity: 0;
+}
+
+.custom-modal.is-show .modal-dialog {
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
