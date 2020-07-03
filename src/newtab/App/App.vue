@@ -33,7 +33,7 @@
                         ref="innerContainer"
                         @mousewheel="scroll()"
                     >
-                        <!-- 标签分组拖拽排序 -->
+                        <!-- 快捷方式分组拖拽排序 -->
                         <draggable
                             class="draggable-list-group"
                             tag="ul"
@@ -65,7 +65,7 @@
                                         @mouseleave="hideperationGroupMenu"
                                     >
                                         <div @click="handleEditTabGroup(item.name)">{{$t('_EDIT')}}</div>
-                                        <div @click="handleDelete()">{{$t("_REMOVE")}}</div>
+                                        <div @click="handleDeleteGroup()">{{$t("_REMOVE")}}</div>
                                     </div>
                                 </li>
                             </transition-group>
@@ -174,7 +174,7 @@
                         v-for="(item, index) in myTabGroups.tabs"
                         :key="index"
                     >
-                        <!-- 标签/快捷方式 拖拽排序 group="a"-->
+                        <!-- 快捷方式 拖拽排序 group="a"-->
                         <draggable
                             class="row"
                             v-model="item.tags"
@@ -222,12 +222,6 @@
                                                 >
                                             </div>
 
-                                            <!-- <div v-if="tag.logoPrevIndex === 2">
-                                            <img
-                                                :src="require(`../../assets/images/tagLogo/upload/${tag.logo}`)"
-                                                v-if="tag.logo"
-                                            />
-                                            </div> -->
                                         </div>
                                         <p class="tag-name mt-3">{{ tag.name }}</p>
                                     </a>
@@ -236,16 +230,10 @@
                                         v-show="currentTagIndex == idx"
                                         @mouseleave="hideperationTagMenu"
                                     >
-                                        <div
-                                            data-target="#editTagModal"
-                                            @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)"
-                                        >
+                                        <div @click.stop="handleEditTag(index,tag.logo,tag.logoPrevIndex,tag.logoTxt,tag.logoBgColor,tag.name,tag.url)">
                                             {{$t('_EDIT')}}
                                         </div>
-                                        <div
-                                            @click="handleDelete()"
-                                            data-target="#deleteModal"
-                                        >{{$t("_REMOVE")}}</div>
+                                        <div @click="handleDeleteTag()">{{$t("_REMOVE")}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -378,7 +366,7 @@
                         <p class="mt-4">{{$t("_BACK_UP_MY_TAGS")}}</p>
                         <button
                             class="common-btn"
-                            @click="$Common.backupMySettings()"
+                            @click="backupMySettings()"
                         >
                             {{$t("_EXPORT_TO_LOCAL_FILE")}}
                         </button>
@@ -392,7 +380,7 @@
                                 id="my-file-selector"
                                 type="file"
                                 style="display:none;"
-                                @change="$Common.importMySettings($event)"
+                                @change="importMySettings($event)"
                             />{{$t("_IMPORT_FROM_LOCAL_FILE")}}
                         </label>
 
@@ -493,33 +481,7 @@
                                             <p>{{$t("_TEXT")}}</p>
                                         </div>
                                         <div class="col-4">
-                                            <!-- 图片上传 start -->
-                                            <!-- <div
-                                                class="c-upload-image"
-                                                :class="{ active: checkedIndex === 2 }"
-                                                @click="togglePrevWay(2)"
-                                            >
-                                                <input
-                                                    id="uploadImg"
-                                                    type="file"
-                                                    name="img"
-                                                    accept="image/*"
-                                                    @change="uploadImg($event,this.file)"
-                                                    style="display:none"
-                                                />
-                                                <div
-                                                    class="icon-upload"
-                                                    id="showImg"
-                                                >
-                                                    <img
-                                                        src="../../assets/images/icon_upload.jpg"
-                                                        v-if="!webLogo"
-                                                    >
-                                                </div>
-                                            </div> -->
-                                            <!-- 图片上传 end -->
 
-                                            <!-- <p>上传</p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -667,33 +629,7 @@
                                             <p>{{$t("_TEXT")}}</p>
                                         </div>
                                         <div class="col-4">
-                                            <!-- 图片上传 start -->
-                                            <!-- <div
-                                            class="c-upload-image"
-                                            :class="{ active: checkedIndex === 2 }"
-                                            @click="togglePrevWay(2)"
-                                        >
-                                            <input
-                                                id="uploadImg"
-                                                type="file"
-                                                name="img"
-                                                accept="image/*"
-                                                @change="uploadImg($event)"
-                                                style="display:none"
-                                            />
-                                            <div class="icon-upload">
-                                                <img
-                                                    :src="webLogo"
-                                                    v-if="webLogo"
-                                                >
-                                                <img
-                                                    src="../../assets/images/icon_upload.jpg"
-                                                    v-else
-                                                >
-                                            </div>
-                                        </div> -->
-                                            <!-- 图片上传 end -->
-                                            <!-- <p>上传</p> -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -778,6 +714,48 @@
         </div>
         <!-- 编辑快捷方式 弹框 end -->
 
+        <!-- 删除快捷方式确认 弹框 start -->
+        <div
+            class="custom-modal delete-group-modal"
+            id="deleteTagModal"
+        >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{$t("_WARNING")}}</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            @click="hideModal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        {{$t("_WARNING_MESSAGE")}}
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-cancel"
+                            @click="hideModal"
+                        >
+                            {{$t("_CANCEL")}}
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-sure"
+                            @click="handleSureDeleteTag()"
+                        >
+                            {{$t("_CONFIRM")}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 删除快捷方式 弹框 end -->
+
         <!-- 编辑分组 弹框 start -->
         <div
             class="custom-modal edit-group-modal"
@@ -836,7 +814,7 @@
         <!-- 删除分组确认 弹框 start -->
         <div
             class="custom-modal delete-group-modal"
-            id="deleteModal"
+            id="deleteGroupModal"
         >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -874,6 +852,12 @@
             </div>
         </div>
         <!-- 删除分组确认 弹框 end -->
+
+        <toast
+            :markedWords="markedWords"
+            v-show="isShowToast"
+        ></toast>
+
     </div>
 </template>
 
@@ -882,6 +866,7 @@ import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
 // import $ from "jquery";
 import draggable from 'vuedraggable';
+import toast from '../../components/toast'
 
 export default {
     name: "app",
@@ -890,7 +875,7 @@ export default {
         return {
             currentLang: 'zh-CN', // 当前语言
             currentTheme: localStorage.getObject('theme') || 'theme_1', // 当前主题
-            myTabGroups: null, // 我的标签分组
+            myTabGroups: null, // 我的快捷方式分组
             groupName: '', // 分组名称
             isShowGroupNameErr: false, // 是否显示分组名称错误信息
             baiduKeyword: '', // 百度搜索关键词
@@ -900,23 +885,23 @@ export default {
             webLogo: '', // 网址logo
             isShowTagURLErr: false, // 是否显示快捷方式网址错误信息
             isShowTagNameErr: false, // 是否显示快捷方式名称错误信息
-            innerContainerHeight: 0, // 标签分组容器高度
+            innerContainerHeight: 0, // 快捷方式分组容器高度
             timer: false, // 定时器
             currentGroupIndex: null, // 当前右击选中的分组索引，用于控制操作菜单显示与隐藏
             operateGroupIndex: null, // 当前操作（编辑和删除）的分组索引
             activeIndex: 0, // 当前active的分组索引
-            currentTagIndex: null, // 当前右击选中的快捷方式标签索引，用于控制操作菜单显示与隐藏
-            operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式标签索引
-            checkedIndex: 0, // 当前选择的标签logo预览方式--0:文字；1:官方logo；2:自定义上传图片
-            webLogoTxt: 'A', // 标签logo预览方式-文字
-            webLogoBgColor: '#FFFFFF', // 标签logo背景色
-            // config: null, // 图片上传配置信息
-            // params: null, // 图片上传的数据参数
+            currentTagIndex: null, // 当前右击选中的快捷方式索引，用于控制操作菜单显示与隐藏
+            operateTagIndex: null, // 当前操作（编辑和删除）的快捷方式索引
+            checkedIndex: 0, // 当前选择的快捷方式logo预览方式--0:文字；1:官方logo。
+            webLogoTxt: 'A', // 快捷方式logo预览方式-文字
+            webLogoBgColor: '#FFFFFF', // 快捷方式logo背景色
             isShowUpArrow: false, // 是否显示分组菜单上箭头
             isShowDownArrow: false, // 是否显示分组菜单下箭头
+            markedWords: '', // 提示语
+            isShowToast: false //是否显示提示框
         };
     },
-    components: { draggable },
+    components: { draggable, toast },
     computed: {
         groupDragOptions () { // 分组拖拽参数
             return {
@@ -926,7 +911,7 @@ export default {
                 ghostClass: "ghost-group"
             };
         },
-        tagDragOptions () { // 标签/快捷方式拖拽参数
+        tagDragOptions () { // 快捷方式拖拽参数
             return {
                 animation: 0,
                 group: "description",
@@ -937,12 +922,12 @@ export default {
         }
     },
     created () {
-        // 首次进入应用，使用初始化标签数据
+        // 首次进入应用，使用初始化快捷方式数据
         if (localStorage.getObject('myTabGroupList') == null) {
             localStorage.setObject('myTabGroupList', initTabGroups);
             this.myTabGroups = initTabGroups;
         } else {
-            this.updateMyTabGroupList(); // 刷新我的标签分组
+            this.updateMyTabGroupList(); // 刷新我的快捷方式分组
         }
 
         // localStorage.clear(); // 删除所有缓存数据 test
@@ -969,8 +954,22 @@ export default {
         // 获取本地默认语言
         this.getDefaultLanguage();
 
+        // this.showToast('test2');
+
     },
     methods: {
+        // 显示提示框
+        showToast (markedWords) {
+            this.markedWords = markedWords;
+            this.isShowToast = true;
+            let $this = this;
+            let timer = setTimeout(() => {
+                $this.isShowToast = false;
+                $this.markedWords = '';
+                clearTimeout(timer);
+            }, 2000);
+        },
+
         // 显示弹框
         showModal (selector) {
             document.querySelector(selector).classList.add("is-show");
@@ -1024,7 +1023,72 @@ export default {
 
         },
 
-        // 刷新我的标签分组
+        // 下载文件到本地
+        downloadFile (fileName, fileType, content) {
+            window.URL = window.URL || window.webkitURL;
+            const blob = new Blob([content], {
+                type: fileType,
+            });
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = window.URL.createObjectURL(blob);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        },
+
+        // 备份我的配置信息并下载到本地
+        backupMySettings () {
+            const items = {};
+            Object.keys(localStorage).forEach((key) => {
+                // console.info(localStorage, key);
+                items[key] = localStorage.getObject(key);
+            });
+
+            const content = JSON.stringify(items);
+            this.downloadFile('myTabGroups_backup.json', 'application/json', content);
+        },
+
+        // 导入我的配置信息（包括快捷方式分组、快捷方式列表等）
+        importMySettings (event) {
+            const fileObject = event.target.files[0];
+            if (fileObject === null) {
+                this.showToast(this.$t('_BACKUPMARKEDWORDS[0]'));
+                return;
+            }
+            const reader = new FileReader();
+            reader.onloadend = (readerEvent) => {
+                if (readerEvent.target.readyState === FileReader.DONE) {
+                    const data_json = readerEvent.target.result;
+                    // parse json
+                    let data = null;
+                    try {
+                        data = JSON.parse(data_json);
+                    } catch (e) {
+                        this.showToast(this.$t('_BACKUPMARKEDWORDS[1]'));
+                        return;
+                    }
+                    // console.info('导入json---------', data);
+
+                    Object.keys(data).forEach(item => {
+                        localStorage.setObject(item, data[item])
+                    });
+
+                    this.showToast(this.$t('_BACKUPMARKEDWORDS[2]'));
+
+                    let timer = setTimeout(() => {
+                        // 刷新页面
+                        window.location.reload();
+                        clearTimeout(timer);
+                    }, 2000);
+
+                }
+            };
+            reader.readAsText(fileObject);
+        },
+
+        // 刷新我的快捷方式分组
         updateMyTabGroupList () {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
@@ -1046,29 +1110,29 @@ export default {
                 this.isShowGroupNameErr = false;
                 myTabGroupList.addTabGroup(groupName); // 添加分组
 
-                this.updateMyTabGroupList(); // 刷新我的标签分组
+                this.updateMyTabGroupList(); // 刷新我的快捷方式分组
 
                 this.hideModal();
 
                 this.groupName = '';
 
                 let groupLen = this.myTabGroups.tabs.length;
-                this.active(groupLen - 1); // 标签分组active样式定位到新增标签
+                this.active(groupLen - 1); // 快捷方式分组active样式定位到新增快捷方式
             }
         },
 
-        // 标签分组名称鼠标右击事件
+        // 快捷方式分组名称鼠标右击事件
         handleRightClickGroup (index) {
             this.currentGroupIndex = index; // 显示操作菜单
             this.operateGroupIndex = index;
         },
 
-        // 标签分组active样式
+        // 快捷方式分组active样式
         active (index) {
             this.activeIndex = index;
         },
 
-        // 隐藏标签分组操作菜单
+        // 隐藏快捷方式分组操作菜单
         hideperationGroupMenu () {
             this.currentGroupIndex = null;
         },
@@ -1091,27 +1155,27 @@ export default {
                 this.isShowGroupNameErr = false;
 
                 myTabGroupList.editTabGroup(groupName, operateGroupIndex); // 编辑分组
-                this.updateMyTabGroupList(); // 刷新我的标签分组
+                this.updateMyTabGroupList(); // 刷新我的快捷方式分组
                 this.hideModal();
                 this.operateGroupIndex = null;
                 this.groupName = '';
             }
         },
 
-        // 分组/快捷方式 操作菜单'删除'按钮点击事件
-        handleDelete () {
-            this.showModal('#deleteModal');
+        // 分组 操作菜单'删除'按钮点击事件
+        handleDeleteGroup () {
+            this.showModal('#deleteGroupModal');
         },
 
         // 删除分组弹框'确定'按钮点击事件
         handleSureDeleteGroup () {
             let operateGroupIndex = this.operateGroupIndex;
             myTabGroupList.deleteTabGroup(operateGroupIndex); // 删除分组
-            this.updateMyTabGroupList(); // 刷新我的标签分组
+            this.updateMyTabGroupList(); // 刷新我的快捷方式分组
             this.hideModal();
             this.operateGroupIndex = null;
             this.active(0);
-            this.handleEnterUpArrow(); // 滚动到标签顶部
+            this.handleEnterUpArrow(); // 滚动到快捷方式顶部
         },
 
         // 添加快捷方式 点击事件
@@ -1145,7 +1209,7 @@ export default {
             }
         },
 
-        // 添加快捷方式（标签）弹框-'添加'按钮点击事件处理
+        // 添加快捷方式 弹框-'添加'按钮点击事件处理
         handleBtnAddTagClick () {
             let operateGroupIndex = this.operateGroupIndex;
             let webLogo = this.webLogo;
@@ -1170,15 +1234,6 @@ export default {
                 this.isShowTagNameErr = false;
             }
 
-            if (logoPrevIndex == 2) {
-                if (webLogo === '') {
-                    // 未上传图片时，默认取文字+背景色方式展示快捷方式logo
-                    logoPrevIndex = 0;
-                    webLogoBgColor = '#FFFFFF';
-                    webLogoTxt = webName.substr(0, 2);
-                }
-            }
-
             myTabGroupList.addTag(
                 operateGroupIndex,
                 webLogo,
@@ -1187,25 +1242,25 @@ export default {
                 webLogoBgColor,
                 webName,
                 webURL
-            ); // 添加标签
-            this.updateMyTabGroupList(); // 刷新我的标签分组
+            ); // 添加快捷方式
+            this.updateMyTabGroupList(); // 刷新我的快捷方式分组
             this.hideModal();
             this.operateGroupIndex = null;
         },
 
-        // 标签鼠标右击事件
+        // 快捷方式鼠标右击事件
         handleRightClickTag (idx, e) {
             e.preventDefault();
             this.currentTagIndex = idx; // 显示操作菜单
             this.operateTagIndex = idx;
         },
 
-        // 隐藏标签操作菜单
+        // 隐藏快捷方式操作菜单
         hideperationTagMenu () {
             this.currentTagIndex = null;
         },
 
-        // 标签操作菜单'编辑'按钮点击事件
+        // 快捷方式操作菜单'编辑'按钮点击事件
         handleEditTag (index, logo, logoPrevIndex, logoTxt, logoBgColor, name, url) {
             this.showModal('#editTagModal');
             this.operateGroupIndex = index;
@@ -1218,76 +1273,13 @@ export default {
             this.changeWebLogoTxtCss();
         },
 
-        // 切换标签logo预览方式 激活样式
+        // 切换快捷方式logo预览方式 激活样式
         togglePrevWay (index) {
             this.checkedIndex = index;
             this.changeWebLogoTxtCss();
-            if (index === 2) { // 自定义上传
-                this.addImg();
-            }
         },
 
-        // 添加图片
-        addImg () {
-            document.getElementById('uploadImg').click();
-        },
-
-        // 上传图片
-        uploadImg (e, files) {
-            // let _this = this;
-            // //选择图片
-            // let img = e.target.files[0];
-            // // this.params = new FormData(); // 创建form对象
-            // // this.params.append('file', img);
-            // // this.config = {
-            // //     headers: { 'Content-Type': 'multipart/form-data' }
-            // // };
-
-            // // 限制图片大小
-            // let size = Math.floor(img.size);
-            // if (size > 5 * 1024 * 1024) {
-            //     alert('请选择5M以内的图片！');
-            //     return false;
-            // }
-
-            // if (img) {
-            //     let fileReader = new FileReader();
-            //     fileReader.readAsDataURL(img);                
-
-            //     fileReader.onloadend = function () {
-            //         _this.webLogo = fileReader.result;
-            //         console.info('webLogo==========', _this.webLogo);
-            // 	};
-
-            // 	// 获取显示图片名称的div
-            // 	// let ShowImgDiv = e.target.nextsibling;
-            // 	let ShowImgDiv = document.getElementById('showImg');
-            // 	console.info('ShowImgDiv:',ShowImgDiv);
-
-            //     // 图片预览
-            //     ShowImgDiv.innerHTML =
-            //         ShowImgDiv.innerHTML +
-            //         `<img class="img-preview" src=${_this.webLogo} />`;
-
-
-            // }
-
-            var ShowImgDiv = document.getElementById('showImg');
-            for (var i = 0; i < files.length; i++) {
-                var img_box = document.createElement('div');
-                img_box.setAttribute('class', 'file-content');
-                var img = document.createElement('img');
-                img.src = window.URL.createObjectURL(files[i]);
-                img.height = 100;
-                img.onload = function () {
-                    window.URL.revokeObjectURL(this.src);
-                }
-                img_box.appendChild(img);
-                ShowImgDiv.appendChild(img_box)
-            }
-        },
-
-        // 编辑快捷方式（标签）弹框-'确定'按钮点击事件处理
+        // 编辑快捷方式弹框-'确定'按钮点击事件处理
         handleBtnEditTagClick () {
             let operateGroupIndex = this.operateGroupIndex;
             let webLogo = this.webLogo;
@@ -1321,19 +1313,24 @@ export default {
                 webLogoBgColor,
                 webName,
                 webURL
-            ); // 添加标签
-            this.updateMyTabGroupList(); // 刷新我的标签分组
+            ); // 添加快捷方式
+            this.updateMyTabGroupList(); // 刷新我的快捷方式分组
             this.hideModal();
             this.operateTagIndex = null;
         },
 
-        // 删除标签弹框'确定'按钮点击事件
+        // 快捷方式 操作菜单'删除'按钮点击事件
+        handleDeleteTag () {
+            this.showModal('#deleteTagModal');
+        },
+
+        // 删除快捷方式弹框'确定'按钮点击事件
         handleSureDeleteTag () {
             let operateGroupIndex = this.activeIndex;
             let operateTagIndex = this.operateTagIndex;
 
-            myTabGroupList.deleteTag(operateGroupIndex, operateTagIndex); // 删除标签
-            this.updateMyTabGroupList(); // 刷新我的标签列表
+            myTabGroupList.deleteTag(operateGroupIndex, operateTagIndex); // 删除快捷方式
+            this.updateMyTabGroupList(); // 刷新我的快捷方式列表
             this.hideModal();
             this.operateTagIndex = null;
         },
@@ -1465,7 +1462,7 @@ export default {
 
     },
     watch: {
-        // 监听 标签分组容器高度 数据变化
+        // 监听 快捷方式分组容器高度 数据变化
         innerContainerHeight (val) {
             // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
             if (!this.timer) {
@@ -1497,28 +1494,6 @@ export default {
 
 .input-group-append {
     cursor: pointer;
-}
-
-.c-upload-img {
-    width: 85px;
-    position: relative;
-}
-
-.icon-upload img {
-    width: 85px;
-    height: 85px;
-    position: absolute;
-}
-
-.c-img-preview {
-    width: 85px;
-    height: 85px;
-}
-
-.img-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 /* draggable css start */

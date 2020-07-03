@@ -32,8 +32,9 @@ const en = {
     "_GROUP": "Group",
     "_NOT_FOUND": "Not found",
     "_THEME": "Theme:",
-    "_THEME_TYPE": ["Theme one", "Theme two"],
-    "_ABOUT": "About:"
+    "_THEME_TYPE": ["Simple white", "Space gray"],
+    "_ABOUT": "About:",
+    "_BACKUPMARKEDWORDS": ["Please select a backup file.", "The backup file format is wrong, please choose again.", "My backup file was successfully imported."]
 }
 
 export default en

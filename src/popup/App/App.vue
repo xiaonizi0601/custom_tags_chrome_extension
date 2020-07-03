@@ -44,7 +44,6 @@
                             class="form-control"
                             name=''
                             id=''
-                            @change="handleGroupChange(operateGroupIndex)"
                             v-model="operateGroupIndex"
                         >
                             <option
@@ -165,11 +164,11 @@
 <script>
 import initTabGroups from "../../assets/json/initTabGroups.json";
 import myTabGroupList from "../../assets/js/myTabGroupList.js";
-import $ from "jquery";
+// import $ from "jquery";
 
 export default {
     name: 'app',
-    data() {
+    data () {
         return {
             myTabGroups: null, // 我的标签分组
             operateGroupIndex: 0, // 当前选中的分组索引
@@ -184,7 +183,7 @@ export default {
             tips: this.$t('_OFFICIAL') // logo预览提示
         }
     },
-    created() {
+    created () {
         // 首次进入应用，使用初始化标签数据
         if (localStorage.getObject('myTabGroupList') == null) {
             localStorage.setObject('myTabGroupList', initTabGroups);
@@ -193,7 +192,7 @@ export default {
             this.updateMyTabGroupList(); // 刷新我的标签分组
         }
     },
-    mounted() {
+    mounted () {
         let $this = this;
         // 获取当前页面的url和title
         chrome.tabs.getSelected(null, function (tab) {
@@ -213,20 +212,20 @@ export default {
     },
     methods: {
         // 刷新我的标签分组
-        updateMyTabGroupList() {
+        updateMyTabGroupList () {
             let result = myTabGroupList.showMyTabGroupList();
             this.myTabGroups = result;
             // console.info(result);
         },
 
         // 切换标签logo预览方式 激活样式
-        togglePrevWay(index) {
+        togglePrevWay (index) {
             this.checkedIndex = index;
             this.changeWebLogoTxtCss();
         },
 
         // 改变logo预览方式样式
-        changeWebLogoTxtCss() {
+        changeWebLogoTxtCss () {
             if (this.checkedIndex === 0) {
                 // logo预览方式为文字
                 if (this.webName !== '') {
@@ -240,33 +239,29 @@ export default {
         },
 
         // 名称输入事件
-        handleWebNameInput() {
+        handleWebNameInput () {
             this.changeWebLogoTxtCss();
         },
 
-        // 选择分组
-        handleGroupChange(value) {
-            // console.info(value);
-        },
         // 选择背景颜色
-        selectBgColor(e) {
+        selectBgColor (e) {
             if (e.target.nodeName.toLowerCase() === 'div') {
                 let index = parseInt(e.target.dataset.index);
                 if (!isNaN(index)) {
-                    let currentColor = $(e.target).css('background-color');
+                    // let currentColor = $(e.target).css('background-color'); // 可以获取到样式值
+                    // let currentColor = e.target.style.backgroundColor; // 获取不到样式值
+                    let currentColor = window.getComputedStyle(e.target, null).backgroundColor; // 注意：如果样式是通过css设置的，获取css属性值必须使用window.getComputedStyle，不能使用e.target.style
                     if (currentColor === 'rgba(0, 0, 0, 0)') {
                         this.webLogoBgColor = 'transparent';
                     } else {
                         this.webLogoBgColor = this.$Common.RGBtoHEX(currentColor);
                     }
-                    // this.checkedIndex = 0;
                 }
             }
         },
 
-
         // 弹框-'添加'按钮点击事件处理
-        handleBtnAddTagClick() {
+        handleBtnAddTagClick () {
             let operateGroupIndex = this.operateGroupIndex;
             let webLogo = this.webLogo;
             let webName = this.webName;

@@ -32,8 +32,9 @@ const zh = {
     "_GROUP": "分组",
     "_NOT_FOUND": "未找到",
     "_THEME": "主题：",
-    "_THEME_TYPE": ["主题一", "主题二"],
-    "_ABOUT": "关于："
+    "_THEME_TYPE": ["简约白", "深空灰"],
+    "_ABOUT": "关于：",
+    "_BACKUPMARKEDWORDS": ["请选择备份文件。", "备份文件格式错误，请重新选择。", "成功导入我的备份文件。"]
 }
 
 export default zh

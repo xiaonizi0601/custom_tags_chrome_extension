@@ -2,7 +2,7 @@ import Vue from 'vue';
 import AppComponent from './App/App.vue';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+// import 'bootstrap/dist/js/bootstrap.min.js';
 
 import '../assets/css/common.scss';
 import Common from '../assets/js/common.js';
