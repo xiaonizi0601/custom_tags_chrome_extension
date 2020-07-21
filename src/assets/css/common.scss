@@ -64,10 +64,15 @@ input:hover {
 .custom-modal,
 .c-popup {
     color: var(--base-setting-text-color);
+    .modal-header,
+    .modalbody {
+        padding: 10px 1rem;
+    }
     .modal-footer {
+        padding: 10px 1rem;
         button {
             width: 140px;
-            margin: 10px;
+            margin: 0 10px;
             color: #fff;
         }
 
@@ -173,6 +178,10 @@ input:hover {
 
         .nav-link.active {
             background: var(--base-color);
+        }
+
+        .nav-link.active:hover {
+            background: var(--active-color);
         }
 
         .nav-link:not(.active):hover {
@@ -295,6 +304,12 @@ input:hover {
     cursor: pointer;
     border: 1px solid var(--base-color);
     font-weight: normal;
+    margin-top: 5px;
+}
+
+.common-btn:hover {
+    background-color: var(--active-color);
+    color: #fff;
 }
 
 .switch-lang-active,

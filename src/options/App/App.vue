@@ -1,5 +1,5 @@
 <template>
-  <div class="main_app">
+  <div class="main-app">
     <h1>Hello Options</h1>
   </div>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-.main_app {
+.main-app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

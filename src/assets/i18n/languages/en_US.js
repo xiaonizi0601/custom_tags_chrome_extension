@@ -32,7 +32,7 @@ const en = {
     "_GROUP": "Group",
     "_NOT_FOUND": "Not found",
     "_THEME": "Theme:",
-    "_THEME_TYPE": ["Simple white", "Space gray"],
+    "_THEME_TYPE": ["Simple white", "Space gray", "Sky blue", "Landscape wallpaper"],
     "_ABOUT": "About:",
     "_BACKUPMARKEDWORDS": ["Please select a backup file.", "The backup file format is wrong, please choose again.", "My backup file was successfully imported."]
 }

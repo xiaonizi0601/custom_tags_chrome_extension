@@ -1,5 +1,5 @@
 <template>
-    <div class="main_app c-popup">
+    <div class="main-app c-popup">
         <!-- 添加快捷方式 弹框 start -->
         <div class="modal-header">
             <h5 class="modal-title w-100 text-center">{{$t("_ADD_SHORTCUT")}}</h5>
@@ -306,7 +306,7 @@ export default {
 </script>
 
 <style>
-.main_app {
+.main-app {
     /* background: #ebebeb; */
 }
 

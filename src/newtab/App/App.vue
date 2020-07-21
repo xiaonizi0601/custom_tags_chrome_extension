@@ -1,6 +1,7 @@
 <template>
     <div
-        class="main_app h-100"
+        class="main-app h-100"
+        id="bg-box"
         @click="hideperationGroupMenu()"
     >
 
@@ -362,11 +363,25 @@
                             {{$t('_THEME_TYPE[0]')}}
                         </button>
                         <button
-                            class="common-btn"
+                            class="common-btn mr-3"
                             :class="{'switch-theme-active':currentTheme==='theme_2'}"
                             @click="switchTheme('theme_2')"
                         >
                             {{$t('_THEME_TYPE[1]')}}
+                        </button>
+                        <button
+                            class="common-btn mr-3"
+                            :class="{'switch-theme-active':currentTheme==='theme_3'}"
+                            @click="switchTheme('theme_3')"
+                        >
+                            {{$t('_THEME_TYPE[2]')}}
+                        </button>
+                        <button
+                            class="common-btn"
+                            :class="{'switch-theme-active':currentTheme==='theme_4'}"
+                            @click="switchTheme('theme_4')"
+                        >
+                            {{$t('_THEME_TYPE[3]')}}
                         </button>
 
                         <p class="mt-4">{{$t("_BACK_UP_MY_TAGS")}}</p>
@@ -953,6 +968,8 @@ export default {
                 $this.innerContainerHeight = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
             })();
         };
+        console.info('innerContainerHeight=', document.querySelector('.inner-container').offsetHeight)
+
 
         // 给左侧分组菜单div注册滚动事件
         this.$refs.innerContainer.addEventListener('scroll', this.scroll);
@@ -1026,7 +1043,6 @@ export default {
             localStorage.setObject('theme', theme);
             this.currentTheme = theme;
             window.location.reload();
-
         },
 
         // 下载文件到本地
