@@ -58,7 +58,10 @@
                                     @contextmenu.prevent="handleRightClickGroup(index)"
                                     @click="active(index)"
                                 >
-                                    <div class="group-name">{{ item.name }}</div>
+                                    <div
+                                        class="group-name"
+                                        :title="item.name"
+                                    >{{ item.name }}</div>
                                     <div
                                         class="operation-menu"
                                         v-show="currentGroupIndex == index"
@@ -223,7 +226,10 @@
                                             </div>
 
                                         </div>
-                                        <p class="tag-name mt-3">{{ tag.name }}</p>
+                                        <p
+                                            class="tag-name mt-3"
+                                            :title="tag.name"
+                                        >{{ tag.name }}</p>
                                     </a>
                                     <div
                                         class="operation-menu tag-operation-menu"
@@ -733,7 +739,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        {{$t("_WARNING_MESSAGE")}}
+                        {{$t("_WARNING_MESSAGE[1]")}}
                     </div>
                     <div class="modal-footer">
                         <button
@@ -830,7 +836,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        {{$t("_WARNING_MESSAGE")}}
+                        {{$t("_WARNING_MESSAGE[0]")}}
                     </div>
                     <div class="modal-footer">
                         <button

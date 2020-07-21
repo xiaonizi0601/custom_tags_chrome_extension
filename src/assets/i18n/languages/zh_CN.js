@@ -6,7 +6,7 @@ const zh = {
     "_CONFIRM": "确定",
     "_REMOVE": "删除",
     "_WARNING": "警告",
-    "_WARNING_MESSAGE": "您确定要删除吗？",
+    "_WARNING_MESSAGE": ["您确定要删除该分组吗？","您确定要删除该快捷方式吗？"],
     "_ADD_GROUP": "添加分组",
     "_PLEASE_ENTER_NAME": "请输入名称",
     "_NAME_IS_REQUIRED": "名称不能为空",

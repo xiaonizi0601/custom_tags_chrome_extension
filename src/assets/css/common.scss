@@ -64,7 +64,6 @@ input:hover {
 .custom-modal,
 .c-popup {
     color: var(--base-setting-text-color);
-
     .modal-footer {
         button {
             width: 140px;
@@ -89,6 +88,28 @@ input:hover {
         .btn-sure:hover {
             background: var(--active-color);
             transition: background 0.2s ease-in-out;
+        }
+    }
+    .close {
+        font-size: 30px;
+    }
+}
+
+.c-popup {
+    .modal-header,
+    .modal-body {
+        padding: 0.5rem 1rem;
+        .form-group {
+            margin-bottom: 0.5rem;
+        }
+        .bg-color-box {
+            padding: 0;
+        }
+    }
+    .modal-footer {
+        padding: 0 1rem;
+        .btn-sure {
+            margin: 12px 0;
         }
     }
 }
@@ -152,6 +173,10 @@ input:hover {
 
         .nav-link.active {
             background: var(--base-color);
+        }
+
+        .nav-link:not(.active):hover {
+            color: var(--base-color);
         }
 
         .nav-link.c-add {
@@ -234,8 +259,13 @@ input:hover {
     transition: width 0.2s ease;
 }
 
+.c-tag:hover .tag-logo {
+    font-size: 18px;
+}
+
 .tag-box {
     position: relative;
+    margin-bottom: 10px;
 }
 
 .c-cover {
@@ -344,7 +374,7 @@ input:hover {
             margin: 0 auto;
             font-size: 24px;
             cursor: pointer;
-            color: var(--base-text-color);
+            color: #000;
         }
 
         .active {

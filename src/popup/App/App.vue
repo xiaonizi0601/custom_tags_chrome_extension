@@ -2,7 +2,7 @@
     <div class="main_app c-popup">
         <!-- 添加快捷方式 弹框 start -->
         <div class="modal-header">
-            <h5 class="modal-title">{{$t("_ADD_SHORTCUT")}}</h5>
+            <h5 class="modal-title w-100 text-center">{{$t("_ADD_SHORTCUT")}}</h5>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -85,10 +85,7 @@
                             </div>
                             <p>{{$t("_TEXT")}}</p>
                         </div>
-                        <div class="col-4">
-                            <div style="opacity: 0;"></div>
-                            <!-- <p>上传</p> -->
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -139,7 +136,7 @@
                             :class="{active:webLogoBgColor === 'transparent'}"
                         ></div>
                     </div>
-                    <div class="form-group px-3 pt-3 pb-0 m-0">
+                    <div class="form-group px-3 pt-2 pb-1 m-0">
                         <input
                             type="text"
                             class="form-control"

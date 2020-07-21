@@ -6,7 +6,7 @@ const en = {
     "_CONFIRM": "Confirm",
     "_REMOVE": "Remove",
     "_WARNING": "Warning",
-    "_WARNING_MESSAGE": "Are you sure you want to delete it?",
+    "_WARNING_MESSAGE":  ["Are you sure you want to delete this group?","Are you sure you want to delete this shortcut?"],
     "_ADD_GROUP": "Add group",
     "_PLEASE_ENTER_NAME": "Please enter a name",
     "_NAME_IS_REQUIRED": "Name is required",
