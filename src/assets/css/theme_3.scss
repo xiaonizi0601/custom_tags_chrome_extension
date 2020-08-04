@@ -3,12 +3,18 @@
 :root {
     --base-text-color        : #333;
     --base-setting-text-color: #333;
-    --nav-bg-color           : #555;
+    --nav-bg-color           : #a6bacb;
     --operation-menu-color   : #666;
     --btn-cancel-bg-color    : #ccc;
     --bg-color               : #EFF3F5;
     --modal-bg-color         : #fff;
     --border-color           : #f2f2f2;
-    --base-color             : #40CDE0;
-    --active-color           : #05BDD6;
+    --base-color             : #017bc5;
+    --active-color           : #0165a3;
+}
+
+
+#bg-box{
+    background: url("https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/static/bg_3.jpg") no-repeat;
+    background-size: 100% 100%;
 }
