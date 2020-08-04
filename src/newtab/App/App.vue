@@ -198,6 +198,7 @@
                                     <a
                                         class="c-tag"
                                         :href="tag.url"
+                                        target="_blank"
                                     >
                                         <div
                                             class="c-dot"
