@@ -11,10 +11,10 @@
 
 该项目使用vue-cli4，集成了webpack，可实现快速编译打包压缩代码；通过vue-cli-plugin-chrome-ext 插件能很方便地开发谷歌插件。
 <p align="center">
-  <img src="https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/ds_1_1280.png" alt="custom_tags" width="600" />
+  <img src="https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/static/ds_1_1280.png" alt="custom_tags" width="600" />
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/ds_3_1280.png" alt="custom_tags" width="600" />
+  <img src="https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/static/ds_3_1280.png" alt="custom_tags" width="600" />
 </p>
 
 ### Project setup 安装项目依赖
