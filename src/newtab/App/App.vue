@@ -210,7 +210,7 @@
                                         >
                                             <span v-if="tag.logoPrevIndex === 0">{{tag.logoTxt}}</span>
                                             <div v-if="tag.logoPrevIndex === 1">
-                                                <div v-if="tag.logo">
+                                                <div v-if="tag.logo&&!tag.logo.includes('data:image/')">
                                                     <img
                                                         :src="tag.logo"
                                                         v-if="tag.logo.includes('http')"
@@ -622,7 +622,7 @@
                                                 @click="togglePrevWay(1)"
                                                 :style="checkedIndex === 1&&`background:${webLogoBgColor};`"
                                             >
-                                                <div v-if="webLogo">
+                                                <div v-if="webLogo&&!webLogo.includes('data:image/')">
                                                     <img
                                                         :src="webLogo"
                                                         v-if="webLogo.includes('http')"
@@ -1095,6 +1095,22 @@ export default {
                     // console.info('导入json---------', data);
 
                     Object.keys(data).forEach(item => {
+                        // console.log(item, data[item])
+                        let tabs = data[item].tabs;
+                        tabs.forEach(itm => {
+                            let tags = itm.tags;
+                            // console.log(tags)
+                            tags.forEach(tag => {
+                                let logo = tag.logo;
+                                // console.log(logo)
+                                if (logo) {
+                                    // logo图片base64位格式异常处理
+                                    if (logo.includes('data:image/')) {
+                                        tag.logo = '';
+                                    }
+                                }
+                            })
+                        })
                         localStorage.setObject(item, data[item])
                     });
 
@@ -1255,6 +1271,11 @@ export default {
                 return;
             } else {
                 this.isShowTagNameErr = false;
+            }
+            console.log('webLogo=', webLogo)
+            // logo图片base64位格式异常处理
+            if (webLogo.includes('data:image/')) {
+                webLogo = '';
             }
 
             myTabGroupList.addTag(
