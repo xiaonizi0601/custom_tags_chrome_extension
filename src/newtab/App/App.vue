@@ -1205,44 +1205,49 @@ export default {
             const reader = new FileReader();
             reader.onloadend = (readerEvent) => {
                 if (readerEvent.target.readyState === FileReader.DONE) {
+                    console.info(readerEvent.target, readerEvent.target.result);
                     const data_json = readerEvent.target.result;
                     // parse json
                     let data = null;
                     try {
                         data = JSON.parse(data_json);
+
+                        // console.info('导入json---------', data);
+                        // console.log(Object.keys(data));
+                        Object.keys(data).forEach((item) => {
+                            // console.log(item, data[item]);
+                            if (data[item] === 'myTabGroupList') {
+                                let tabs = data[item].tabs;
+                                // console.log('tabs---', tabs);
+                                tabs.forEach((itm) => {
+                                    let tags = itm.tags;
+                                    // console.log(tags)
+                                    tags.forEach((tag) => {
+                                        let logo = tag.logo;
+                                        // console.log(logo)
+                                        if (logo) {
+                                            // logo图片base64位格式异常处理
+                                            if (logo.includes('data:image/')) {
+                                                tag.logo = '';
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                            localStorage.setObject(item, data[item]);
+                        });
+
+                        this.showToast(this.$t('_BACKUPMARKEDWORDS[2]'));
+
+                        let timer = setTimeout(() => {
+                            // 刷新页面
+                            window.location.reload();
+                            clearTimeout(timer);
+                        }, 2000);
                     } catch (e) {
                         this.showToast(this.$t('_BACKUPMARKEDWORDS[1]'));
                         return;
                     }
-                    // console.info('导入json---------', data);
-
-                    Object.keys(data).forEach((item) => {
-                        // console.log(item, data[item])
-                        let tabs = data[item].tabs;
-                        tabs.forEach((itm) => {
-                            let tags = itm.tags;
-                            // console.log(tags)
-                            tags.forEach((tag) => {
-                                let logo = tag.logo;
-                                // console.log(logo)
-                                if (logo) {
-                                    // logo图片base64位格式异常处理
-                                    if (logo.includes('data:image/')) {
-                                        tag.logo = '';
-                                    }
-                                }
-                            });
-                        });
-                        localStorage.setObject(item, data[item]);
-                    });
-
-                    this.showToast(this.$t('_BACKUPMARKEDWORDS[2]'));
-
-                    let timer = setTimeout(() => {
-                        // 刷新页面
-                        window.location.reload();
-                        clearTimeout(timer);
-                    }, 2000);
                 }
             };
             reader.readAsText(fileObject);
@@ -1393,7 +1398,7 @@ export default {
             } else {
                 this.isShowTagNameErr = false;
             }
-            console.log('webLogo=', webLogo);
+            // console.log('webLogo=', webLogo);
             // logo图片base64位格式异常处理
             if (webLogo.includes('data:image/')) {
                 webLogo = '';
