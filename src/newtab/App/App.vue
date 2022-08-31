@@ -172,7 +172,7 @@
                     </div>
 
                     <div
-                        class="tab-pane fade mt-5 px-5"
+                        class="tab-pane fade px-5"
                         :class="[
                             { show: activeIndex == index },
                             { active: activeIndex == index },
