@@ -1080,10 +1080,10 @@ export default {
                     document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
             })();
         };
-        console.info(
-            'innerContainerHeight=',
-            document.querySelector('.inner-container').offsetHeight
-        );
+        // console.info(
+        //     'innerContainerHeight=',
+        //     document.querySelector('.inner-container').offsetHeight
+        // );
 
         // 给左侧分组菜单div注册滚动事件
         this.$refs.innerContainer.addEventListener('scroll', this.scroll);
@@ -1205,7 +1205,7 @@ export default {
             const reader = new FileReader();
             reader.onloadend = (readerEvent) => {
                 if (readerEvent.target.readyState === FileReader.DONE) {
-                    console.info(readerEvent.target, readerEvent.target.result);
+                    // console.info(readerEvent.target, readerEvent.target.result);
                     const data_json = readerEvent.target.result;
                     // parse json
                     let data = null;
