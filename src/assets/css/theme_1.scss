@@ -1,14 +1,15 @@
-/* global settings (theme related) */
+/* 简约白 */
 
 :root {
-    --base-text-color        : #333;
-    --base-setting-text-color: #333;
-    --nav-bg-color           : #444;
-    --operation-menu-color   : #444;
-    --btn-cancel-bg-color    : #ccc;
-    --bg-color               : #ebebeb;
-    --modal-bg-color         : #fff;
-    --border-color           : #f2f2f2;
-    --base-color             : #04ae92;
-    --active-color           : #18cfb1;
+	--base-text-color: #333;
+	--base-setting-text-color: #333;
+	--menu-text-color: #fff;
+	--nav-bg-color: #444;
+	--operation-menu-color: #444;
+	--btn-cancel-bg-color: #ccc;
+	--bg-color: #ebebeb;
+	--modal-bg-color: #fff;
+	--border-color: #f2f2f2;
+	--base-color: #14c4bc;
+	--active-color: #14ccc3;
 }

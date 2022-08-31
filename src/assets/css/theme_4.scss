@@ -1,19 +1,20 @@
-/* global settings (theme related) */
+/* 墨绿 */
 
 :root {
-    --base-text-color        : #333;
-    --base-setting-text-color: #333;
-    --nav-bg-color           : #405b65;
-    --operation-menu-color   : #666;
-    --btn-cancel-bg-color    : #ccc;
-    --bg-color               : #EFF3F5;
-    --modal-bg-color         : #fff;
-    --border-color           : #f2f2f2;
-    --base-color             : #7196ac;
-    --active-color           : #324641;
+	--base-text-color: #212529;
+	--base-setting-text-color: #212529;
+	--menu-text-color: #6ba43a;
+	--nav-bg-color: #e3e4e4;
+	--operation-menu-color: #666;
+	--btn-cancel-bg-color: #ccc;
+	--bg-color: #d9dada;
+	--modal-bg-color: #fff;
+	--border-color: #f2f2f2;
+	--base-color: #6ba43a;
+	--active-color: #2f8d4c;
 }
 
-#bg-box{
-    background: url("https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/static/bg_4.jpg") no-repeat;
-    background-size: 100% 100%;
+#bg-box {
+	background: url('../images/bg_1.png') top no-repeat;
+	background-size: 100%;
 }

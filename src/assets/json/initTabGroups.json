@@ -46,51 +46,6 @@
             ]
         },
         {
-            "name": "生活",
-            "tags": [
-                {
-                    "logo": "bilibili.svg",
-                    "logoTxt": "",
-                    "logoPrevIndex": 1,
-                    "logoBgColor": "#FFFFFF",
-                    "name": "Bilibili",
-                    "url": "https://www.bilibili.com/"
-                },
-                {
-                    "logo": "zhihu.svg",
-                    "logoTxt": "",
-                    "logoPrevIndex": 1,
-                    "logoBgColor": "#FFFFFF",
-                    "name": "知乎",
-                    "url": "https://www.zhihu.com/signin"
-                },
-                {
-                    "logo": "jingdong.svg",
-                    "logoTxt": "",
-                    "logoPrevIndex": 1,
-                    "logoBgColor": "#FFFFFF",
-                    "name": "京东",
-                    "url": "https://www.jd.com/"
-                },
-                {
-                    "logo": "taobao.svg",
-                    "logoTxt": "",
-                    "logoPrevIndex": 1,
-                    "logoBgColor": "#FFFFFF",
-                    "name": "淘宝",
-                    "url": "https://www.taobao.com/"
-                },
-                {
-                    "logo": "weibo.svg",
-                    "logoTxt": "",
-                    "logoPrevIndex": 1,
-                    "logoBgColor": "#FFFFFF",
-                    "name": "微博",
-                    "url": "https://weibo.com/"
-                }
-            ]
-        },
-        {
             "name": "工具",
             "tags": [
                 {
