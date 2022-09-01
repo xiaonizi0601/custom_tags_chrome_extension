@@ -9,7 +9,11 @@
 	--btn-cancel-bg-color: #ccc;
 	--bg-color: #ebebeb;
 	--modal-bg-color: #fff;
-	--border-color: #f2f2f2;
-	--base-color: #14c4bc;
-	--active-color: #14ccc3;
+	--base-color: #95cdde;
+	--active-color: #5a91a1;
+}
+
+#bg-box {
+	background: url('../images/bg_3_2.svg') 100px bottom no-repeat;
+	background-size: 100%;
 }

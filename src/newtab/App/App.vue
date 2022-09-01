@@ -142,7 +142,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group mb-3 col-6">
+                    <div class="input-group mb-5 col-6">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <img

@@ -3,18 +3,18 @@
 :root {
 	--base-text-color: #212529;
 	--base-setting-text-color: #212529;
-	--menu-text-color: #6ba43a;
-	--nav-bg-color: #e3e4e4;
-	--operation-menu-color: #666;
-	--btn-cancel-bg-color: #ccc;
-	--bg-color: #d9dada;
+	--menu-text-color: #558887;
+	--nav-bg-color: #e6f0f0;
+	--operation-menu-color: #558887;
+	--btn-cancel-bg-color: #a8dddb;
+	--bg-color: #f9fafb;
 	--modal-bg-color: #fff;
-	--border-color: #f2f2f2;
-	--base-color: #6ba43a;
-	--active-color: #2f8d4c;
+	--base-color: #558887;
+	--active-color: #2e6160;
 }
 
 #bg-box {
-	background: url('../images/bg_1.png') top no-repeat;
+	background: url('../images/bg_4.svg') no-repeat;
 	background-size: 100%;
+	background-position: 0 150px;
 }

@@ -7,14 +7,13 @@
 	--nav-bg-color: #282c34;
 	--operation-menu-color: #282c34;
 	--btn-cancel-bg-color: #282c34;
-	--bg-color: #333;
+	--bg-color: #27282c;
 	--modal-bg-color: #444;
-	--border-color: #282c34;
 	--base-color: #799d83;
 	--active-color: #537b5e;
 }
 
-// #bg-box{
-//     background: url("https://raw.githubusercontent.com/xiaonizi0601/custom_tags_chrome_extension/master/static/bg_2.jpg") no-repeat;
-//     background-size: 100% 100%;
-// }
+#bg-box {
+	background: url('../images/bg_2.png') top no-repeat;
+	background-size: 100%;
+}
