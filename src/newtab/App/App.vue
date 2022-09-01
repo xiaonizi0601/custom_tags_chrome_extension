@@ -1679,6 +1679,10 @@ export default {
     cursor: pointer;
 }
 
+.input-group-append .input-group-text {
+    border-left: none;
+}
+
 /* draggable css start */
 .flip-list-move {
     transition: transform 0.5s;

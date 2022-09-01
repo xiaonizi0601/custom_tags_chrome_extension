@@ -552,10 +552,20 @@ input:hover {
 .search-box {
 	.form-control {
 		background: transparent;
+		border-right: none;
+
+		&:focus,
+		&:hover {
+			border-color: #ced4da !important;
+		}
 	}
 
 	.input-group-text {
 		border-radius: 19px;
 		background: transparent;
+
+		img {
+			opacity: 0.5;
+		}
 	}
 }
