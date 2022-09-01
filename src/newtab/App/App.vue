@@ -112,62 +112,64 @@
             </div>
             <div class="right-box">
                 <div class="tab-content text-center" id="v-pills-tabContent">
-                    <div class="input-group mb-3 mt-5 col-6">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text text-center">
-                                <img
-                                    src="../../assets/images/baidu.svg"
-                                    alt="baidu"
-                                />
-                            </span>
+                    <div class="search-box">
+                        <div class="input-group mb-3 mt-5 col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text text-center">
+                                    <img
+                                        src="../../assets/images/baidu.svg"
+                                        alt="baidu"
+                                    />
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                class="form-control"
+                                :placeholder="$t('_SEARCH')"
+                                v-model="baiduKeyword"
+                                @keyup.enter="handleBaiduSearchClick()"
+                                ref="inputs"
+                            />
+                            <div class="input-group-append">
+                                <span
+                                    class="input-group-text"
+                                    @click="handleBaiduSearchClick()"
+                                >
+                                    <img
+                                        src="../../assets/images/icon_search.svg"
+                                        alt="search"
+                                    />
+                                </span>
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            :placeholder="$t('_SEARCH')"
-                            v-model="baiduKeyword"
-                            @keyup.enter="handleBaiduSearchClick()"
-                            ref="inputs"
-                        />
-                        <div class="input-group-append">
-                            <span
-                                class="input-group-text"
-                                @click="handleBaiduSearchClick()"
-                            >
-                                <img
-                                    src="../../assets/images/icon_search.svg"
-                                    alt="search"
-                                />
-                            </span>
-                        </div>
-                    </div>
 
-                    <div class="input-group mb-5 col-6">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <img
-                                    src="../../assets/images/google.svg"
-                                    alt="google"
-                                />
-                            </span>
-                        </div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            :placeholder="$t('_SEARCH')"
-                            v-model="googleKeyword"
-                            @keyup.enter="handleGoogleSearchClick()"
-                        />
-                        <div class="input-group-append">
-                            <span
-                                class="input-group-text"
-                                @click="handleGoogleSearchClick()"
-                            >
-                                <img
-                                    src="../../assets/images/icon_search.svg"
-                                    alt="search"
-                                />
-                            </span>
+                        <div class="input-group mb-5 col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img
+                                        src="../../assets/images/google.svg"
+                                        alt="google"
+                                    />
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                class="form-control"
+                                :placeholder="$t('_SEARCH')"
+                                v-model="googleKeyword"
+                                @keyup.enter="handleGoogleSearchClick()"
+                            />
+                            <div class="input-group-append">
+                                <span
+                                    class="input-group-text"
+                                    @click="handleGoogleSearchClick()"
+                                >
+                                    <img
+                                        src="../../assets/images/icon_search.svg"
+                                        alt="search"
+                                    />
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -1663,7 +1665,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .input-group {
     margin: 0 auto;
 }

@@ -46,7 +46,7 @@ input:focus {
 
 input:focus,
 input:hover {
-	border-color: var(--base-color !important);
+	border-color: var(--base-color) !important;
 }
 
 .modal-content {
@@ -549,6 +549,13 @@ input:hover {
 	transition: opacity 0.5s ease;
 }
 
-.input-group-text {
-	border-radius: 19px;
+.search-box {
+	.form-control {
+		background: transparent;
+	}
+
+	.input-group-text {
+		border-radius: 19px;
+		background: transparent;
+	}
 }
