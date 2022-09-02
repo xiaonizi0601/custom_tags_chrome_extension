@@ -433,7 +433,7 @@
                             {{ $t('_THEME_TYPE[2]') }}
                         </button>
                         <button
-                            class="common-btn"
+                            class="common-btn mr-3"
                             :class="{
                                 'switch-theme-active':
                                     currentTheme === 'theme_4',
@@ -441,6 +441,16 @@
                             @click="switchTheme('theme_4')"
                         >
                             {{ $t('_THEME_TYPE[3]') }}
+                        </button>
+                        <button
+                            class="common-btn"
+                            :class="{
+                                'switch-theme-active':
+                                    currentTheme === 'theme_5',
+                            }"
+                            @click="switchTheme('theme_5')"
+                        >
+                            {{ $t('_THEME_TYPE[4]') }}
                         </button>
 
                         <p class="mt-4">{{ $t('_BACK_UP_MY_TAGS') }}</p>

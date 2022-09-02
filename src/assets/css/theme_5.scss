@@ -1,0 +1,22 @@
+/* 炫彩 */
+
+:root {
+	--base-text-color: #555863;
+	--base-setting-text-color: #babcc6;
+	--menu-text-color: #aaaebc;
+	--nav-bg-color: #1e1f26;
+	--operation-menu-color: #1e1f26;
+	--btn-cancel-bg-color: #1e1f26;
+	--bg-color: #131417;
+	--modal-bg-color: #2c303a;
+	--base-color: #47cf73;
+	--active-color: #3bb060;
+}
+
+#bg-box {
+	background-image: url('../images/color_1.svg'), url('../images/color_2.svg'),
+		url('../images/color_3.svg');
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-position: 50px 90%, 105% 200px, center -50px;
+	background-size: 400px, 500px, 400px;
+}
