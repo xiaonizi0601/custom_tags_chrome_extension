@@ -9,7 +9,7 @@
                     aria-orientation="vertical"
                 >
                     <div class="c-logo">
-                        <div
+                        <!-- <div
                             class="c-direction-arrow"
                             :class="{ 'is-show': isShowUpArrow }"
                             @mouseenter="handleEnterUpArrow()"
@@ -17,7 +17,7 @@
                             <img
                                 src="../../assets/images/icon_direction_arrow.svg"
                             />
-                        </div>
+                        </div> -->
                         <a class="nav-link">
                             <img
                                 class="tab-logo"
@@ -91,7 +91,7 @@
                                 alt="add"
                             />
                         </a>
-                        <div
+                        <!-- <div
                             class="c-direction-arrow"
                             :class="{ 'is-show': isShowDownArrow }"
                             @mouseenter="handleEnterDownArrow()"
@@ -99,7 +99,7 @@
                             <img
                                 src="../../assets/images/icon_direction_arrow.svg"
                             />
-                        </div>
+                        </div> -->
                         <a @click="showSettingModal">
                             <img
                                 class="icon-setting"
@@ -1352,7 +1352,7 @@ export default {
             this.hideModal();
             this.operateGroupIndex = null;
             this.active(0);
-            this.handleEnterUpArrow(); // 滚动到快捷方式顶部
+            // this.handleEnterUpArrow(); // 滚动到快捷方式顶部
         },
 
         // 添加快捷方式 点击事件
@@ -1584,40 +1584,40 @@ export default {
         },
 
         // 上箭头鼠标进入
-        handleEnterUpArrow() {
-            // $('.inner-container').animate({ scrollTop: 0 }, 2000); // 滚动到顶部
-            let ele = this.$refs.innerContainer;
-            this.ScrollTop(ele, 0, 200);
-        },
+        // handleEnterUpArrow() {
+        //     // $('.inner-container').animate({ scrollTop: 0 }, 2000); // 滚动到顶部
+        //     let ele = this.$refs.innerContainer;
+        //     // this.ScrollTop(ele, 0, 200);
+        // },
 
         // 下箭头鼠标进入
-        handleEnterDownArrow() {
-            // let h = $('.inner-container').height();
-            let h = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
-            // $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
-            let ele = this.$refs.innerContainer;
-            this.ScrollTop(ele, h, 200);
-        },
+        // handleEnterDownArrow() {
+        //     // let h = $('.inner-container').height();
+        //     let h = document.querySelector('.inner-container').offsetHeight; // 左侧分组菜单高度
+        //     // $('.inner-container').animate({ scrollTop: h }, 2000); // 滚动到底部
+        //     let ele = this.$refs.innerContainer;
+        //     // this.ScrollTop(ele, h, 200);
+        // },
 
-        ScrollTop(ele, number, time) {
-            // let $this = this;
-            // if (!time) {
-            //     ele.scrollTop = number;
-            //     return number;
-            // }
-            // const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
-            // let spacingInex = time / spacingTime; // 计算循环的次数
-            // let nowTop = ele.scrollTop; // 获取当前滚动条位置
-            // let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
-            // let scrollTimer = setInterval(() => {
-            //     if (spacingInex > 0) {
-            //         spacingInex--;
-            //         $this.ScrollTop(ele, (nowTop += everTop));
-            //     } else {
-            //         clearInterval(scrollTimer); // 清除计时器
-            //     }
-            // }, spacingTime);
-        },
+        // ScrollTop(ele, number, time) {
+        //     let $this = this;
+        //     if (!time) {
+        //         ele.scrollTop = number;
+        //         return number;
+        //     }
+        //     const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
+        //     let spacingInex = time / spacingTime; // 计算循环的次数
+        //     let nowTop = ele.scrollTop; // 获取当前滚动条位置
+        //     let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
+        //     let scrollTimer = setInterval(() => {
+        //         if (spacingInex > 0) {
+        //             spacingInex--;
+        //             $this.ScrollTop(ele, (nowTop += everTop));
+        //         } else {
+        //             clearInterval(scrollTimer); // 清除计时器
+        //         }
+        //     }, spacingTime);
+        // },
 
         // 给左侧分组菜单div绑定滚动事件
         scroll() {

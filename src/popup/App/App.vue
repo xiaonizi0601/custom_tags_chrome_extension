@@ -193,7 +193,8 @@ export default {
     mounted() {
         let $this = this;
         // 获取当前页面的url和title
-        chrome.tabs.getSelected(null, function (tab) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tab = tabs[0]; // 当前选中的标签页
             // console.log(tab);
             $this.webURL = tab.url;
             $this.webName = tab.title;
@@ -299,10 +300,6 @@ export default {
 
             window.close(); // 关闭popup
 
-            // chrome.tabs.getSelected(null, function (tab) {
-            //     console.log(tab);
-            //     document.UR = tab.url;
-            // });
         },
     },
 };
