@@ -2,28 +2,33 @@
     "name": "DaShi",
     "description": "A convenient and fast tags management tool.",
     "version": "2.0.0",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "icons": {
         "128": "images/logo_128.png",
         "16": "images/logo_16.png",
         "48": "images/logo_48.png"
     },
     "background": {
-        "scripts": [
-            "js/background.js"
-        ],
-        "persistent": false
+        "service_worker": "background.js",
+        "type": "module"
     },
     "options_page": "options.html",
-    "browser_action": {
-        "default_icon": "images/logo_128.png",
+    "action": {
+        "default_icon": {
+            "16": "images/logo_16.png",
+            "48": "images/logo_48.png",
+            "128": "images/logo_128.png"
+        },
         "default_title": "DaShi",
         "default_popup": "popup.html"
     },
     "permissions": [
+        "tabs",
+        "bookmarks"
+    ],
+    "host_permissions": [
         "http://*/*",
-        "https://*/*",
-        "tabs"
+        "https://*/*"
     ],
     "content_scripts": [
         {
@@ -40,6 +45,7 @@
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
-    "devtools_page": "devtools.html",
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    }
 }

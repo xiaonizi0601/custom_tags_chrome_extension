@@ -1111,11 +1111,11 @@ export default {
             this.markedWords = markedWords;
             this.isShowToast = true;
             let $this = this;
-            let timer = setTimeout(() => {
+            // let timer = setTimeout(() => {
                 $this.isShowToast = false;
                 $this.markedWords = '';
-                clearTimeout(timer);
-            }, 2000);
+            //     clearTimeout(timer);
+            // }, 2000);
         },
 
         // 显示弹框
@@ -1251,11 +1251,11 @@ export default {
 
                         this.showToast(this.$t('_BACKUPMARKEDWORDS[2]'));
 
-                        let timer = setTimeout(() => {
+                        // let timer = setTimeout(() => {
                             // 刷新页面
                             window.location.reload();
-                            clearTimeout(timer);
-                        }, 2000);
+                            // clearTimeout(timer);
+                        // }, 2000);
                     } catch (e) {
                         this.showToast(this.$t('_BACKUPMARKEDWORDS[1]'));
                         return;
@@ -1600,23 +1600,23 @@ export default {
         },
 
         ScrollTop(ele, number, time) {
-            let $this = this;
-            if (!time) {
-                ele.scrollTop = number;
-                return number;
-            }
-            const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
-            let spacingInex = time / spacingTime; // 计算循环的次数
-            let nowTop = ele.scrollTop; // 获取当前滚动条位置
-            let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
-            let scrollTimer = setInterval(() => {
-                if (spacingInex > 0) {
-                    spacingInex--;
-                    $this.ScrollTop(ele, (nowTop += everTop));
-                } else {
-                    clearInterval(scrollTimer); // 清除计时器
-                }
-            }, spacingTime);
+            // let $this = this;
+            // if (!time) {
+            //     ele.scrollTop = number;
+            //     return number;
+            // }
+            // const spacingTime = 20; // 设置循环的间隔时间  值越小消耗性能越高
+            // let spacingInex = time / spacingTime; // 计算循环的次数
+            // let nowTop = ele.scrollTop; // 获取当前滚动条位置
+            // let everTop = (number - nowTop) / spacingInex; // 计算每次滑动的距离
+            // let scrollTimer = setInterval(() => {
+            //     if (spacingInex > 0) {
+            //         spacingInex--;
+            //         $this.ScrollTop(ele, (nowTop += everTop));
+            //     } else {
+            //         clearInterval(scrollTimer); // 清除计时器
+            //     }
+            // }, spacingTime);
         },
 
         // 给左侧分组菜单div绑定滚动事件
@@ -1664,10 +1664,10 @@ export default {
                 this.innerContainerHeight = val;
                 this.timer = true;
                 let $this = this;
-                setTimeout(function () {
+                // setTimeout(function () {
                     // 打印innerContainerHeight变化的值
-                    $this.timer = false;
-                }, 400);
+                    // $this.timer = false;
+                // }, 400);
                 $this.handleDirectionArrow();
             }
         },
